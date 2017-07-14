@@ -14,6 +14,14 @@
 		5A28D0931F183D8C0067AD01 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A28D0911F183D8C0067AD01 /* LaunchScreen.storyboard */; };
 		5A28D09D1F183EFD0067AD01 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A28D09C1F183EFD0067AD01 /* MainViewController.swift */; };
 		5A28D09F1F183F0B0067AD01 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A28D09E1F183F0B0067AD01 /* ArticleViewController.swift */; };
+		5A28D0A11F1927AE0067AD01 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A28D0A01F1927AE0067AD01 /* Constants.swift */; };
+		5A28D0A31F192FD00067AD01 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5A28D0A21F192FD00067AD01 /* GoogleService-Info.plist */; };
+		5A28D0A71F193DA40067AD01 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A28D0A61F193DA40067AD01 /* SettingsViewController.swift */; };
+		5A28D0A91F193E800067AD01 /* NewsToggleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A28D0A81F193E800067AD01 /* NewsToggleCell.swift */; };
+		5AAF5CEF1F1943B200E96D65 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AAF5CEE1F1943B200E96D65 /* CoreData.framework */; };
+		5AAF5CF61F19455500E96D65 /* OneThreeFive.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5AAF5CF41F19455500E96D65 /* OneThreeFive.xcdatamodeld */; };
+		5AAF5CF81F19467E00E96D65 /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAF5CF71F19467E00E96D65 /* CoreDataHelper.swift */; };
+		5AAF5CFB1F195F0F00E96D65 /* NewsSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAF5CFA1F195F0F00E96D65 /* NewsSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +34,14 @@
 		5A28D0941F183D8C0067AD01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A28D09C1F183EFD0067AD01 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		5A28D09E1F183F0B0067AD01 /* ArticleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; };
+		5A28D0A01F1927AE0067AD01 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		5A28D0A21F192FD00067AD01 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5A28D0A61F193DA40067AD01 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		5A28D0A81F193E800067AD01 /* NewsToggleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsToggleCell.swift; sourceTree = "<group>"; };
+		5AAF5CEE1F1943B200E96D65 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		5AAF5CF51F19455500E96D65 /* OneThreeFive.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OneThreeFive.xcdatamodel; sourceTree = "<group>"; };
+		5AAF5CF71F19467E00E96D65 /* CoreDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
+		5AAF5CFA1F195F0F00E96D65 /* NewsSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsSource.swift; sourceTree = "<group>"; };
 		74FB3A5DE2CA9A5FDC0DBACF /* Pods-OneThreeFive.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneThreeFive.release.xcconfig"; path = "Pods/Target Support Files/Pods-OneThreeFive/Pods-OneThreeFive.release.xcconfig"; sourceTree = "<group>"; };
 		FFEF31463D98C9B024105205 /* Pods-OneThreeFive.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneThreeFive.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OneThreeFive/Pods-OneThreeFive.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -35,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5AAF5CEF1F1943B200E96D65 /* CoreData.framework in Frameworks */,
 				56E2DD4BD50F0B3BEA74EADE /* Pods_OneThreeFive.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -45,6 +62,7 @@
 		0AA183895A10D6925B2151C4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5AAF5CEE1F1943B200E96D65 /* CoreData.framework */,
 				3FD2C9958193B7C8E56114C2 /* Pods_OneThreeFive.framework */,
 			);
 			name = Frameworks;
@@ -72,14 +90,70 @@
 			isa = PBXGroup;
 			children = (
 				5A28D0881F183D8C0067AD01 /* AppDelegate.swift */,
-				5A28D08C1F183D8C0067AD01 /* Main.storyboard */,
+				5A28D0A01F1927AE0067AD01 /* Constants.swift */,
+				5A28D0A51F19306B0067AD01 /* View Controllers */,
+				5A28D0AA1F193E850067AD01 /* Views */,
+				5A28D0A41F1930540067AD01 /* Storyboards */,
+				5AAF5CF91F19468400E96D65 /* Helper */,
+				5AAF5CFC1F195F1300E96D65 /* Models */,
+				5AAF5CF31F19451D00E96D65 /* Core Data */,
 				5A28D08F1F183D8C0067AD01 /* Assets.xcassets */,
-				5A28D0911F183D8C0067AD01 /* LaunchScreen.storyboard */,
 				5A28D0941F183D8C0067AD01 /* Info.plist */,
-				5A28D09C1F183EFD0067AD01 /* MainViewController.swift */,
-				5A28D09E1F183F0B0067AD01 /* ArticleViewController.swift */,
+				5A28D0A21F192FD00067AD01 /* GoogleService-Info.plist */,
+				5AAF5CF41F19455500E96D65 /* OneThreeFive.xcdatamodeld */,
 			);
 			path = OneThreeFive;
+			sourceTree = "<group>";
+		};
+		5A28D0A41F1930540067AD01 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				5A28D08C1F183D8C0067AD01 /* Main.storyboard */,
+				5A28D0911F183D8C0067AD01 /* LaunchScreen.storyboard */,
+			);
+			name = Storyboards;
+			sourceTree = "<group>";
+		};
+		5A28D0A51F19306B0067AD01 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				5A28D09C1F183EFD0067AD01 /* MainViewController.swift */,
+				5A28D09E1F183F0B0067AD01 /* ArticleViewController.swift */,
+				5A28D0A61F193DA40067AD01 /* SettingsViewController.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		5A28D0AA1F193E850067AD01 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5A28D0A81F193E800067AD01 /* NewsToggleCell.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		5AAF5CF31F19451D00E96D65 /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Core Data";
+			path = ..;
+			sourceTree = "<group>";
+		};
+		5AAF5CF91F19468400E96D65 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				5AAF5CF71F19467E00E96D65 /* CoreDataHelper.swift */,
+			);
+			name = Helper;
+			sourceTree = "<group>";
+		};
+		5AAF5CFC1F195F1300E96D65 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5AAF5CFA1F195F0F00E96D65 /* NewsSource.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 		D9977694F3F8DE362804204E /* Pods */ = {
@@ -155,6 +229,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A28D0931F183D8C0067AD01 /* LaunchScreen.storyboard in Resources */,
+				5A28D0A31F192FD00067AD01 /* GoogleService-Info.plist in Resources */,
 				5A28D0901F183D8C0067AD01 /* Assets.xcassets in Resources */,
 				5A28D08E1F183D8C0067AD01 /* Main.storyboard in Resources */,
 			);
@@ -215,9 +290,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A28D0A91F193E800067AD01 /* NewsToggleCell.swift in Sources */,
 				5A28D0891F183D8C0067AD01 /* AppDelegate.swift in Sources */,
+				5AAF5CF81F19467E00E96D65 /* CoreDataHelper.swift in Sources */,
 				5A28D09F1F183F0B0067AD01 /* ArticleViewController.swift in Sources */,
 				5A28D09D1F183EFD0067AD01 /* MainViewController.swift in Sources */,
+				5AAF5CF61F19455500E96D65 /* OneThreeFive.xcdatamodeld in Sources */,
+				5A28D0A71F193DA40067AD01 /* SettingsViewController.swift in Sources */,
+				5A28D0A11F1927AE0067AD01 /* Constants.swift in Sources */,
+				5AAF5CFB1F195F0F00E96D65 /* NewsSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -386,6 +467,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		5AAF5CF41F19455500E96D65 /* OneThreeFive.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				5AAF5CF51F19455500E96D65 /* OneThreeFive.xcdatamodel */,
+			);
+			currentVersion = 5AAF5CF51F19455500E96D65 /* OneThreeFive.xcdatamodel */;
+			path = OneThreeFive.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 5A28D07D1F183D8C0067AD01 /* Project object */;
 }
