@@ -1,0 +1,25 @@
+PODS:
+  - Alamofire (4.5.0)
+  - Ji (2.0.1):
+    - Ji/Ji (= 2.0.1)
+  - Ji/Ji (2.0.1):
+    - Ji/Ji-libxml
+  - Ji/Ji-libxml (2.0.1)
+  - ReadabilityKit (0.6.1):
+    - Ji (~> 2.0.1)
+  - SwiftyJSON (3.1.4)
+
+DEPENDENCIES:
+  - Alamofire (~> 4.4)
+  - ReadabilityKit
+  - SwiftyJSON
+
+SPEC CHECKSUMS:
+  Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
+  Ji: 6bb602a28dd08b804158f64990e6051ed5de0110
+  ReadabilityKit: 49c26a2da9708ae3b355854d5bee6a7edee2dfee
+  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
+
+PODFILE CHECKSUM: 396f274186e575e1a0f619f5e94928336d26c291
+
+COCOAPODS: 1.2.1
