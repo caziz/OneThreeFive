@@ -9,13 +9,13 @@
 import CoreData
 import UIKit
 
-class CoreDataHelper {
+struct CoreDataHelper {
     static let appDelegate = UIApplication.shared.delegate as! AppDelegate
     static let persistentContainer = appDelegate.persistentContainer
     static let managedContext = persistentContainer.viewContext
     
-    static func newEnabledNewsSource() -> EnabledNewsSource {
-        let enabledNewsSource = NSEntityDescription.insertNewObject(forEntityName: Constants.Entity.newsSource, into: managedContext) as! EnabledNewsSource
+    static func getEnabledNewsSource() -> EnabledNewsSource {
+        let enabledNewsSource = NSEntityDescription.insertNewObject(forEntityName: Constants.Entity.enabledNewsSource, into: managedContext) as! EnabledNewsSource
         return enabledNewsSource
     }
     
@@ -32,10 +32,10 @@ class CoreDataHelper {
     }
     
     static func retrieveEnabledNewsSources() -> [EnabledNewsSource] {
-        let fetchRequest = NSFetchRequest<EnabledNewsSource>(entityName: Constants.Entity.newsSource)
+        let fetchRequest = NSFetchRequest<EnabledNewsSource>(entityName: Constants.Entity.enabledNewsSource)
         do {
-            let enabledNewsSources = try managedContext.fetch(fetchRequest)
-            return enabledNewsSources
+            let results = try managedContext.fetch(fetchRequest)
+            return results
         } catch let error as NSError {
             print("Could not fetch \(error)")
         }

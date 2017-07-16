@@ -9,10 +9,13 @@
 struct Constants {
     struct NewsAPI {
         static let key = "ca25969cc2f54d5f85ad50868bcebff3"
-        let url = "https://newsapi.org/v1/articles?source=bbc-news&sortBy=top&apiKey=ca25969cc2f54d5f85ad50868bcebff3"
-        static func sourcesUrl(language: String = "en") -> String {
-            return  "https://newsapi.org/v1/sources?language=\(language)"
+        static func sourcesUrl() -> String {
+            return  "https://newsapi.org/v1/sources"
         }
+        static func articlesUrl(source: String) -> String {
+            return "https://newsapi.org/v1/articles?source=\(source)&apiKey=\(self.key)"
+        }
+        
         static func imageUrl(url: String) -> String {
             return "https://logo.clearbit.com/:domain:\(url)"
         }
@@ -29,6 +32,6 @@ struct Constants {
     }
     
     struct Entity {
-        static let newsSource = "NewsSource"
+        static let enabledNewsSource = "EnabledNewsSource"
     }
 }

@@ -14,13 +14,16 @@ import SwiftyJSON
 class SettingsViewController: UIViewController {
     @IBOutlet weak var newsTableView: UITableView!
     
+    // all news sources
     var newsSources: [NewsSource] = []
-    var enabledNewsSources: [EnabledNewsSource] = []
     
+    // representation of enabled news sources from core data
+    var enabledNewSources: [EnabledNewsSource] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.loadNewsSources()
+        self.loadEnabledNewsSources()
     }
     
     func loadNewsSources(){
@@ -59,18 +62,22 @@ class SettingsViewController: UIViewController {
         }
     }
     
+    func loadEnabledNewsSources() {
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.enabledNewSources = CoreDataHelper.retrieveEnabledNewsSources()
+        }
+    }
+    
     func loadImage(forNewsSource newsSource: NewsSource) {
-        print("adding image")
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             let urlString = Constants.NewsAPI.imageUrl(url: newsSource.url)
             if  let url = URL(string: urlString),
                 let imageData = try? Data(contentsOf: url) {
-                for i in 0..<(self?.newsSources ?? []).count {
+                for i in 0..<(self?.newsSources.count ?? 0) {
                     if self?.newsSources[i].id == newsSource.id {
                         self?.newsSources[i].icon = UIImage(data: imageData)
                         DispatchQueue.main.async {
                             self?.newsTableView.reloadData()
-                            print("reloaded")
                         }
                         break
                     }
@@ -85,17 +92,27 @@ extension SettingsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = newsTableView.dequeueReusableCell(withIdentifier: Constants.Identifier.newsToggleCell, for: indexPath) as! NewsToggleCell
+        cell.delegate = self
         let source = newsSources[indexPath.row]
+        
+        // label
         cell.label.text = source.name
         
+        // icon
         if let icon = source.icon {
-            print("image not nil")
             cell.icon.image = icon
         } else {
-            print("image nil")
             cell.icon.image = nil
         }
         
+        // toggle
+        for enabledNewSource in enabledNewSources {
+            if enabledNewSource.id == source.id {
+                cell.toggle.setOn(true, animated: false)
+                return cell
+            }
+        }
+        cell.toggle.setOn(false, animated: false)
         return cell
     }
     
@@ -106,4 +123,24 @@ extension SettingsViewController: UITableViewDataSource {
 
 extension SettingsViewController: UITableViewDelegate {
     
+}
+
+extension SettingsViewController: NewsToggleCellDelegate {
+    func didToggleNewsSource(on cell: NewsToggleCell) {
+        guard let indexPath = newsTableView.indexPath(for: cell) else { return }
+        
+        if cell.toggle.isOn {
+            let enabledNewsSource = CoreDataHelper.getEnabledNewsSource()
+            enabledNewsSource.id =  newsSources[indexPath.row].id
+            CoreDataHelper.saveEnabledNewsSource()
+        } else {
+            for enabledNewsSource in enabledNewSources {
+                if enabledNewsSource.id == newsSources[indexPath.row].id {
+                    CoreDataHelper.delete(enabledNewsSource: enabledNewsSource)
+                    break
+                }
+            }
+        }
+        enabledNewSources = CoreDataHelper.retrieveEnabledNewsSources()
+    }
 }

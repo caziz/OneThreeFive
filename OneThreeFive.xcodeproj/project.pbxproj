@@ -96,7 +96,6 @@
 				5A28D0A41F1930540067AD01 /* Storyboards */,
 				5AAF5CF91F19468400E96D65 /* Helper */,
 				5AAF5CFC1F195F1300E96D65 /* Models */,
-				5AAF5CF31F19451D00E96D65 /* Core Data */,
 				5A28D08F1F183D8C0067AD01 /* Assets.xcassets */,
 				5A28D0941F183D8C0067AD01 /* Info.plist */,
 				5A28D0A21F192FD00067AD01 /* GoogleService-Info.plist */,
@@ -130,14 +129,6 @@
 				5A28D0A81F193E800067AD01 /* NewsToggleCell.swift */,
 			);
 			name = Views;
-			sourceTree = "<group>";
-		};
-		5AAF5CF31F19451D00E96D65 /* Core Data */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Core Data";
-			path = ..;
 			sourceTree = "<group>";
 		};
 		5AAF5CF91F19468400E96D65 /* Helper */ = {
