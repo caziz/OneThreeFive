@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "static NewsService.(generateArticles(from : String) -&gt; ()).(closure #1):NewsService.swift">
+      </ContextState>
+      <ContextState
+         contextName = "static FireBaseService.save(url : URL, with : Constants.ArticleLengthInMinutes) -&gt; ():FireBaseService.swift">
+      </ContextState>
+      <ContextState
+         contextName = "static FireBaseService.save(urlString : String, with : Constants.ArticleLengthInMinutes) -&gt; ():FireBaseService.swift">
+      </ContextState>
+      <ContextState
+         contextName = "static NewsService.(generateArticles(from : String) -&gt; ()).(closure #1).(closure #1):NewsService.swift">
+      </ContextState>
+      <ContextState
+         contextName = "static NewsService.(isValid(urlString : String, completion : (Constants.ArticleLengthInMinutes?) -&gt; ()) -&gt; ()).(closure #1).(closure #1):NewsService.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "urlString">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "static NewsService.(generateArticles(source : String) -&gt; ()).(closure #1).(closure #1):NewsService.swift">
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

@@ -12,7 +12,7 @@ import Firebase
 class MainViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.preloadArticles()
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -20,17 +20,13 @@ class MainViewController : UIViewController {
             let identifier = segue.identifier {
             switch identifier {
             case Constants.Segue.showArticleForOption1:
-                articleViewController.articleLengthInMinutes = 1
+                articleViewController.articleLengthInMinutes = Constants.ArticleLengthInMinutes.option1.rawValue
             case Constants.Segue.showArticleForOption2:
-                articleViewController.articleLengthInMinutes = 3
+                articleViewController.articleLengthInMinutes = Constants.ArticleLengthInMinutes.option2.rawValue
             case Constants.Segue.showArticleForOption3:
-                articleViewController.articleLengthInMinutes = 5
+                articleViewController.articleLengthInMinutes = Constants.ArticleLengthInMinutes.option3.rawValue
             default: break
             }
         }
-    }
-    
-    func preloadArticles() {
-        
     }
 }

@@ -64,7 +64,7 @@ class SettingsViewController: UIViewController {
     
     func loadEnabledNewsSources() {
         DispatchQueue.global(qos: .userInitiated).async {
-            self.enabledNewSources = CoreDataHelper.retrieveEnabledNewsSources()
+            self.enabledNewSources = CoreDataHelper.NewsSource.retrieve()
         }
     }
     
@@ -130,17 +130,17 @@ extension SettingsViewController: NewsToggleCellDelegate {
         guard let indexPath = newsTableView.indexPath(for: cell) else { return }
         
         if cell.toggle.isOn {
-            let enabledNewsSource = CoreDataHelper.getEnabledNewsSource()
+            let enabledNewsSource = CoreDataHelper.NewsSource.create()
             enabledNewsSource.id =  newsSources[indexPath.row].id
-            CoreDataHelper.saveEnabledNewsSource()
+            CoreDataHelper.NewsSource.save()
         } else {
             for enabledNewsSource in enabledNewSources {
                 if enabledNewsSource.id == newsSources[indexPath.row].id {
-                    CoreDataHelper.delete(enabledNewsSource: enabledNewsSource)
+                    CoreDataHelper.NewsSource.delete(enabledNewsSource: enabledNewsSource)
                     break
                 }
             }
         }
-        enabledNewSources = CoreDataHelper.retrieveEnabledNewsSources()
+        enabledNewSources = CoreDataHelper.NewsSource.retrieve()
     }
 }

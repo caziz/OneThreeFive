@@ -14,7 +14,7 @@ class ArticleViewController:  UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        attemptLoadWebPage("www.google.com")
+        
     }
     
     func attemptLoadWebPage(_ string: String) -> Bool {
@@ -29,5 +29,5 @@ class ArticleViewController:  UIViewController {
 }
 
 extension ArticleViewController: UIWebViewDelegate {
-
+    
 }

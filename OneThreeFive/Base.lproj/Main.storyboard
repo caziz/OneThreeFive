@@ -68,7 +68,7 @@
         <!--Item-->
         <scene sceneID="PfD-ij-HcQ">
             <objects>
-                <viewController id="qAv-QE-Qnz" sceneMemberID="viewController">
+                <viewController id="qAv-QE-Qnz" customClass="FavoritesViewController" customModule="OneThreeFive" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="MMc-1S-O1x"/>
                         <viewControllerLayoutGuide type="bottom" id="VFC-6G-Qn6"/>
@@ -76,7 +76,20 @@
                     <view key="view" contentMode="scaleToFill" id="Nq5-OA-oTU">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dnz-fr-8KV">
+                                <rect key="frame" x="142" y="318.5" width="90" height="30"/>
+                                <state key="normal" title="Load Articles"/>
+                                <connections>
+                                    <action selector="loadArticles:" destination="qAv-QE-Qnz" eventType="touchUpInside" id="khp-1u-P9J"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Dnz-fr-8KV" firstAttribute="centerX" secondItem="Nq5-OA-oTU" secondAttribute="centerX" id="aXu-uY-c8o"/>
+                            <constraint firstItem="Dnz-fr-8KV" firstAttribute="centerY" secondItem="Nq5-OA-oTU" secondAttribute="centerY" id="e2P-q1-xqd"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="VIv-v0-HGe"/>
                 </viewController>
