@@ -13,7 +13,10 @@ import SwiftyJSON
 
 class SettingsViewController: UIViewController {
     @IBOutlet weak var newsTableView: UITableView!
-    
+    //TODO:
+    // show all button
+    // show me articles ive already viewed button
+
     // all news sources
     var newsSources: [NewsSource] = []
     

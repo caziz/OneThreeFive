@@ -15,12 +15,18 @@ class ArticleViewController:  UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.spinner.startAnimating()
         print(articleLengthInMinutes ?? 0)
         print(attemptLoadWebPage())
         
         
     }
-    
+    func webViewDidStartLoad(_ webView: UIWebView) {
+        //self.spinner.startAnimating()
+    }
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        self.spinner.stopAnimating()
+    }
     
     
     func attemptLoadWebPage() -> Bool {
@@ -31,8 +37,6 @@ class ArticleViewController:  UIViewController {
             return false
         }
         let sources = CoreDataHelper.getEnabledNewsSources().map{$0.id!}
-        
-        spinner.startAnimating()
         FireBaseService.getURLs(option: length, sources: sources) { dict in
             var allArticles = dict
             let keys = Array(dict.keys)
@@ -48,7 +52,6 @@ class ArticleViewController:  UIViewController {
                         CoreDataHelper.save()
                         DispatchQueue.main.async {
                             self.webView.loadRequest(URLRequest(url: URL(string:article)!))
-                            self.spinner.stopAnimating()
                         }
                         return
                     }

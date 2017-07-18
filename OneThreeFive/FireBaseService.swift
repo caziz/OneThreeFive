@@ -31,7 +31,7 @@ class FireBaseService {
                     dispatchGroup.leave()
                     return
                 }
-                // sorts dateDictionary urls by date into an array
+                // sort urls by date into an array
                 let sortedURLs = dateDictionary.sorted{$0.0 < $1.0}.map{$0.value}
                 dict[source] = sortedURLs.reversed()
                 dispatchGroup.leave()
