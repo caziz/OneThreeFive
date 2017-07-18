@@ -17,18 +17,29 @@ class FireBaseService {
         ref.updateChildValues(dict)
     }
     
-    static func getUrl(with option: Constants.ArticleLengthInMinutes, completion: @escaping ([String]) -> Void) {
-        // /posts/currentUID/snapshot
-        let ref = Database.database().reference().child("Option\(option.rawValue)").child("abc-news-au")
-        ref.observeSingleEvent(of: .value, with: { (snapshot) in
-            print(snapshot)
-            guard let dict = snapshot.value as? [String : String] else {
-                return completion([])
-            }
-            let sortedArray = dict.sorted{$0.0 < $1.0}.map{$0.key}
-            print(sortedArray)
-            return completion([])
+    static func getURLs(option: Constants.ArticleLengthInMinutes, sources: [String], completion: @escaping ([String:[String]]) -> Void) {
+        let dispatchGroup = DispatchGroup()
+        let ref = Database.database().reference().child("Option\(option.rawValue)")
+        var dict: [String: [String]] = [:]
 
+        for source in sources {
+            dispatchGroup.enter()
+            print("stating source: \(source)")
+            ref.child(source).observeSingleEvent(of: .value, with:{ snapshot in
+                guard let dateDictionary = snapshot.value as? [String : String] else {
+                    dict[source] = []
+                    dispatchGroup.leave()
+                    return
+                }
+                // sorts dateDictionary urls by date into an array
+                let sortedURLs = dateDictionary.sorted{$0.0 < $1.0}.map{$0.value}
+                dict[source] = sortedURLs.reversed()
+                dispatchGroup.leave()
+            })
+        }
+        dispatchGroup.notify(queue: .main, execute: {
+            completion(dict)
         })
+
     }
 }

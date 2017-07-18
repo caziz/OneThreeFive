@@ -205,16 +205,23 @@
                                     <outlet property="delegate" destination="CCJ-MP-ULc" id="dPa-rQ-zVo"/>
                                 </connections>
                             </webView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="8kp-lc-cNf">
+                                <rect key="frame" x="169.5" y="315" width="37" height="37"/>
+                                <color key="color" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="VEO-wb-PYw" firstAttribute="leading" secondItem="gRO-Hu-AIv" secondAttribute="leading" id="ARx-kX-mqe"/>
+                            <constraint firstItem="8kp-lc-cNf" firstAttribute="centerY" secondItem="gRO-Hu-AIv" secondAttribute="centerY" id="EfF-RJ-3m2"/>
                             <constraint firstItem="Bn1-02-D2Q" firstAttribute="top" secondItem="VEO-wb-PYw" secondAttribute="bottom" id="R5L-cB-mID"/>
                             <constraint firstItem="VEO-wb-PYw" firstAttribute="top" secondItem="BuX-uS-4Nt" secondAttribute="bottom" id="Vt1-Mr-fKv"/>
+                            <constraint firstItem="8kp-lc-cNf" firstAttribute="centerX" secondItem="gRO-Hu-AIv" secondAttribute="centerX" id="pia-Py-df1"/>
                             <constraint firstAttribute="trailing" secondItem="VEO-wb-PYw" secondAttribute="trailing" id="xhQ-vH-X6z"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="spinner" destination="8kp-lc-cNf" id="aHb-oT-V5A"/>
                         <outlet property="webView" destination="VEO-wb-PYw" id="2sD-HA-Uea"/>
                     </connections>
                 </viewController>

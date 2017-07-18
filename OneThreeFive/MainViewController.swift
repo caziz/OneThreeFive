@@ -13,7 +13,10 @@ class MainViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // load shit?
     }
+    
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let articleViewController = segue.destination as? ArticleViewController,

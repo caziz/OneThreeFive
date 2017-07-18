@@ -12,10 +12,15 @@ import FirebaseDatabase
 
 class FavoritesViewController: UIViewController {
     @IBAction func loadArticles(_ sender: Any) {
+        
         //NewsService.generateArticles()
-        FireBaseService.getUrl(with: Constants.ArticleLengthInMinutes.option1) { a in
-            print("hi: \(a)")
+        
+        print("leggo")
+        FireBaseService.getURLs(option: Constants.ArticleLengthInMinutes.option1, sources: ["abc-news-au", "bbc-news"]) { result in
+            debugPrint(result)
+            print("done boi")
         }
+
     }
     
     

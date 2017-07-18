@@ -13,10 +13,9 @@ import ReadabilityKit
 class NewsService {
     
     static func generateArticles() {
-        let sources = CoreDataHelper.NewsSource.retrieve()
+        let sources = CoreDataHelper.getEnabledNewsSources()
         for source in sources {
             if let id = source.id {
-                print(id)
                 NewsService.generateArticles(source: id)
             }
         }
@@ -63,11 +62,9 @@ class NewsService {
                     if let text = article.text {
                         let wordCount = Double(text.characters.count) / Constants.Settings.charactersPerWord
                         let timeInMinutes = wordCount / Constants.Settings.wordsPerMinute
-                        print("time: \(timeInMinutes)")
                         let options: [Constants.ArticleLengthInMinutes] = [.option1, .option2, .option3]
                         for option in options {
                             if abs(Double(option.rawValue) - timeInMinutes) < Double(Constants.Settings.rangeInMinutes) {
-                                print("added for \(option.rawValue)")
                                 return completion(option)
                             }
                         }
