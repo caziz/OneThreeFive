@@ -15,10 +15,13 @@ class ArticleViewController:  UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(articleLengthInMinutes ?? 0)
         print(attemptLoadWebPage())
         
         
     }
+    
+    
     
     func attemptLoadWebPage() -> Bool {
         guard

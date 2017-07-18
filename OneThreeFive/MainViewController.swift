@@ -13,11 +13,21 @@ class MainViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // load shit?
+    
     }
+    /*
     
-    
-    
+    @IBAction func option1Pressed(_ sender: Any) {
+        performSegue(withIdentifier: "showArticleViewController", sender: 1)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let articleViewController = segue.destination as? ArticleViewController, let _ = segue.identifier, let length = sender as? Int{
+            articleViewController.articleLengthInMinutes = length
+        }
+        
+        
+    }
+    */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let articleViewController = segue.destination as? ArticleViewController,
             let identifier = segue.identifier {
@@ -32,4 +42,5 @@ class MainViewController : UIViewController {
             }
         }
     }
+ 
 }

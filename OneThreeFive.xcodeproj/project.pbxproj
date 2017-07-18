@@ -10,7 +10,6 @@
 		56E2DD4BD50F0B3BEA74EADE /* Pods_OneThreeFive.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD2C9958193B7C8E56114C2 /* Pods_OneThreeFive.framework */; };
 		5A28D0891F183D8C0067AD01 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A28D0881F183D8C0067AD01 /* AppDelegate.swift */; };
 		5A28D08E1F183D8C0067AD01 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A28D08C1F183D8C0067AD01 /* Main.storyboard */; };
-		5A28D0901F183D8C0067AD01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A28D08F1F183D8C0067AD01 /* Assets.xcassets */; };
 		5A28D0931F183D8C0067AD01 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A28D0911F183D8C0067AD01 /* LaunchScreen.storyboard */; };
 		5A28D09D1F183EFD0067AD01 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A28D09C1F183EFD0067AD01 /* MainViewController.swift */; };
 		5A28D09F1F183F0B0067AD01 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A28D09E1F183F0B0067AD01 /* ArticleViewController.swift */; };
@@ -24,6 +23,7 @@
 		5AAF5CF61F19455500E96D65 /* OneThreeFive.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5AAF5CF41F19455500E96D65 /* OneThreeFive.xcdatamodeld */; };
 		5AAF5CF81F19467E00E96D65 /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAF5CF71F19467E00E96D65 /* CoreDataHelper.swift */; };
 		5AAF5CFB1F195F0F00E96D65 /* NewsSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAF5CFA1F195F0F00E96D65 /* NewsSource.swift */; };
+		5AC4670F1F1EB3C800A3F5A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5AC4670E1F1EB3C800A3F5A1 /* Assets.xcassets */; };
 		5AE71B151F1AF4F000596CEE /* FireBaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE71B141F1AF4F000596CEE /* FireBaseService.swift */; };
 		5AE71B181F1AFF3E00596CEE /* NewsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE71B171F1AFF3E00596CEE /* NewsService.swift */; };
 /* End PBXBuildFile section */
@@ -33,7 +33,6 @@
 		5A28D0851F183D8C0067AD01 /* OneThreeFive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OneThreeFive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A28D0881F183D8C0067AD01 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5A28D08D1F183D8C0067AD01 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		5A28D08F1F183D8C0067AD01 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5A28D0921F183D8C0067AD01 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5A28D0941F183D8C0067AD01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A28D09C1F183EFD0067AD01 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -48,6 +47,7 @@
 		5AAF5CF51F19455500E96D65 /* OneThreeFive.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OneThreeFive.xcdatamodel; sourceTree = "<group>"; };
 		5AAF5CF71F19467E00E96D65 /* CoreDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
 		5AAF5CFA1F195F0F00E96D65 /* NewsSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsSource.swift; sourceTree = "<group>"; };
+		5AC4670E1F1EB3C800A3F5A1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5AE71B141F1AF4F000596CEE /* FireBaseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireBaseService.swift; sourceTree = "<group>"; };
 		5AE71B171F1AFF3E00596CEE /* NewsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsService.swift; sourceTree = "<group>"; };
 		74FB3A5DE2CA9A5FDC0DBACF /* Pods-OneThreeFive.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneThreeFive.release.xcconfig"; path = "Pods/Target Support Files/Pods-OneThreeFive/Pods-OneThreeFive.release.xcconfig"; sourceTree = "<group>"; };
@@ -107,9 +107,9 @@
 				5AAF5CFC1F195F1300E96D65 /* Models */,
 				5A54BF151F1E7B59000DACA1 /* Extensions */,
 				5AAF5CF41F19455500E96D65 /* OneThreeFive.xcdatamodeld */,
-				5A28D08F1F183D8C0067AD01 /* Assets.xcassets */,
 				5A28D0941F183D8C0067AD01 /* Info.plist */,
 				5A28D0A21F192FD00067AD01 /* GoogleService-Info.plist */,
+				5AC4670E1F1EB3C800A3F5A1 /* Assets.xcassets */,
 			);
 			path = OneThreeFive;
 			sourceTree = "<group>";
@@ -249,7 +249,7 @@
 			files = (
 				5A28D0931F183D8C0067AD01 /* LaunchScreen.storyboard in Resources */,
 				5A28D0A31F192FD00067AD01 /* GoogleService-Info.plist in Resources */,
-				5A28D0901F183D8C0067AD01 /* Assets.xcassets in Resources */,
+				5AC4670F1F1EB3C800A3F5A1 /* Assets.xcassets in Resources */,
 				5A28D08E1F183D8C0067AD01 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -445,6 +445,7 @@
 			baseConfigurationReference = FFEF31463D98C9B024105205 /* Pods-OneThreeFive.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
 				DEVELOPMENT_TEAM = M96W5MC8C2;
 				INFOPLIST_FILE = OneThreeFive/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -459,6 +460,7 @@
 			baseConfigurationReference = 74FB3A5DE2CA9A5FDC0DBACF /* Pods-OneThreeFive.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
 				DEVELOPMENT_TEAM = M96W5MC8C2;
 				INFOPLIST_FILE = OneThreeFive/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
