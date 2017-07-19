@@ -17,16 +17,29 @@ class SettingsViewController: UIViewController {
     // show all button
     // show me articles ive already viewed button
 
+    @IBOutlet weak var searchBar: UISearchBar!
     // all news sources
-    var newsSources: [NewsSource] = []
-    
+    var allNewsSources: [NewsSource] = []
+    var filteredNewsSources: [NewsSource] = []
     // representation of enabled news sources from core data
     var enabledNewSources: [EnabledNewsSource] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.initSearchbar()
+        self.addDismissGestures()
         self.loadNewsSources()
         self.loadEnabledNewsSources()
+    }
+    
+    func addDismissGestures() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
+        newsTableView.addGestureRecognizer(tap)
+        
+    }
+    func dismissKeyboard() {
+        //causes the view to resign as first responder
+        view.endEditing(true)
     }
     
     func loadNewsSources(){
@@ -51,10 +64,11 @@ class SettingsViewController: UIViewController {
                             icon: nil
                         )
                         self.loadImage(forNewsSource: newsSource)
-                        self.newsSources.append(newsSource)
+                        self.allNewsSources.append(newsSource)
                     }
                     DispatchQueue.main.async { [weak self] in
-                        self?.newsTableView.reloadData()
+                        //self?.filteredNewsSources = self?.allNewsSources ?? []
+                        self?.displayFilteredNewsSources()
                     }
                     return
                 case .failure:
@@ -76,11 +90,11 @@ class SettingsViewController: UIViewController {
             let urlString = Constants.NewsAPI.imageUrl(url: newsSource.url)
             if  let url = URL(string: urlString),
                 let imageData = try? Data(contentsOf: url) {
-                for i in 0..<(self?.newsSources.count ?? 0) {
-                    if self?.newsSources[i].id == newsSource.id {
-                        self?.newsSources[i].icon = UIImage(data: imageData)
+                for i in 0..<(self?.allNewsSources.count ?? 0) {
+                    if self?.allNewsSources[i].id == newsSource.id {
+                        self?.allNewsSources[i].icon = UIImage(data: imageData)
                         DispatchQueue.main.async {
-                            self?.newsTableView.reloadData()
+                            self?.displayFilteredNewsSources()
                         }
                         break
                     }
@@ -96,7 +110,7 @@ extension SettingsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = newsTableView.dequeueReusableCell(withIdentifier: Constants.Identifier.newsToggleCell, for: indexPath) as! NewsToggleCell
         cell.delegate = self
-        let source = newsSources[indexPath.row]
+        let source = filteredNewsSources[indexPath.row]
         
         // label
         cell.label.text = source.name
@@ -120,7 +134,7 @@ extension SettingsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return newsSources.count
+        return filteredNewsSources.count
     }
 }
 
@@ -136,16 +150,43 @@ extension SettingsViewController: NewsToggleCellDelegate {
         
         if cell.toggle.isOn {
             let enabledNewsSource = CoreDataHelper.createEnabledNewsSource()
-            enabledNewsSource.id =  newsSources[indexPath.row].id
+            enabledNewsSource.id =  filteredNewsSources[indexPath.row].id
             CoreDataHelper.save()
         } else {
             for enabledNewsSource in enabledNewSources {
-                if enabledNewsSource.id == newsSources[indexPath.row].id {
+                if enabledNewsSource.id == filteredNewsSources[indexPath.row].id {
                     CoreDataHelper.deleteEnabledNewsSource(enabledNewsSource: enabledNewsSource)
                     break
                 }
             }
         }
         enabledNewSources = CoreDataHelper.getEnabledNewsSources()
+    }
+}
+
+extension SettingsViewController: UISearchBarDelegate {
+
+    func initSearchbar() {
+        self.searchBar.delegate = self
+        self.searchBar.autocapitalizationType = .none
+        //self.searchBar.placeholder = "Search by name or category"
+    }
+    
+    func displayFilteredNewsSources() {
+        if searchBar.text == nil || searchBar.text == "" {
+            self.filteredNewsSources = self.allNewsSources
+        } else {
+            self.filteredNewsSources = self.allNewsSources.filter {
+                let text = searchBar.text!.capitalized
+                return $0.name.capitalized.contains(text) ||
+                    $0.category.capitalized.contains(text)
+            }
+        }
+        newsTableView.reloadData()
+    }
+    
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        displayFilteredNewsSources()
     }
 }

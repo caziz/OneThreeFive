@@ -48,8 +48,6 @@ extension FavoritesViewController: UITableViewDataSource {
         
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("\(favoritedArticles.count) favorites")
-
         return favoritedArticles.count
     }
 }

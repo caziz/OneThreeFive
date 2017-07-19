@@ -10,7 +10,7 @@ struct Constants {
     struct NewsAPI {
         static let key = "ca25969cc2f54d5f85ad50868bcebff3"
         static func sourcesUrl() -> String {
-            return  "https://newsapi.org/v1/sources"
+            return  "https://newsapi.org/v1/sources?&language=en"
         }
         static func articlesUrl(source: String) -> String {
             return "https://newsapi.org/v1/articles?source=\(source)&apiKey=\(self.key)"
