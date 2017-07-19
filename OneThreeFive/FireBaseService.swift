@@ -24,7 +24,6 @@ class FireBaseService {
 
         for source in sources {
             dispatchGroup.enter()
-            print("stating source: \(source)")
             ref.child(source).observeSingleEvent(of: .value, with:{ snapshot in
                 guard let dateDictionary = snapshot.value as? [String : String] else {
                     dict[source] = []

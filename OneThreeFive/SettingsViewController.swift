@@ -105,7 +105,7 @@ extension SettingsViewController: UITableViewDataSource {
         if let icon = source.icon {
             cell.icon.image = icon
         } else {
-            cell.icon.image = nil
+            cell.icon.image = #imageLiteral(resourceName: "news")
         }
         
         // toggle
@@ -125,7 +125,9 @@ extension SettingsViewController: UITableViewDataSource {
 }
 
 extension SettingsViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
 }
 
 extension SettingsViewController: NewsToggleCellDelegate {

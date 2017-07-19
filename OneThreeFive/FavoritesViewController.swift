@@ -11,21 +11,45 @@ import Firebase
 import FirebaseDatabase
 
 class FavoritesViewController: UIViewController {
-    @IBAction func loadArticles(_ sender: Any) {
-        
-        //NewsService.generateArticles()
-        
-        print("leggo")
-        FireBaseService.getURLs(option: Constants.ArticleLengthInMinutes.option1, sources: ["abc-news-au", "bbc-news"]) { result in
-            debugPrint(result)
-            print("done boi")
-        }
-
-    }
+    @IBOutlet weak var favoritesTableView: UITableView!
     
+    var favoritedArticles: [FavoritedArticle] = []
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        loadFavoritedArticles()
+    }
+    
+    func loadFavoritedArticles() {
+        self.favoritedArticles = CoreDataHelper.getFavoritedArticles()
+        self.favoritesTableView.reloadData()
+    }
+}
+
+
+
+extension FavoritesViewController: UITableViewDelegate {
+    
+}
+
+extension FavoritesViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = favoritesTableView.dequeueReusableCell(withIdentifier: Constants.Identifier.favoritedArticleCell, for: indexPath) as! FavoritedArticleCell
+        if let url = favoritedArticles[indexPath.row].url {
+            cell.label.text = url
+            return cell
+        }
+        cell.label.text = "cant find url"
+        return cell
+        
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("\(favoritedArticles.count) favorites")
+
+        return favoritedArticles.count
+    }
 }

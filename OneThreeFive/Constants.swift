@@ -29,6 +29,8 @@ struct Constants {
     
     struct Identifier {
         static let newsToggleCell = "newsToggleCell"
+        static let favoritedArticleCell = "favoritedArticleCell"
+
     }
     
     struct Entity {

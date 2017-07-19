@@ -66,7 +66,7 @@ struct CoreDataHelper {
         return []
     }
     
-    static func getFavoritedArticle() -> [FavoritedArticle] {
+    static func getFavoritedArticles() -> [FavoritedArticle] {
         let fetchRequest = NSFetchRequest<FavoritedArticle>(entityName: Constants.Entity.favoritedArticle)
         do {
             let results = try managedContext.fetch(fetchRequest)

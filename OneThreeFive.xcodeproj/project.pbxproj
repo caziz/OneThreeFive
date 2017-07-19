@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		56E2DD4BD50F0B3BEA74EADE /* Pods_OneThreeFive.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD2C9958193B7C8E56114C2 /* Pods_OneThreeFive.framework */; };
+		5A1F155A1F1EDD9300583B67 /* FavoritedArticleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1F15591F1EDD9300583B67 /* FavoritedArticleCell.swift */; };
 		5A28D0891F183D8C0067AD01 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A28D0881F183D8C0067AD01 /* AppDelegate.swift */; };
 		5A28D08E1F183D8C0067AD01 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A28D08C1F183D8C0067AD01 /* Main.storyboard */; };
 		5A28D0931F183D8C0067AD01 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A28D0911F183D8C0067AD01 /* LaunchScreen.storyboard */; };
@@ -30,6 +31,7 @@
 
 /* Begin PBXFileReference section */
 		3FD2C9958193B7C8E56114C2 /* Pods_OneThreeFive.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OneThreeFive.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A1F15591F1EDD9300583B67 /* FavoritedArticleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritedArticleCell.swift; sourceTree = "<group>"; };
 		5A28D0851F183D8C0067AD01 /* OneThreeFive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OneThreeFive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A28D0881F183D8C0067AD01 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5A28D08D1F183D8C0067AD01 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				5A28D0A81F193E800067AD01 /* NewsToggleCell.swift */,
+				5A1F15591F1EDD9300583B67 /* FavoritedArticleCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -312,6 +315,7 @@
 				5A28D0A91F193E800067AD01 /* NewsToggleCell.swift in Sources */,
 				5AE71B151F1AF4F000596CEE /* FireBaseService.swift in Sources */,
 				5A28D0891F183D8C0067AD01 /* AppDelegate.swift in Sources */,
+				5A1F155A1F1EDD9300583B67 /* FavoritedArticleCell.swift in Sources */,
 				5AAF5CF81F19467E00E96D65 /* CoreDataHelper.swift in Sources */,
 				5A28D09F1F183F0B0067AD01 /* ArticleViewController.swift in Sources */,
 				5A28D09D1F183EFD0067AD01 /* MainViewController.swift in Sources */,
