@@ -21,6 +21,12 @@ class NewsService {
         }
     }
     
+    
+    static func getNewsSources(completion: ([NewsSource]) -> Void) {
+        
+    }
+    
+    
     static func generateArticles(source: String) {
         DispatchQueue.global(qos: .background).async {
             let sourcesUrl = Constants.NewsAPI.articlesUrl(source: source)

@@ -34,7 +34,7 @@ struct Constants {
     }
     
     struct Entity {
-        static let enabledNewsSource = "EnabledNewsSource"
+        static let newsSource = "NewsSource"
         static let viewedArticle = "ViewedArticle"
         static let favoritedArticle = "FavoritedArticle"
     }

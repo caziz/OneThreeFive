@@ -1,5 +1,5 @@
 //
-//  NewsSource.swift
+//  ViewedArticle.swift
 //  OneThreeFive
 //
 //  Created by Christopher Aziz on 7/20/17.
@@ -8,13 +8,13 @@
 
 import CoreData
 
-extension NewsSource {
-    static func create() -> NewsSource {
-        return NSEntityDescription.insertNewObject(forEntityName: Constants.Entity.newsSource, into: CoreDataHelper.managedContext) as! NewsSource
+extension ViewedArticle {
+    static func create() -> ViewedArticle {
+        return NSEntityDescription.insertNewObject(forEntityName: Constants.Entity.viewedArticle, into: CoreDataHelper.managedContext) as! ViewedArticle
     }
     
-    static func getAll() -> [NewsSource] {
-        let fetchRequest = NSFetchRequest<NewsSource>(entityName: Constants.Entity.newsSource)
+    static func getAll() -> [ViewedArticle] {
+        let fetchRequest = NSFetchRequest<ViewedArticle>(entityName: Constants.Entity.viewedArticle)
         do {
             let results = try CoreDataHelper.managedContext.fetch(fetchRequest)
             return results
