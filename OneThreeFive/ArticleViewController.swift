@@ -78,7 +78,3 @@ class ArticleViewController:  UIViewController {
         }
     }
 }
-
-extension ArticleViewController: UIWebViewDelegate {
-    
-}
