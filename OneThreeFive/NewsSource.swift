@@ -9,9 +9,6 @@
 import CoreData
 
 extension NewsSource {
-    static func create() -> NewsSource {
-        return NewsSource(context: CoreDataHelper.managedContext)
-    }
     
     static func getAll() -> [NewsSource] {
         let fetchRequest: NSFetchRequest<NewsSource> = NewsSource.fetchRequest()

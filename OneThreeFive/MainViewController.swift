@@ -19,27 +19,44 @@ class MainViewController : UIViewController {
         
         
         // TODO: hide all buttons
-        
-        
-        self.prepareNewsSources()
-        
+        self.uploadArticles()
         
         
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
+    func uploadArticles() {
+        DispatchQueue.global(qos: .userInitiated).async {
+            let newsSources = NewsSource.getAll()
+            let dispatchGroup = DispatchGroup()
+            for newsSource in newsSources {
+                dispatchGroup.enter()
+                NewsService.getArticles(from: newsSource) { articles in
+                    for article in articles {
+                        FireBaseService.save(article: article)
+                    }
+                    dispatchGroup.leave()
+                }
+            }
+            dispatchGroup.wait()
+        }
+    }
+    
     /* fetch unsaved news sources */
-    func prepareNewsSources() {
-        
+    func saveNewsSources() {
         // TODO: not thread safe!?
         DispatchQueue.global(qos: .userInitiated).async {
             NewsService.getNewsSources { newsSources in
                 let savedNewsSourceIDs = NewsSource.getAll().map{$0.id!}
                 for newsSource in newsSources {
                     if !savedNewsSourceIDs.contains(newsSource.id!) {
-                        let newNewsSource = NewsSource.create()
+                        let newNewsSource = NewsSource(context: CoreDataHelper.managedContext)
                         newNewsSource.category = newsSource.category
                         newNewsSource.id = newsSource.id
-                        
+                        print("\(newsSource.id!)")
                     }
                 }
                 CoreDataHelper.save()
@@ -47,31 +64,26 @@ class MainViewController : UIViewController {
         }
     }
     
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    func cacheArticles() {
         // TODO: disable buttons
         // TODO: show buttons that are available, otherwise show error message
-        let viewedURLS = Article.getAll().map{ $0.url! }
+        let sourceIDs = NewsSource.getAll().map{ $0.id! }
+        print(sourceIDs)
+        let articleURLs = Article.getAll().map{ $0.url! }
+        print(articleURLs)
         let dispatchGroup = DispatchGroup()
-        for (i, time) in Constants.Settings.timeOptions {
+        for time in Constants.Settings.timeOptions {
             dispatchGroup.enter()
-            FireBaseService.get(time: time, sources: viewedURLs) { articles in
-                articleCache[i].append()
+            FireBaseService.get(time: time, sourceIDs: sourceIDs, articleURLs: articleURLs) { articles in
+                self.articleCache.append(articles)
                 dispatchGroup.leave()
             }
         }
         dispatchGroup.notify(queue: .main) {
-            // if articles are empty show error message, otherwise show button
+            // if articles are empty show error message, otherwise .mapshow button
         }
-        
-        
-    }
+    }    
 
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let articleViewController = segue.destination as? ArticleViewController,
             let identifier = segue.identifier {

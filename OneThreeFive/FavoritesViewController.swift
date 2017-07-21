@@ -25,7 +25,7 @@ class FavoritesViewController: UIViewController {
     }
     
     func loadFavoritedArticles() {
-        self.favoritedArticles = CoreDataHelper.getFavoritedArticles()
+        self.favoritedArticles = Article.getAll().filter{$0.isFavorited}
         self.favoritesTableView.reloadData()
     }
 }

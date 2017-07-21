@@ -27,7 +27,7 @@ class NewsService {
                     var newsSources: [NewsSource] = []
                     let sources = JSON(value)["sources"].arrayValue
                     for source in sources {
-                        let newsSource = NewsSource()
+                        let newsSource = NewsSource(context: CoreDataHelper.managedContext)
                         newsSource.id = source["id"].stringValue
                         newsSource.category = source["category"].stringValue
                         newsSource.name = source["name"].stringValue
@@ -63,7 +63,7 @@ class NewsService {
                         ReadabilityService.charactersIn(url: url) { characters in
                             let words = Double(characters) / Double(Constants.Settings.charactersPerWord)
                             let roundedReadTime = Int16(round(words / Constants.Settings.wordsPerMinute))
-                            let article = Article()
+                            let article = Article(context: CoreDataHelper.unmanagedContext)
                             article.url = url
                             article.source = source.id
                             article.time = roundedReadTime
@@ -71,12 +71,13 @@ class NewsService {
                             article.title = jsonArticle["title"].stringValue
                             article.urlToImage = jsonArticle["urlToImage"].stringValue
                             articles.append(article)
+                            debugPrint(article)
                             dispatchGroup.leave()
                         }
+                    }
                     // TODO which queue here?
                     dispatchGroup.notify(queue: .main) {
                         completion(articles)
-                    }
                 }
                 case .failure:
                     return completion([])

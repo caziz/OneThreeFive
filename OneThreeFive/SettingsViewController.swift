@@ -19,8 +19,9 @@ class SettingsViewController: UIViewController {
 
     @IBOutlet weak var searchBar: UISearchBar!
     // all news sources
-    var allNewsSources: [NewsSource] = []
+    var newsSources: [NewsSource] = []
     var filteredNewsSources: [NewsSource] = []
+
     // representation of enabled news sources from core data
     
     override func viewDidLoad() {
@@ -46,7 +47,7 @@ class SettingsViewController: UIViewController {
     
     func loadEnabledNewsSources() {
         DispatchQueue.global(qos: .userInitiated).async {
-            self.enabledNewSources = CoreDataHelper.getEnabledNewsSources()
+            self.newsSources = NewsSource.getAll()
         }
     }
     
@@ -60,31 +61,26 @@ extension SettingsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = newsTableView.dequeueReusableCell(withIdentifier: Constants.Identifier.newsToggleCell, for: indexPath) as! NewsToggleCell
         cell.delegate = self
-        let source = filteredNewsSources[indexPath.row]
+        
+        let newsSource = newsSources[indexPath.row]
         
         // label
-        cell.label.text = source.name
-        
-        // icon
-        if let icon = source.icon {
-            cell.icon.image = icon
-        } else {
-            cell.icon.image = #imageLiteral(resourceName: "news")
-        }
+        cell.label.text = newsSource.name!
         
         // toggle
-        for enabledNewSource in enabledNewSources {
-            if enabledNewSource.id == source.id {
-                cell.toggle.setOn(true, animated: false)
-                return cell
-            }
+        if newsSource.isEnabled {
+            cell.toggle.setOn(true, animated: false)
+        } else {
+            cell.toggle.setOn(false, animated: false)
         }
-        cell.toggle.setOn(false, animated: false)
+        
+        // TODO: icon
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filteredNewsSources.count
+        return newsSources.count
     }
 }
 
@@ -96,6 +92,9 @@ extension SettingsViewController: UITableViewDelegate {
 
 extension SettingsViewController: NewsToggleCellDelegate {
     func didToggleNewsSource(on cell: NewsToggleCell) {
+        
+        // TODO: add toggle functionality
+        /*
         guard let indexPath = newsTableView.indexPath(for: cell) else { return }
         
         if cell.toggle.isOn {
@@ -111,6 +110,7 @@ extension SettingsViewController: NewsToggleCellDelegate {
             }
         }
         enabledNewSources = CoreDataHelper.getEnabledNewsSources()
+ */
     }
 }
 
@@ -123,6 +123,9 @@ extension SettingsViewController: UISearchBarDelegate {
     }
     
     func displayFilteredNewsSources() {
+        
+        //TODO: add filtered news sources functionality
+        /*
         if searchBar.text == nil || searchBar.text == "" {
             self.filteredNewsSources = self.allNewsSources
         } else {
@@ -133,6 +136,7 @@ extension SettingsViewController: UISearchBarDelegate {
             }
         }
         newsTableView.reloadData()
+ */
     }
     
     

@@ -9,9 +9,6 @@
 import CoreData
 
 extension Article {
-    static func create() -> Article {
-        return Article(context: CoreDataHelper.managedContext)
-    }
     
     static func getAll() -> [Article] {
         let fetchRequest: NSFetchRequest<Article> = Article.fetchRequest()
