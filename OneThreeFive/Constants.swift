@@ -33,20 +33,10 @@ struct Constants {
 
     }
     
-    struct Entity {
-        static let newsSource = "NewsSource"
-        static let viewedArticle = "ViewedArticle"
-        static let favoritedArticle = "FavoritedArticle"
-    }
-    
-    enum ArticleLengthInMinutes: Int {
-        case option1 = 1
-        case option2 = 3
-        case option3 = 5
-    }
     
     struct Settings {
-        static let rangeInMinutes = 1
+        static let timeOptions = [1, 3, 5]
+        //static let rangeInMinutes = 0.5
         static let charactersPerWord = 5.0
         static let wordsPerMinute = 200.0
     }

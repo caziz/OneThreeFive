@@ -13,7 +13,7 @@ import FirebaseDatabase
 class FavoritesViewController: UIViewController {
     @IBOutlet weak var favoritesTableView: UITableView!
     
-    var favoritedArticles: [FavoritedArticle] = []
+    var favoritedArticles: [Article] = []
 
     
     override func viewDidLoad() {

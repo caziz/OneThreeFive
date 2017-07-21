@@ -10,11 +10,11 @@ import CoreData
 
 extension NewsSource {
     static func create() -> NewsSource {
-        return NSEntityDescription.insertNewObject(forEntityName: Constants.Entity.newsSource, into: CoreDataHelper.managedContext) as! NewsSource
+        return NewsSource(context: CoreDataHelper.managedContext)
     }
     
     static func getAll() -> [NewsSource] {
-        let fetchRequest = NSFetchRequest<NewsSource>(entityName: Constants.Entity.newsSource)
+        let fetchRequest: NSFetchRequest<NewsSource> = NewsSource.fetchRequest()
         do {
             let results = try CoreDataHelper.managedContext.fetch(fetchRequest)
             return results

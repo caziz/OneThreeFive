@@ -11,8 +11,8 @@ import UIKit
 class ArticleViewController:  UIViewController {
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var webView: UIWebView!
-    var url: String?
-    var articleLengthInMinutes: Int?
+
+    var articleCache: [Article] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,13 +23,7 @@ class ArticleViewController:  UIViewController {
         
     }
     @IBAction func favoriteButtonPressed(_ sender: UIBarButtonItem) {
-        print("article favorited")
-        if let urlString = url {
-            let favoritedArticle = CoreDataHelper.createFavoritedArticle()
-            favoritedArticle.url = urlString
-            CoreDataHelper.save()
-
-        }
+        // TODO: favorite article
     }
     func webViewDidStartLoad(_ webView: UIWebView) {
         //self.spinner.startAnimating()

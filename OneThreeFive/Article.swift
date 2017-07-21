@@ -8,13 +8,13 @@
 
 import CoreData
 
-extension ViewedArticle {
-    static func create() -> ViewedArticle {
-        return NSEntityDescription.insertNewObject(forEntityName: Constants.Entity.viewedArticle, into: CoreDataHelper.managedContext) as! ViewedArticle
+extension Article {
+    static func create() -> Article {
+        return Article(context: CoreDataHelper.managedContext)
     }
     
-    static func getAll() -> [ViewedArticle] {
-        let fetchRequest = NSFetchRequest<ViewedArticle>(entityName: Constants.Entity.viewedArticle)
+    static func getAll() -> [Article] {
+        let fetchRequest: NSFetchRequest<Article> = Article.fetchRequest()
         do {
             let results = try CoreDataHelper.managedContext.fetch(fetchRequest)
             return results

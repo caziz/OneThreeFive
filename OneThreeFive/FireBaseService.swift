@@ -11,34 +11,50 @@ import FirebaseDatabase
 
 
 class FireBaseService {
-    static func save(article: ValidArticle) {
-        let ref = Database.database().reference().child("Option\(article.readTime.rawValue)").child(article.source)
-        let dict : [String: String] = [article.date : article.url]
-        ref.updateChildValues(dict)
+    /* save an article to firebase */
+    static func save(article: Article) {
+        let ref = Database.database().reference().childByAutoId().child("Option\(article.time)Minutes").child(article.source!).childByAutoId()
+        let article: [String : String] = ["url" : article.url!,
+                                          "date" : article.date!,
+                                          "title" : article.title!,
+                                          "urlToImage" : article.urlToImage!]
+        ref.updateChildValues(article)
     }
     
-    static func getURLs(option: Constants.ArticleLengthInMinutes, sources: [String], completion: @escaping ([String:[String]]) -> Void) {
+    
+    /* from a given time and source, pass unviewed articles from firebase to completion handler */
+    static func get(time: Int, sources: [String], without articleURLs: [String], completion: @escaping ([Article]) -> Void) {
         let dispatchGroup = DispatchGroup()
-        let ref = Database.database().reference().child("Option\(option.rawValue)")
-        var dict: [String: [String]] = [:]
-
+        let ref = Database.database().reference().child("Option\(time)Minutes")
+        var articles: [Article] = []
         for source in sources {
             dispatchGroup.enter()
             ref.child(source).observeSingleEvent(of: .value, with:{ snapshot in
-                guard let dateDictionary = snapshot.value as? [String : String] else {
-                    dict[source] = []
+                guard let dict = snapshot.value as? [String : String] else {
+                    print("Error, could not retrieve article from Firebase")
                     dispatchGroup.leave()
                     return
                 }
-                // sort urls by date into an array
-                let sortedURLs = dateDictionary.sorted{$0.0 < $1.0}.map{$0.value}
-                dict[source] = sortedURLs.reversed()
+                // skip previously viewed articles
+                if articleURLs.contains(dict["url"]!) {
+                    dispatchGroup.leave()
+                    return
+                }
+                // create temporary article
+                let article = Article()
+                article.url = dict["url"]
+                article.date = dict["date"]
+                article.title = dict["title"]
+                article.urlToImage = dict["urlToImage"]
+                articles.append(article)
                 dispatchGroup.leave()
             })
         }
+        // TODO: which thread?
         dispatchGroup.notify(queue: .main, execute: {
-            completion(dict)
+            // sort articles by date and pass to completion
+            let sortedArticles = articles.sorted{$0.date! < $1.date!}
+            completion(sortedArticles)
         })
-
     }
 }

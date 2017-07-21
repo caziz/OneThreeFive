@@ -22,7 +22,6 @@ class SettingsViewController: UIViewController {
     var allNewsSources: [NewsSource] = []
     var filteredNewsSources: [NewsSource] = []
     // representation of enabled news sources from core data
-    var enabledNewSources: [EnabledNewsSource] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,40 +42,6 @@ class SettingsViewController: UIViewController {
     }
     
     func loadNewsSources(){
-        DispatchQueue.global(qos: .userInitiated).async {
-            let sourcesUrl = Constants.NewsAPI.sourcesUrl()
-            Alamofire.request(sourcesUrl).validate().responseJSON { response in
-                switch response.result {
-                case .success:
-                    guard let value = response.result.value else {
-                        return
-                    }
-                    
-                    let sources = JSON(value)["sources"].arrayValue
-                    for source in sources {
-                        let newsSource = NewsSource(
-                            id: source["id"].stringValue,
-                            name: source["name"].stringValue,
-                            category: source["category"].stringValue,
-                            language: source["language"].stringValue,
-                            country: source["country"].stringValue,
-                            url: source["url"].stringValue,
-                            icon: nil
-                        )
-                        self.loadImage(forNewsSource: newsSource)
-                        self.allNewsSources.append(newsSource)
-                    }
-                    DispatchQueue.main.async { [weak self] in
-                        //self?.filteredNewsSources = self?.allNewsSources ?? []
-                        self?.displayFilteredNewsSources()
-                    }
-                    return
-                case .failure:
-                    return
-                }
-            }
-
-        }
     }
     
     func loadEnabledNewsSources() {
@@ -86,21 +51,6 @@ class SettingsViewController: UIViewController {
     }
     
     func loadImage(forNewsSource newsSource: NewsSource) {
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            let urlString = Constants.NewsAPI.imageUrl(url: newsSource.url)
-            if  let url = URL(string: urlString),
-                let imageData = try? Data(contentsOf: url) {
-                for i in 0..<(self?.allNewsSources.count ?? 0) {
-                    if self?.allNewsSources[i].id == newsSource.id {
-                        self?.allNewsSources[i].icon = UIImage(data: imageData)
-                        DispatchQueue.main.async {
-                            self?.displayFilteredNewsSources()
-                        }
-                        break
-                    }
-                }
-            }
-        }
     }
 }
 

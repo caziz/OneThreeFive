@@ -9,78 +9,79 @@
 import Alamofire
 import SwiftyJSON
 import ReadabilityKit
+import CoreData
 
 class NewsService {
+
     
-    static func generateArticles() {
-        let sources = CoreDataHelper.getEnabledNewsSources()
-        for source in sources {
-            if let id = source.id {
-                NewsService.generateArticles(source: id)
+    /* calls completion handler with array of News Sources from API */
+    static func getNewsSources(completion: @escaping ([NewsSource]) -> Void) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            let sourcesUrl = Constants.NewsAPI.sourcesUrl()
+            Alamofire.request(sourcesUrl).validate().responseJSON { response in
+                switch response.result {
+                case .success:
+                    guard let value = response.result.value else {
+                        return completion([])
+                    }
+                    var newsSources: [NewsSource] = []
+                    let sources = JSON(value)["sources"].arrayValue
+                    for source in sources {
+                        let newsSource = NewsSource()
+                        newsSource.id = source["id"].stringValue
+                        newsSource.category = source["category"].stringValue
+                        newsSource.name = source["name"].stringValue
+                        newsSource.url = source["url"].stringValue
+                        newsSources.append(newsSource)
+                    }
+                    return completion(newsSources)
+                case .failure:
+                    return completion([])
+
+                }
             }
+            
         }
     }
     
-    
-    static func getNewsSources(completion: ([NewsSource]) -> Void) {
-        
-    }
-    
-    
-    static func generateArticles(source: String) {
+    /* calls completion handler with array of Articles from specified source */
+    static func getArticles(from source: NewsSource, completion: @escaping ([Article]) -> Void) {
         DispatchQueue.global(qos: .background).async {
-            let sourcesUrl = Constants.NewsAPI.articlesUrl(source: source)
+            let sourcesUrl = Constants.NewsAPI.articlesUrl(source: source.id!)
             Alamofire.request(sourcesUrl).validate().responseJSON { response in
                 switch response.result {
                 case .success:
                     guard let value = response.result.value else {
                         return
                     }
-                    
-                    let articles = JSON(value)["articles"].arrayValue
-                    for article in articles {
-                        self.isValid(url: article["url"].stringValue) { result in
-                            guard let readTime = result
-                                else {
-                                return
-                            }
-                            let url = article["url"].stringValue
-                            let date = article["publishedAt"].stringValue.replacingOccurrences(of: ":", with: "_").replacingOccurrences(of: ".", with: ",")
-                            let validArticle = ValidArticle(url: url, source: source, date: date, readTime: readTime)
-                            FireBaseService.save(article: validArticle)
+                    var articles: [Article] = []
+                    let jsonArticles = JSON(value)["articles"].arrayValue
+                    let dispatchGroup = DispatchGroup()
+                    for jsonArticle in jsonArticles {
+                        let url = jsonArticle["url"].stringValue
+                        dispatchGroup.enter()
+                        ReadabilityService.charactersIn(url: url) { characters in
+                            let words = Double(characters) / Double(Constants.Settings.charactersPerWord)
+                            let roundedReadTime = Int16(round(words / Constants.Settings.wordsPerMinute))
+                            let article = Article()
+                            article.url = url
+                            article.source = source.id
+                            article.time = roundedReadTime
+                            article.date = jsonArticle["publishedAt"].stringValue
+                            article.title = jsonArticle["title"].stringValue
+                            article.urlToImage = jsonArticle["urlToImage"].stringValue
+                            articles.append(article)
+                            dispatchGroup.leave()
                         }
+                    // TODO which queue here?
+                    dispatchGroup.notify(queue: .main) {
+                        completion(articles)
                     }
-                    return
+                }
                 case .failure:
-                    return
+                    return completion([])
                 }
             }
         }
     }
-    
-    static func isValid(url: String, completion: @escaping (Constants.ArticleLengthInMinutes?) -> (Void)) {
-        DispatchQueue.global(qos: .background).async {
-            guard let urlToParse = URL(string: url) else {
-                return
-            }
-            Readability.parse(url: urlToParse) { result in
-                if let article = result {
-                    if let text = article.text {
-                        let wordCount = Double(text.characters.count) / Constants.Settings.charactersPerWord
-                        let timeInMinutes = wordCount / Constants.Settings.wordsPerMinute
-                        let options: [Constants.ArticleLengthInMinutes] = [.option1, .option2, .option3]
-                        for option in options {
-                            if abs(Double(option.rawValue) - timeInMinutes) < Double(Constants.Settings.rangeInMinutes) {
-                                return completion(option)
-                            }
-                        }
-                        return completion(nil)
-                    }
-                }
-                
-            }
-        }
-        
-    }
-
 }
