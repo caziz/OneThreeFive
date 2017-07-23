@@ -11,7 +11,7 @@ import ReadabilityKit
 class ReadabilityService {
     
     /* calls completion handler with number of characters in article in url, or -1 on error */
-    static func charactersIn(url: String, completion: @escaping (Int) -> (Void)) {
+    static func textIn(url: String, completion: @escaping (String) -> (Void)) {
         DispatchQueue.global(qos: .background).async {
             guard let urlToParse = URL(string: url) else {
                 return
@@ -19,10 +19,10 @@ class ReadabilityService {
             Readability.parse(url: urlToParse) { result in
                 if let article = result {
                     if let text = article.text {
-                        return completion(text.characters.count)
+                        return completion(text)
                     }
                 }
-                return completion(-1)
+                return completion("")
                 
             }
         }

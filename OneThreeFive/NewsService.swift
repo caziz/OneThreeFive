@@ -60,10 +60,12 @@ class NewsService {
                     for jsonArticle in jsonArticles {
                         let url = jsonArticle["url"].stringValue
                         dispatchGroup.enter()
-                        ReadabilityService.charactersIn(url: url) { characters in
+                        ReadabilityService.textIn(url: url) { text in
+                            let characters = text.characters.count
                             let words = Double(characters) / Double(Constants.Settings.charactersPerWord)
                             let roundedReadTime = Int16(round(words / Constants.Settings.wordsPerMinute))
                             let article = Article(context: CoreDataHelper.unmanagedContext)
+                            article.text = text
                             article.url = url
                             article.source = source.id
                             article.time = roundedReadTime

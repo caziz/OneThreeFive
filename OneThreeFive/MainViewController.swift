@@ -16,10 +16,10 @@ class MainViewController : UIViewController {
     override func awakeFromNib() {
         super.awakeFromNib()
         /* initialize */
-        
+        self.cacheArticles()
         
         // TODO: hide all buttons
-        self.uploadArticles()
+        //self.uploadArticles()
         
         
     }
@@ -56,7 +56,6 @@ class MainViewController : UIViewController {
                         let newNewsSource = NewsSource(context: CoreDataHelper.managedContext)
                         newNewsSource.category = newsSource.category
                         newNewsSource.id = newsSource.id
-                        print("\(newsSource.id!)")
                     }
                 }
                 CoreDataHelper.save()
@@ -68,9 +67,7 @@ class MainViewController : UIViewController {
         // TODO: disable buttons
         // TODO: show buttons that are available, otherwise show error message
         let sourceIDs = NewsSource.getAll().map{ $0.id! }
-        print(sourceIDs)
         let articleURLs = Article.getAll().map{ $0.url! }
-        print(articleURLs)
         let dispatchGroup = DispatchGroup()
         for time in Constants.Settings.timeOptions {
             dispatchGroup.enter()

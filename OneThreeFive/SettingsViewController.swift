@@ -28,9 +28,10 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
         self.initSearchbar()
         self.addDismissGestures()
-        self.loadNewsSources()
-        self.loadEnabledNewsSources()
+        self.displayFilteredNewsSources()
     }
+    
+    // MARK: - Keyboard
     
     func addDismissGestures() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
@@ -41,20 +42,10 @@ class SettingsViewController: UIViewController {
         //causes the view to resign as first responder
         view.endEditing(true)
     }
-    
-    func loadNewsSources(){
-    }
-    
-    func loadEnabledNewsSources() {
-        DispatchQueue.global(qos: .userInitiated).async {
-            self.newsSources = NewsSource.getAll()
-        }
-    }
-    
-    func loadImage(forNewsSource newsSource: NewsSource) {
-    }
 }
 
+
+// MARK: - TableView Data Source
 
 extension SettingsViewController: UITableViewDataSource {
     
@@ -62,7 +53,7 @@ extension SettingsViewController: UITableViewDataSource {
         let cell = newsTableView.dequeueReusableCell(withIdentifier: Constants.Identifier.newsToggleCell, for: indexPath) as! NewsToggleCell
         cell.delegate = self
         
-        let newsSource = newsSources[indexPath.row]
+        let newsSource = filteredNewsSources[indexPath.row]
         
         // label
         cell.label.text = newsSource.name!
@@ -80,9 +71,11 @@ extension SettingsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return newsSources.count
+        return filteredNewsSources.count
     }
 }
+
+// MARK: - TableView Delegate
 
 extension SettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -90,27 +83,20 @@ extension SettingsViewController: UITableViewDelegate {
     }
 }
 
+// MARK: - News Toggle Delegate
+
 extension SettingsViewController: NewsToggleCellDelegate {
     func didToggleNewsSource(on cell: NewsToggleCell) {
         
-        // TODO: add toggle functionality
-        /*
+        // TODO: change to table view included delegate?
         guard let indexPath = newsTableView.indexPath(for: cell) else { return }
         
         if cell.toggle.isOn {
-            let enabledNewsSource = CoreDataHelper.createEnabledNewsSource()
-            enabledNewsSource.id =  filteredNewsSources[indexPath.row].id
-            CoreDataHelper.save()
+            newsSources[indexPath.row].isEnabled = false
         } else {
-            for enabledNewsSource in enabledNewSources {
-                if enabledNewsSource.id == filteredNewsSources[indexPath.row].id {
-                    CoreDataHelper.deleteEnabledNewsSource(enabledNewsSource: enabledNewsSource)
-                    break
-                }
-            }
+            newsSources[indexPath.row].isEnabled = false
         }
-        enabledNewSources = CoreDataHelper.getEnabledNewsSources()
- */
+        CoreDataHelper.save()
     }
 }
 
@@ -125,18 +111,16 @@ extension SettingsViewController: UISearchBarDelegate {
     func displayFilteredNewsSources() {
         
         //TODO: add filtered news sources functionality
-        /*
         if searchBar.text == nil || searchBar.text == "" {
-            self.filteredNewsSources = self.allNewsSources
+            self.filteredNewsSources = self.newsSources
         } else {
-            self.filteredNewsSources = self.allNewsSources.filter {
+            self.filteredNewsSources = self.newsSources.filter {
                 let text = searchBar.text!.capitalized
-                return $0.name.capitalized.contains(text) ||
-                    $0.category.capitalized.contains(text)
+                return $0.name!.capitalized.contains(text) ||
+                    $0.category!.capitalized.contains(text)
             }
         }
         newsTableView.reloadData()
- */
     }
     
     
