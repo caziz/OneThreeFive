@@ -1,0 +1,70 @@
+//
+//  NewsService.swift
+//  OneThreeFive
+//
+//  Created by Christopher Aziz on 7/15/17.
+//  Copyright © 2017 Christopher Aziz. All rights reserved.
+//
+
+import Alamofire
+import SwiftyJSON
+import ReadabilityKit
+import CoreData
+
+class NewsSourceService {
+    static func getSaved() -> [NewsSource] {
+        let fetchRequest: NSFetchRequest<NewsSource> = NewsSource.fetchRequest()
+        do {
+            let results = try CoreDataHelper.managedContext.fetch(fetchRequest)
+            return results
+        } catch let error as NSError {
+            print("Could not fetch \(error)")
+        }
+        return []
+    }
+    
+    /* get news sources from News API, save to Core Data */
+    static func saveFromAPI() {
+        DispatchQueue.global(qos: .userInitiated).async {
+            let sourcesUrl = Constants.NewsAPI.sourcesUrl()
+            Alamofire.request(sourcesUrl).validate().responseJSON { response in
+                switch response.result {
+                case .success:
+                    guard let value = response.result.value else {
+                        return
+                    }
+                    let existingSources = self.getSaved().map{$0.id!}
+                    let sources = JSON(value)["sources"].arrayValue
+                    // create news source in child context and save
+                    CoreDataHelper.persistentContainer.performBackgroundTask { (context) in
+                        sources.forEach { source in
+                            // skip existing news sources
+                            if existingSources.contains(source["id"].stringValue) {return}
+                            // create news source
+                            let newsSource = NewsSource(context: context)
+                            newsSource.id = source["id"].stringValue
+                            newsSource.category = source["category"].stringValue
+                            newsSource.name = source["name"].stringValue
+                            newsSource.url = source["url"].stringValue
+                        }
+                        do {
+                            // attempt to save
+                            try context.save()
+                        } catch {
+                            fatalError("Failure to save context: \(error)")
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    static func enableSource(sourceID: String, enable: Bool) {
+    }
+    
+    
+    
+    /* calls completion handler with array of Articles from specified source */
+    static func getArticles(from source: NewsSource) {
+    }
+}

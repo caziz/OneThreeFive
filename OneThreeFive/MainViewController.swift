@@ -16,8 +16,10 @@ class MainViewController : UIViewController {
     override func awakeFromNib() {
         super.awakeFromNib()
         /* initialize */
-        self.cacheArticles()
-        
+        //self.cacheArticles()
+        self.saveNewsSources()
+        //self.deleteAllNewsSources()
+        //debugPrint(NewsSource.getAll().map{$0.id!})
         // TODO: hide all buttons
         //self.uploadArticles()
         
@@ -28,6 +30,7 @@ class MainViewController : UIViewController {
         super.viewDidLoad()
     }
     
+    /* upload articles from news api to firebase */
     func uploadArticles() {
         DispatchQueue.global(qos: .userInitiated).async {
             let newsSources = NewsSource.getAll()
@@ -45,22 +48,29 @@ class MainViewController : UIViewController {
         }
     }
     
+    func deleteAllNewsSources() {
+        DispatchQueue.global(qos: .userInitiated).async {
+            for newsSource in NewsSource.getAll() {
+                CoreDataHelper.delete(object: newsSource)
+            }
+        }
+    }
+    
     /* fetch unsaved news sources */
     func saveNewsSources() {
         // TODO: not thread safe!?
-        DispatchQueue.global(qos: .userInitiated).async {
+        //DispatchQueue.global(qos: .userInitiated).async {
+        
+        let savedNewsSourceIDs = NewsSource.getAll().map{$0.id!}
             NewsService.getNewsSources { newsSources in
-                let savedNewsSourceIDs = NewsSource.getAll().map{$0.id!}
                 for newsSource in newsSources {
                     if !savedNewsSourceIDs.contains(newsSource.id!) {
-                        let newNewsSource = NewsSource(context: CoreDataHelper.managedContext)
-                        newNewsSource.category = newsSource.category
-                        newNewsSource.id = newsSource.id
+
                     }
                 }
                 CoreDataHelper.save()
             }
-        }
+        //}
     }
     
     func cacheArticles() {
@@ -71,7 +81,7 @@ class MainViewController : UIViewController {
         let dispatchGroup = DispatchGroup()
         for time in Constants.Settings.timeOptions {
             dispatchGroup.enter()
-            FireBaseService.get(time: time, sourceIDs: sourceIDs, articleURLs: articleURLs) { articles in
+            FireBaseService.fetchArticles(time: time, sourceIDs: sourceIDs, articleURLs: articleURLs) { articles in
                 self.articleCache.append(articles)
                 dispatchGroup.leave()
             }

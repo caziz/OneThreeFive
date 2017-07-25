@@ -7,6 +7,7 @@
 //
 
 import CoreData
+import SwiftyJSON
 
 extension NewsSource {
     
@@ -19,5 +20,9 @@ extension NewsSource {
             print("Could not fetch \(error)")
         }
         return []
+    }
+    
+    func populateFromJSON(json: JSON) {
+        
     }
 }
