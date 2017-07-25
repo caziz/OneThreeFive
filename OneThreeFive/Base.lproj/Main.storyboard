@@ -62,6 +62,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="J6o-92-Zn1"/>
+                    <connections>
+                        <outlet property="option1Button" destination="bac-pR-h2j" id="4p5-Pk-GWy"/>
+                        <outlet property="option2Button" destination="kt8-BK-joF" id="G1H-De-scp"/>
+                        <outlet property="option3Button" destination="bLi-Dh-GEq" id="cQM-kx-SsS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -363,6 +368,6 @@
         <image name="star" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Pna-SZ-Wav"/>
+        <segue reference="pF2-OA-dPo"/>
     </inferredMetricsTieBreakers>
 </document>

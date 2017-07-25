@@ -26,7 +26,7 @@ class SettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.newsSources = NewsSource.getAll().sorted{$0.name! < $1.name!}
+        self.newsSources = NewsSourceService.getSaved().sorted{$0.name! < $1.name!}
         self.initSearchbar()
         self.addDismissGestures()
         self.displayFilteredNewsSources()
@@ -93,7 +93,7 @@ extension SettingsViewController: NewsToggleCellDelegate {
         guard let indexPath = newsTableView.indexPath(for: cell) else { return }
         
         if cell.toggle.isOn {
-            newsSources[indexPath.row].isEnabled = false
+            newsSources[indexPath.row].isEnabled = true
         } else {
             newsSources[indexPath.row].isEnabled = false
         }

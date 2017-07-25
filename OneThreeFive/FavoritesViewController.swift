@@ -25,7 +25,7 @@ class FavoritesViewController: UIViewController {
     }
     
     func loadFavoritedArticles() {
-        self.favoritedArticles = Article.getAll().filter{$0.isFavorited}
+        favoritedArticles = ArticleService.getSaved().filter{$0.isFavorited}
         self.favoritesTableView.reloadData()
     }
 }
@@ -41,11 +41,7 @@ extension FavoritesViewController: UITableViewDelegate {
 extension FavoritesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = favoritesTableView.dequeueReusableCell(withIdentifier: Constants.Identifier.favoritedArticleCell, for: indexPath) as! FavoritedArticleCell
-        if let url = favoritedArticles[indexPath.row].url {
-            cell.label.text = url
-            return cell
-        }
-        cell.label.text = "cant find url"
+        cell.label.text = favoritedArticles[indexPath.row].title!
         return cell
         
     }

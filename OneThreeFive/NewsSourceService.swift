@@ -12,6 +12,7 @@ import ReadabilityKit
 import CoreData
 
 class NewsSourceService {
+    /* get news sources saved to Core Data */
     static func getSaved() -> [NewsSource] {
         let fetchRequest: NSFetchRequest<NewsSource> = NewsSource.fetchRequest()
         do {
@@ -24,7 +25,7 @@ class NewsSourceService {
     }
     
     /* get news sources from News API, save to Core Data */
-    static func saveFromAPI() {
+    static func save() {
         DispatchQueue.global(qos: .userInitiated).async {
             let sourcesUrl = Constants.NewsAPI.sourcesUrl()
             Alamofire.request(sourcesUrl).validate().responseJSON { response in
@@ -54,17 +55,13 @@ class NewsSourceService {
                             fatalError("Failure to save context: \(error)")
                         }
                     }
+                default:
+                    return
                 }
             }
         }
     }
     
     static func enableSource(sourceID: String, enable: Bool) {
-    }
-    
-    
-    
-    /* calls completion handler with array of Articles from specified source */
-    static func getArticles(from source: NewsSource) {
     }
 }
