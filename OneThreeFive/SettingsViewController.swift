@@ -26,7 +26,7 @@ class SettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.newsSources = NewsSourceService.getSaved().sorted{$0.name! < $1.name!}
+        self.newsSources = NewsSourceService.getSaved(context: CoreDataHelper.managedContext).sorted{$0.name! < $1.name!}
         self.initSearchbar()
         self.addDismissGestures()
         self.displayFilteredNewsSources()

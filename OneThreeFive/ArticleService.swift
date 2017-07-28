@@ -13,10 +13,10 @@ import Firebase
 import FirebaseDatabase
 
 class ArticleService {
-    static func getSaved() -> [Article] {
+    static func getSaved(context: NSManagedObjectContext) -> [Article] {
         let fetchRequest: NSFetchRequest<Article> = Article.fetchRequest()
         do {
-            let results = try CoreDataHelper.managedContext.fetch(fetchRequest)
+            let results = try context.fetch(fetchRequest)
             return results
         } catch let error as NSError {
             print("Could not fetch \(error)")
@@ -24,72 +24,93 @@ class ArticleService {
         return []
     }
     
-    static func getFavorited() -> [Article] {
-        let fetchRequest: NSFetchRequest<Article> = Article.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "isFavorited == true")
-        do {
-            let results = try CoreDataHelper.managedContext.fetch(fetchRequest)
-            return results
-        } catch let error as NSError {
-            print("Could not fetch \(error)")
+    static func favoriteArticle(article: Article) {
+        
+        CoreDataHelper.persistentContainer.performBackgroundTask { context in
+            article.isFavorited = true
+            let uniquePath = UUID().uuidString
+            article.imagePath = uniquePath
+            print(uniquePath)
+            do {
+                try context.save()
+            } catch let error as NSError {
+                print("Could not save \(error)")
+            }
+            
+            
+            if let url = URL(string: article.urlToImage!),
+                let image = ImageService.fetchImage(url: url) {
+                print("saving image")
+                ImageService.saveImage(path: uniquePath, image: image)
+            }
+
         }
-        return []
     }
     
-    static func getCached(readTime: Int) -> [Article] {
-        let fetchRequest: NSFetchRequest<Article> = Article.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "isViewed == false && readTime == \(readTime)")
-        do {
-            let results = try CoreDataHelper.managedContext.fetch(fetchRequest)
-            return results
-        } catch let error as NSError {
-            print("Could not fetch \(error)")
-        }
-        return []
-    }
-    
-    static func cache() {
-        DispatchQueue.global(qos: .background).async {
-            let newsSourceIDs = NewsSourceService.getSaved().filter{$0.isEnabled}.map{$0.id!}
+    static func cache(completion: @escaping (Void) -> Void) {
+        CoreDataHelper.persistentContainer.performBackgroundTask { (context) in
+            let dispatchGroup = DispatchGroup()
+            // fetch enabled news source IDs
+            let newsSourceIDs = NewsSourceService.getSaved(context: CoreDataHelper.managedContext).filter{$0.isEnabled}.map{$0.id!}
+            // delete previously cached articles
+            ArticleService.getSaved(context: context).filter{!$0.isViewed}.forEach{context.delete($0)}
+            let viewedArticleURLs = ArticleService.getSaved(context: CoreDataHelper.managedContext).map{$0.url!}
+            // create firebase database reference
             let ref = Database.database().reference()
             Constants.Settings.timeOptions.forEach { time in
+                dispatchGroup.enter()
                 let timeRef = ref.child("time\(time)minutes")
                 newsSourceIDs.forEach { newsSourceID in
+                    // pull from Firebase Database
+                    dispatchGroup.enter()
                     timeRef.child(newsSourceID).observeSingleEvent(of: .value, with: { (snapshot) in
-                        CoreDataHelper.persistentContainer.performBackgroundTask { (context) in
-                            debugPrint(snapshot.value!)
-                            guard let value = snapshot.value as? [String: [String:String]] else {
+                        guard let newsSourceDict = snapshot.value as? [String: [String:String]] else {
+                            dispatchGroup.leave()
+                            return
+                        }
+                        
+                        newsSourceDict.values.forEach { articleDict in
+                            dispatchGroup.enter()
+                            // create article entity with firebase data
+                            if viewedArticleURLs.contains(articleDict["url"]!) {
+                                dispatchGroup.leave()
                                 return
                             }
-                            value.values.forEach { articleDict in
-                                let article = Article(context: context)
-                                article.date = articleDict["date"]
-                                article.source = newsSourceID
-                                article.time = Int16(time)
-                                article.title = articleDict["title"]
-                                article.url = articleDict["url"]
-                                article.urlToImage = articleDict["urlToImage"]
-                                debugPrint(article)
-                            }
-                            do {
-                                // attempt to save
-                                try context.save()
-                            } catch {
-                                fatalError("Failure to save context: \(error)")
-                            }
+                            let article = Article(context: context)
+                            article.source = newsSourceID
+                            article.time = Int16(time)
+                            article.title = articleDict["title"]
+                            article.url = articleDict["url"]
+                            article.urlToImage = articleDict["urlToImage"]
+                            dispatchGroup.leave()
+                            print("finished article")
                         }
+                        dispatchGroup.leave()
+                        print("finished source")
                     })
+                }
+                dispatchGroup.leave()
+                print("finished time")
+            }
+            dispatchGroup.notify(queue: .global()) {
+                do {
+                    
+                    try context.save()
+                    completion()
+                    print("called completion")
+                } catch {
+                    fatalError("Failure to save context: \(error)")
                 }
             }
         }
         
     }
-
+    
     /* build database using relevant articles from saved news sources */
     static func buildDatabase() {
-        DispatchQueue.global(qos: .background).async {
+        DispatchQueue.global(qos: .utility).async {
             // TODO: not correct thread ughghhhh
-            let newsSourceIDs = NewsSourceService.getSaved().map{$0.id!}
+            let newsSourceIDs = NewsSourceService.getSaved(context: CoreDataHelper.managedContext).map{$0.id!}
             newsSourceIDs.forEach { newsSourceID in
                 let sourcesUrl = Constants.NewsAPI.articlesUrl(source: newsSourceID)
                 // get json for each news source

@@ -18,6 +18,9 @@ class FavoritesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // TODO
+        //self.navigationController?.navigationBar.isHidden = true
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -25,8 +28,16 @@ class FavoritesViewController: UIViewController {
     }
     
     func loadFavoritedArticles() {
-        favoritedArticles = ArticleService.getSaved().filter{$0.isFavorited}
+        favoritedArticles = ArticleService.getSaved(context: CoreDataHelper.managedContext).filter{$0.isFavorited}
         self.favoritesTableView.reloadData()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let articleViewController = segue.destination as? ArticleViewController,
+            let cell = sender as? UITableViewCell {
+            articleViewController.currentIndex = favoritesTableView.indexPath(for: cell)!.row
+            articleViewController.articleCache = favoritedArticles
+        }
     }
 }
 
@@ -34,7 +45,7 @@ class FavoritesViewController: UIViewController {
 
 extension FavoritesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
+        return 100
     }
 }
 
@@ -42,10 +53,17 @@ extension FavoritesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = favoritesTableView.dequeueReusableCell(withIdentifier: Constants.Identifier.favoritedArticleCell, for: indexPath) as! FavoritedArticleCell
         cell.label.text = favoritedArticles[indexPath.row].title!
+        if let imagePath = favoritedArticles[indexPath.row].imagePath {
+            cell.imageView?.image = ImageService.loadImage(path: imagePath)
+        }
         return cell
         
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return favoritedArticles.count
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: Constants.Identifier.showArticleFromFavorites, sender: self)
     }
 }

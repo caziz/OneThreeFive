@@ -21,20 +21,40 @@ class ArticleViewController:  UIViewController {
         
         
     }
-    @IBAction func favoriteButtonPressed(_ sender: UIBarButtonItem) {
-        articleCache[currentIndex].isFavorited = true
-        CoreDataHelper.save()
+    @IBAction func rightSwipe(_ sender: UISwipeGestureRecognizer) {
+        if sender.state == .ended &&
+            currentIndex != articleCache.count - 1 {
+            currentIndex += 1
+            attemptLoadWebPage()
+        }
     }
-    func webViewDidStartLoad(_ webView: UIWebView) {
-        //self.spinner.startAnimating()
+    @IBAction func leftSwipe(_ sender: UISwipeGestureRecognizer) {
+        if sender.state == .ended && currentIndex != 0{
+            currentIndex -= 1
+            attemptLoadWebPage()
+        }
+    }
+    @IBAction func favoriteButtonPressed(_ sender: UIBarButtonItem) {
+        ArticleService.favoriteArticle(article: articleCache[currentIndex])
     }
     func webViewDidFinishLoad(_ webView: UIWebView) {
+        if webView.isLoading {
+            return
+        }
         self.spinner.stopAnimating()
-        articleCache[currentIndex].isViewed = true
-        CoreDataHelper.save()
+        
+        CoreDataHelper.persistentContainer.performBackgroundTask { context in
+            do {
+                self.articleCache[self.currentIndex].isViewed = true
+                try context.save()
+            } catch let error as NSError {
+                print("Error: could not save article  as viewed, \(error)")
+            }
+        }
+        
+        print("TODO: save article as viewed")
     }
-    
-    
+        
     func attemptLoadWebPage() {
         let url = URL(string: articleCache[currentIndex].url!)
         let urlRequest = URLRequest(url: url!)

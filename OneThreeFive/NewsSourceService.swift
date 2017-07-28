@@ -13,10 +13,10 @@ import CoreData
 
 class NewsSourceService {
     /* get news sources saved to Core Data */
-    static func getSaved() -> [NewsSource] {
+    static func getSaved(context: NSManagedObjectContext) -> [NewsSource] {
         let fetchRequest: NSFetchRequest<NewsSource> = NewsSource.fetchRequest()
         do {
-            let results = try CoreDataHelper.managedContext.fetch(fetchRequest)
+            let results = try context.fetch(fetchRequest)
             return results
         } catch let error as NSError {
             print("Could not fetch \(error)")
@@ -34,7 +34,7 @@ class NewsSourceService {
                     guard let value = response.result.value else {
                         return
                     }
-                    let existingSources = self.getSaved().map{$0.id!}
+                    let existingSources = self.getSaved(context: CoreDataHelper.managedContext).map{$0.id!}
                     let sources = JSON(value)["sources"].arrayValue
                     // create news source in child context and save
                     CoreDataHelper.persistentContainer.performBackgroundTask { (context) in

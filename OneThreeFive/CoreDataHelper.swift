@@ -30,7 +30,6 @@ class CoreDataStack {
     
 }
 
-
 struct CoreDataHelper {
     
     // MARK: - Properties

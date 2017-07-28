@@ -21,15 +21,13 @@ struct Constants {
         }
     }
     
-    struct Segue {
-        static let showArticleForOption1 = "showArticleForOption1"
-        static let showArticleForOption2 = "showArticleForOption2"
-        static let showArticleForOption3 = "showArticleForOption3"
-    }
-    
     struct Identifier {
         static let newsToggleCell = "newsToggleCell"
         static let favoritedArticleCell = "favoritedArticleCell"
+        
+        //segue
+        
+        static let showArticleFromFavorites = "showArticleFromFavorites"
 
     }
     

@@ -3,16 +3,27 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "static NewsService.(generateArticles(from : String) -&gt; ()).(closure #1):NewsService.swift">
-      </ContextState>
-      <ContextState
          contextName = "static FireBaseService.save(url : URL, with : Constants.ArticleLengthInMinutes) -&gt; ():FireBaseService.swift">
       </ContextState>
       <ContextState
          contextName = "static FireBaseService.save(urlString : String, with : Constants.ArticleLengthInMinutes) -&gt; ():FireBaseService.swift">
       </ContextState>
       <ContextState
-         contextName = "static NewsService.(generateArticles(from : String) -&gt; ()).(closure #1).(closure #1):NewsService.swift">
+         contextName = "static ArticleService.(favoriteArticle(article : Article) -&gt; ()).(closure #1):ArticleService.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "article.title!">
+            </PersistentString>
+            <PersistentString
+               value = "article.urlToImage!">
+            </PersistentString>
+            <PersistentString
+               value = "">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "static NewsService.(generateArticles(from : String) -&gt; ()).(closure #1):NewsService.swift">
       </ContextState>
       <ContextState
          contextName = "static NewsService.(isValid(urlString : String, completion : (Constants.ArticleLengthInMinutes?) -&gt; ()) -&gt; ()).(closure #1).(closure #1):NewsService.swift">
@@ -24,6 +35,9 @@
       </ContextState>
       <ContextState
          contextName = "static NewsService.(generateArticles(source : String) -&gt; ()).(closure #1).(closure #1):NewsService.swift">
+      </ContextState>
+      <ContextState
+         contextName = "static NewsService.(generateArticles(from : String) -&gt; ()).(closure #1).(closure #1):NewsService.swift">
       </ContextState>
    </ContextStates>
 </VariablesViewState>
