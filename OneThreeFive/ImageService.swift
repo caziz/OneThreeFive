@@ -30,9 +30,7 @@ class ImageService {
     
     static func loadImage(path: String) -> UIImage? {
         let filename = getDocumentsDirectory().appendingPathComponent("\(path).png")
-        print("looking in:\n\(filename)")
         if let imageData = NSData(contentsOfFile: filename.path)  {
-            print("found data!")
             return UIImage(data: imageData as Data)
         }
         return nil

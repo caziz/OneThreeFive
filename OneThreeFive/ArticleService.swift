@@ -19,7 +19,7 @@ class ArticleService {
             let results = try context.fetch(fetchRequest)
             return results
         } catch let error as NSError {
-            print("Could not fetch \(error)")
+            print("Error: Could not fetch \(error)")
         }
         return []
     }
@@ -30,17 +30,15 @@ class ArticleService {
             article.isFavorited = true
             let uniquePath = UUID().uuidString
             article.imagePath = uniquePath
-            print(uniquePath)
             do {
                 try context.save()
             } catch let error as NSError {
-                print("Could not save \(error)")
+                print("Error: Could not save \(error)")
             }
             
             
             if let url = URL(string: article.urlToImage!),
                 let image = ImageService.fetchImage(url: url) {
-                print("saving image")
                 ImageService.saveImage(path: uniquePath, image: image)
             }
 
@@ -53,12 +51,12 @@ class ArticleService {
             // fetch enabled news source IDs
             let newsSourceIDs = NewsSourceService.getSaved(context: CoreDataHelper.managedContext).filter{$0.isEnabled}.map{$0.id!}
             // delete previously cached articles
-            ArticleService.getSaved(context: context).filter{!$0.isViewed}.forEach{context.delete($0)}
-            let viewedArticleURLs = ArticleService.getSaved(context: CoreDataHelper.managedContext).map{$0.url!}
+            let cachedArticles = ArticleService.getSaved(context: context).filter{!$0.isViewed}
+            let cachedArticleURLs = cachedArticles.map{$0.url!}
             // create firebase database reference
             let ref = Database.database().reference()
             Constants.Settings.timeOptions.forEach { time in
-                dispatchGroup.enter()
+
                 let timeRef = ref.child("time\(time)minutes")
                 newsSourceIDs.forEach { newsSourceID in
                     // pull from Firebase Database
@@ -72,7 +70,10 @@ class ArticleService {
                         newsSourceDict.values.forEach { articleDict in
                             dispatchGroup.enter()
                             // create article entity with firebase data
-                            if viewedArticleURLs.contains(articleDict["url"]!) {
+                            if let article = cachedArticleURLs.contains(articleDict["url"]!) {
+                                if !newsSourceIDs.contains(newsSourceID) {
+                                    context.delete()
+                                }
                                 dispatchGroup.leave()
                                 return
                             }
@@ -83,21 +84,16 @@ class ArticleService {
                             article.url = articleDict["url"]
                             article.urlToImage = articleDict["urlToImage"]
                             dispatchGroup.leave()
-                            print("finished article")
                         }
                         dispatchGroup.leave()
-                        print("finished source")
                     })
                 }
-                dispatchGroup.leave()
-                print("finished time")
             }
             dispatchGroup.notify(queue: .global()) {
                 do {
                     
                     try context.save()
                     completion()
-                    print("called completion")
                 } catch {
                     fatalError("Failure to save context: \(error)")
                 }
@@ -108,13 +104,13 @@ class ArticleService {
     
     /* build database using relevant articles from saved news sources */
     static func buildDatabase() {
-        DispatchQueue.global(qos: .utility).async {
+        DispatchQueue.global(qos: .background).async {
             // TODO: not correct thread ughghhhh
             let newsSourceIDs = NewsSourceService.getSaved(context: CoreDataHelper.managedContext).map{$0.id!}
             newsSourceIDs.forEach { newsSourceID in
-                let sourcesUrl = Constants.NewsAPI.articlesUrl(source: newsSourceID)
+                let sourceURL = Constants.NewsAPI.articlesUrl(source: newsSourceID)
                 // get json for each news source
-                Alamofire.request(sourcesUrl).validate().responseJSON { response in
+                Alamofire.request(sourceURL).validate().responseJSON { response in
                     switch response.result {
                     case .success:
                         guard let value = response.result.value else {

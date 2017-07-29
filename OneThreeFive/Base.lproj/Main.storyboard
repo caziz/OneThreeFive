@@ -13,7 +13,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Main View Controller-->
+        <!--OneThreeFive-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="OneThreeFive" customModuleProvider="target" sceneMemberID="viewController">
@@ -54,18 +54,37 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yDI-qo-r1Z">
+                                <rect key="frame" x="16" y="403" width="343" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="H4v-IU-eYL"/>
+                                </constraints>
+                                <attributedString key="attributedText">
+                                    <fragment content="To enable more options, update your preferences or check back later!">
+                                        <attributes>
+                                            <font key="NSFont" size="18" name="Helvetica-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="6r2-7s-GEJ" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="6cV-gL-mrV"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="yDI-qo-r1Z" secondAttribute="trailing" id="kAA-Eh-M5v"/>
                             <constraint firstItem="6r2-7s-GEJ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="nc0-lY-5E6"/>
+                            <constraint firstItem="yDI-qo-r1Z" firstAttribute="top" secondItem="6r2-7s-GEJ" secondAttribute="bottom" constant="40" id="qsS-dm-6AG"/>
+                            <constraint firstItem="yDI-qo-r1Z" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="x9I-AU-dJJ"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="J6o-92-Zn1"/>
+                    <navigationItem key="navigationItem" title="OneThreeFive" id="J6o-92-Zn1"/>
                     <connections>
                         <outlet property="option1Button" destination="bac-pR-h2j" id="4p5-Pk-GWy"/>
                         <outlet property="option2Button" destination="kt8-BK-joF" id="G1H-De-scp"/>
                         <outlet property="option3Button" destination="bLi-Dh-GEq" id="cQM-kx-SsS"/>
+                        <outlet property="preferencesError" destination="yDI-qo-r1Z" id="4zQ-XP-ih1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -147,7 +166,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZBO-4Z-16L" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2132" y="244.22788605697153"/>
+            <point key="canvasLocation" x="1110" y="245"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="WVs-hk-Gbj">
@@ -264,7 +283,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3gj-xe-rXi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="201" y="289"/>
+            <point key="canvasLocation" x="-671" y="244"/>
         </scene>
         <!--Article View Controller-->
         <scene sceneID="3aj-3J-T52">
@@ -330,7 +349,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2988" y="245.12743628185908"/>
+            <point key="canvasLocation" x="2049" y="244"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="BX3-iO-snS">
@@ -388,7 +407,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lOi-YD-pIZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1192.8" y="244.22788605697153"/>
+            <point key="canvasLocation" x="201" y="244"/>
         </scene>
     </scenes>
     <resources>
@@ -398,6 +417,6 @@
         <image name="star" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="gow-n3-fLH"/>
+        <segue reference="c6q-4r-SuL"/>
     </inferredMetricsTieBreakers>
 </document>

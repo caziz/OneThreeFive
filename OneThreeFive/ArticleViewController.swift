@@ -17,9 +17,7 @@ class ArticleViewController:  UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.spinner.startAnimating()
-        attemptLoadWebPage()
-        
-        
+        attemptLoadWebPage()        
     }
     @IBAction func rightSwipe(_ sender: UISwipeGestureRecognizer) {
         if sender.state == .ended &&
@@ -51,8 +49,6 @@ class ArticleViewController:  UIViewController {
                 print("Error: could not save article  as viewed, \(error)")
             }
         }
-        
-        print("TODO: save article as viewed")
     }
         
     func attemptLoadWebPage() {

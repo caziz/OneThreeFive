@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 
 class MainViewController : UIViewController {
+    @IBOutlet weak var preferencesError: UILabel!
     
     var articleCache: [[Article]] = [[],[],[]]
     
@@ -19,31 +20,27 @@ class MainViewController : UIViewController {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-
         NewsSourceService.save()
         //ArticleService.buildDatabase()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("view did load")
+        //ArticleService.buildDatabase()
         //configureDisplay()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("view did appear")
-
         configureDisplay()
     }
     
     func configureDisplay() {
-        print("to configure")
-
         // TODO: only do this if news sources have changed
         option1Button.isEnabled = false
         option2Button.isEnabled = false
         option3Button.isEnabled = false
+        preferencesError.isHidden = true
         ArticleService.cache {
             DispatchQueue.main.async { [weak self] in
                 self?.configureButtons()
@@ -51,19 +48,21 @@ class MainViewController : UIViewController {
         }
     }
     
+    
     func configureButtons() {
         configureButton(self.option1Button)
         configureButton(self.option2Button)
         configureButton(self.option3Button)
+        
     }
     
     func configureButton(_ button: UIButton) {
-        print("configuring")
         let tag = button.tag
         let unviewedArticles = ArticleService.getSaved(context: CoreDataHelper.managedContext).filter{!$0.isViewed}
         articleCache[tag] = unviewedArticles.filter{Int($0.time) == Constants.Settings.timeOptions[tag]}
         if articleCache[tag].isEmpty {
             button.isEnabled = false
+            preferencesError.isHidden = false
         } else {
             button.isEnabled = true
         }
