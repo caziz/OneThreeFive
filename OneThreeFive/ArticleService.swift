@@ -41,7 +41,11 @@ class ArticleService {
                 let image = ImageService.fetchImage(url: url) {
                 ImageService.saveImage(path: uniquePath, image: image)
             }
-
+            do {
+                try context.save()
+            } catch {
+                fatalError("Failure to save context: \(error)")
+            }
         }
     }
     
@@ -49,40 +53,32 @@ class ArticleService {
         CoreDataHelper.persistentContainer.performBackgroundTask { (context) in
             let dispatchGroup = DispatchGroup()
             // fetch enabled news source IDs
-            let newsSourceIDs = NewsSourceService.getSaved(context: CoreDataHelper.managedContext).filter{$0.isEnabled}.map{$0.id!}
+            let enabledNewsSources = NewsSourceService.getSaved(context: context).filter{$0.isEnabled}
             // delete previously cached articles
-            let cachedArticles = ArticleService.getSaved(context: context).filter{!$0.isViewed}
-            let cachedArticleURLs = cachedArticles.map{$0.url!}
             // create firebase database reference
             let ref = Database.database().reference()
             Constants.Settings.timeOptions.forEach { time in
 
                 let timeRef = ref.child("time\(time)minutes")
-                newsSourceIDs.forEach { newsSourceID in
+                for enabledNewsSource in enabledNewsSources {
                     // pull from Firebase Database
                     dispatchGroup.enter()
-                    timeRef.child(newsSourceID).observeSingleEvent(of: .value, with: { (snapshot) in
-                        guard let newsSourceDict = snapshot.value as? [String: [String:String]] else {
+                    timeRef.child(enabledNewsSource.id!).observeSingleEvent(of: .value, with: { (snapshot) in
+                        guard let articleDictsForSource = snapshot.value as? [String: [String:String]] else {
                             dispatchGroup.leave()
                             return
                         }
                         
-                        newsSourceDict.values.forEach { articleDict in
+                        for articleDict in articleDictsForSource.values {
                             dispatchGroup.enter()
                             // create article entity with firebase data
-                            if let article = cachedArticleURLs.contains(articleDict["url"]!) {
-                                if !newsSourceIDs.contains(newsSourceID) {
-                                    context.delete()
-                                }
-                                dispatchGroup.leave()
-                                return
-                            }
                             let article = Article(context: context)
-                            article.source = newsSourceID
                             article.time = Int16(time)
                             article.title = articleDict["title"]
                             article.url = articleDict["url"]
                             article.urlToImage = articleDict["urlToImage"]
+                            article.date = articleDict["date"]
+                            enabledNewsSource.addToArticles(article)
                             dispatchGroup.leave()
                         }
                         dispatchGroup.leave()

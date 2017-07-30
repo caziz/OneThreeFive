@@ -43,6 +43,7 @@ class ArticleViewController:  UIViewController {
         
         CoreDataHelper.persistentContainer.performBackgroundTask { context in
             do {
+                print("saving as viewed")
                 self.articleCache[self.currentIndex].isViewed = true
                 try context.save()
             } catch let error as NSError {

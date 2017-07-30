@@ -61,7 +61,4 @@ class NewsSourceService {
             }
         }
     }
-    
-    static func enableSource(sourceID: String, enable: Bool) {
-    }
 }

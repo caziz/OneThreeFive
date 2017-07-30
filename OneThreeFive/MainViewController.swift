@@ -11,7 +11,6 @@ import Firebase
 
 class MainViewController : UIViewController {
     @IBOutlet weak var preferencesError: UILabel!
-    
     var articleCache: [[Article]] = [[],[],[]]
     
     @IBOutlet weak var option1Button: UIButton!
@@ -58,8 +57,11 @@ class MainViewController : UIViewController {
     
     func configureButton(_ button: UIButton) {
         let tag = button.tag
-        let unviewedArticles = ArticleService.getSaved(context: CoreDataHelper.managedContext).filter{!$0.isViewed}
-        articleCache[tag] = unviewedArticles.filter{Int($0.time) == Constants.Settings.timeOptions[tag]}
+        let newsArticles = NewsSourceService.getSaved(context: CoreDataHelper.managedContext)
+        let filteredNewsArticles = newsArticles.filter{$0.isEnabled}
+        let allArticles = filteredNewsArticles.flatMap{Array($0.mutableSetValue(forKey: "articles")) as! [Article]}
+        let articles = allArticles.filter{!$0.isViewed && Int($0.time) == Constants.Settings.timeOptions[tag]}
+        articleCache[tag] = Array(Set(articles))
         if articleCache[tag].isEmpty {
             button.isEnabled = false
             preferencesError.isHidden = false
