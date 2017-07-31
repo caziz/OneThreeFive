@@ -66,8 +66,12 @@ extension SettingsViewController: UITableViewDataSource {
             cell.toggle.setOn(false, animated: false)
         }
         
-        // TODO: icon
-        
+        // icon
+        if let image = ImageService.loadImage(path: "\(newsSource.id!)") {
+            cell.icon.image = image
+        } else {
+            cell.icon.image = #imageLiteral(resourceName: "news")
+        }
         return cell
     }
     
@@ -94,8 +98,10 @@ extension SettingsViewController: NewsToggleCellDelegate {
         
         if cell.toggle.isOn {
             newsSources[indexPath.row].isEnabled = true
+            print("true")
         } else {
             newsSources[indexPath.row].isEnabled = false
+            print("false")
         }
         CoreDataHelper.save()
     }

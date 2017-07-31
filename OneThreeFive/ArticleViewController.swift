@@ -20,39 +20,37 @@ class ArticleViewController:  UIViewController {
         attemptLoadWebPage()        
     }
     @IBAction func rightSwipe(_ sender: UISwipeGestureRecognizer) {
-        if sender.state == .ended &&
-            currentIndex != articleCache.count - 1 {
-            currentIndex += 1
+        if sender.state == .ended {
+            currentIndex = (currentIndex + 1) % articleCache.count
             attemptLoadWebPage()
         }
     }
     @IBAction func leftSwipe(_ sender: UISwipeGestureRecognizer) {
-        if sender.state == .ended && currentIndex != 0{
-            currentIndex -= 1
+        if sender.state == .ended {
+            currentIndex = (currentIndex - 1 + articleCache.count) % articleCache.count
             attemptLoadWebPage()
         }
     }
     @IBAction func favoriteButtonPressed(_ sender: UIBarButtonItem) {
         ArticleService.favoriteArticle(article: articleCache[currentIndex])
     }
+    
     func webViewDidFinishLoad(_ webView: UIWebView) {
         if webView.isLoading {
             return
         }
         self.spinner.stopAnimating()
-        
-        CoreDataHelper.persistentContainer.performBackgroundTask { context in
-            do {
-                self.articleCache[self.currentIndex].isViewed = true
-                try context.save()
-            } catch let error as NSError {
-                print("Error: could not save article  as viewed, \(error)")
-            }
-        }
+        //CoreDataHelper.persistentContainer.performBackgroundTask { context in
+        self.articleCache[self.currentIndex].isViewed = true
+        CoreDataHelper.save()
     }
         
     func attemptLoadWebPage() {
         // TODO: enable swiping
+        if currentIndex >= articleCache.count {
+            print("Error: current index \(currentIndex) out of bounds for article cache of size \(articleCache.count)")
+            return
+        }
         if let url = URL(string: (articleCache[currentIndex].url)!) {
             let urlRequest = URLRequest(url: url)
             self.webView.loadRequest(urlRequest)

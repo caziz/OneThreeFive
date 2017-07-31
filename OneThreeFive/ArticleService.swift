@@ -13,7 +13,7 @@ import Firebase
 import FirebaseDatabase
 
 class ArticleService {
-    static func getSaved(context: NSManagedObjectContext) -> [Article] {
+    static func getSaved(context: NSManagedObjectContext = CoreDataHelper.managedContext) -> [Article] {
         let fetchRequest: NSFetchRequest<Article> = Article.fetchRequest()
         do {
             let results = try context.fetch(fetchRequest)
@@ -26,34 +26,23 @@ class ArticleService {
     
     static func favoriteArticle(article: Article) {
         
-        CoreDataHelper.persistentContainer.performBackgroundTask { context in
+        //CoreDataHelper.persistentContainer.performBackgroundTask { context in
             article.isFavorited = true
-            do {
-                try context.save()
-            } catch let error as NSError {
-                print("Error: Could not save \(error)")
-            }
-            
-            
             if let urlToImage = URL(string: article.urlToImage!),
                 let image = ImageService.fetchImage(url: urlToImage) {
-                ImageService.saveImage(path: article.uid!, image: image)
+                let path = "\(article.uid!)"
+                ImageService.saveImage(path: path, image: image)
             }
-            do {
-                try context.save()
-            } catch {
-                fatalError("Failure to save context: \(error)")
-            }
-        }
+            CoreDataHelper.save()
+        //}
     }
-    
+
     static func cache(completion: @escaping (Void) -> Void) {
-        CoreDataHelper.persistentContainer.performBackgroundTask { (context) in
+        //CoreDataHelper.persistentContainer.performBackgroundTask { (context) in
             let dispatchGroup = DispatchGroup()
             // fetch enabled news source IDs
-            let enabledNewsSources = NewsSourceService.getSaved(context: context).filter{$0.isEnabled}
-            let cachedArticleURLs = ArticleService.getSaved(context: context).map{$0.url!}
-            
+            let enabledNewsSources = NewsSourceService.getSaved().filter{$0.isEnabled}
+            let cachedArticleURLs = ArticleService.getSaved().map{$0.url!}
             // create firebase database reference
             let ref = Database.database().reference()
             Constants.Settings.timeOptions.forEach { time in
@@ -74,7 +63,7 @@ class ArticleService {
                                 continue
                             }
                             // create article entity with firebase data
-                            let article = Article(context: context)
+                            let article = Article(context: CoreDataHelper.managedContext)
                             article.time = Int16(time)
                             article.title = articleDict["title"]
                             article.url = articleDict["url"]
@@ -82,22 +71,18 @@ class ArticleService {
                             article.date = articleDict["date"]
                             article.uid = UUID().uuidString
                             enabledNewsSource.addToArticles(article)
+                            print(article.title!)
                             dispatchGroup.leave()
                         }
                         dispatchGroup.leave()
                     })
                 }
             }
-            dispatchGroup.notify(queue: .global()) {
-                do {
-                    
-                    try context.save()
-                    completion()
-                } catch {
-                    fatalError("Failure to save context: \(error)")
-                }
+            dispatchGroup.notify(queue: .main) {
+                CoreDataHelper.save()
+                completion()
             }
-        }
+        //}
         
     }
     

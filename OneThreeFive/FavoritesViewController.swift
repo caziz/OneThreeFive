@@ -42,8 +42,6 @@ class FavoritesViewController: UIViewController {
     }
 }
 
-
-
 extension FavoritesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
@@ -55,16 +53,15 @@ extension FavoritesViewController: UITableViewDataSource {
         let cell = favoritesTableView.dequeueReusableCell(withIdentifier: Constants.Identifier.favoritedArticleCell, for: indexPath) as! FavoritedArticleCell
         cell.label.text = favoritedArticles[indexPath.row].title!
         if let imagePath = favoritedArticles[indexPath.row].uid {
-            cell.squareImage.image = ImageService.loadImage(path: imagePath)
+            let path = "\(imagePath)"
+            cell.squareImage.image = ImageService.loadImage(path: path)
+        } else {
+            cell.squareImage.image = #imageLiteral(resourceName: "news")
         }
         return cell
         
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return favoritedArticles.count
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: Constants.Identifier.showArticleFromFavorites, sender: self)
     }
 }

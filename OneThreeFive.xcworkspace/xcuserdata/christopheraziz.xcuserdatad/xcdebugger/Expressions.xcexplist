@@ -3,38 +3,40 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "static NewsService.(generateArticles(from : String) -&gt; ()).(closure #1).(closure #1):NewsService.swift">
+      </ContextState>
+      <ContextState
+         contextName = "static NewsService.(isValid(urlString : String, completion : (Constants.ArticleLengthInMinutes?) -&gt; ()) -&gt; ()).(closure #1).(closure #1):NewsService.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "urlString">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ArticleViewController.attemptLoadWebPage() -&gt; ():ArticleViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "articleCache">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "static ArticleService.(cache(completion : () -&gt; ()) -&gt; ()).(closure #5):ArticleService.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "cachedArticles">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "static FireBaseService.save(url : URL, with : Constants.ArticleLengthInMinutes) -&gt; ():FireBaseService.swift">
       </ContextState>
       <ContextState
-         contextName = "MainViewController.configureButton(UIButton) -&gt; ():MainViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "allArticles.map{$0.title!}">
-            </PersistentString>
-            <PersistentString
-               value = "articleCache[tag]">
-            </PersistentString>
-            <PersistentString
-               value = "articles.map{$0.title!}">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "static NewsService.(generateArticles(from : String) -&gt; ()).(closure #1):NewsService.swift">
       </ContextState>
       <ContextState
-         contextName = "static FireBaseService.save(urlString : String, with : Constants.ArticleLengthInMinutes) -&gt; ():FireBaseService.swift">
-      </ContextState>
-      <ContextState
-         contextName = "MainViewController.configureButtons() -&gt; ():MainViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "articleCache[1].map{$0.title!}">
-            </PersistentString>
-            <PersistentString
-               value = "articleCache[2].map{$0.title!}">
-            </PersistentString>
-            <PersistentString
-               value = "articleCache[0].map{$0.title!}">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "static NewsService.(generateArticles(source : String) -&gt; ()).(closure #1).(closure #1):NewsService.swift">
       </ContextState>
       <ContextState
          contextName = "static ArticleService.(favoriteArticle(article : Article) -&gt; ()).(closure #1):ArticleService.swift">
@@ -51,18 +53,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "static NewsService.(generateArticles(from : String) -&gt; ()).(closure #1):NewsService.swift">
+         contextName = "FavoritesViewController.prepare(for : UIStoryboardSegue, sender : Any?) -&gt; ():FavoritesViewController.swift">
       </ContextState>
       <ContextState
-         contextName = "static NewsService.(isValid(urlString : String, completion : (Constants.ArticleLengthInMinutes?) -&gt; ()) -&gt; ()).(closure #1).(closure #1):NewsService.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "urlString">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "static NewsService.(generateArticles(source : String) -&gt; ()).(closure #1).(closure #1):NewsService.swift">
+         contextName = "static FireBaseService.save(urlString : String, with : Constants.ArticleLengthInMinutes) -&gt; ():FireBaseService.swift">
       </ContextState>
       <ContextState
          contextName = "static ArticleService.(cache(completion : () -&gt; ()) -&gt; ()).(closure #1).(closure #2).(closure #1):ArticleService.swift">
@@ -76,13 +70,30 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "static NewsService.(generateArticles(from : String) -&gt; ()).(closure #1).(closure #1):NewsService.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ArticleViewController.attemptLoadWebPage() -&gt; ():ArticleViewController.swift">
+         contextName = "MainViewController.configureButtons() -&gt; ():MainViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "articleCache">
+               value = "articleCache[1].map{$0.title!}">
+            </PersistentString>
+            <PersistentString
+               value = "articleCache[2].map{$0.title!}">
+            </PersistentString>
+            <PersistentString
+               value = "articleCache[0].map{$0.title!}">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "MainViewController.configureButton(UIButton) -&gt; ():MainViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "allArticles.map{$0.title!}">
+            </PersistentString>
+            <PersistentString
+               value = "articleCache[tag]">
+            </PersistentString>
+            <PersistentString
+               value = "articles.map{$0.title!}">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

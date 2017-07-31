@@ -26,7 +26,6 @@ struct Constants {
         static let favoritedArticleCell = "favoritedArticleCell"
         
         //segue
-        
         static let showArticleFromFavorites = "showArticleFromFavorites"
 
     }

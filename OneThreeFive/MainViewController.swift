@@ -68,6 +68,7 @@ class MainViewController : UIViewController {
             button.isEnabled = true
         }
     }
+
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let articleViewController = segue.destination as? ArticleViewController,

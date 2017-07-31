@@ -21,11 +21,16 @@ class CoreDataStack {
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "OneThreeFive")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+            // not working currently
+            container.viewContext.automaticallyMergesChangesFromParent = true
+            // prioritize store changes over in-memory while saving
+            container.viewContext.mergePolicy = NSMergePolicy.mergeByPropertyStoreTrump
+            try! container.viewContext.setQueryGenerationFrom(.current)
+
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
-        container.viewContext.automaticallyMergesChangesFromParent = true
         return container
     }()
     
