@@ -71,7 +71,6 @@ class ArticleService {
                             article.date = articleDict["date"]
                             article.uid = UUID().uuidString
                             enabledNewsSource.addToArticles(article)
-                            print(article.title!)
                             dispatchGroup.leave()
                         }
                         dispatchGroup.leave()

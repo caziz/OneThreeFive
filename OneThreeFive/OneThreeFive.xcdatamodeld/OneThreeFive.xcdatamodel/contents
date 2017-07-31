@@ -4,6 +4,7 @@
         <attribute name="date" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isFavorited" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="isViewed" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="readTime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="time" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="uid" optional="YES" attributeType="String" syncable="YES"/>
@@ -20,7 +21,7 @@
         <relationship name="articles" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Article" inverseName="source" inverseEntity="Article" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Article" positionX="-468" positionY="-1629" width="128" height="178"/>
+        <element name="Article" positionX="-468" positionY="-1629" width="128" height="193"/>
         <element name="NewsSource" positionX="-245" positionY="-1629" width="128" height="133"/>
     </elements>
 </model>

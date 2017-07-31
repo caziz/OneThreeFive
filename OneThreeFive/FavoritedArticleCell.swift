@@ -10,7 +10,7 @@ import UIKit
 
 class FavoritedArticleCell: UITableViewCell {
     @IBOutlet weak var label: UILabel!
-    @IBOutlet weak var squareImage: UIImageView!
+    @IBOutlet weak var icon: UIImageView!
     
     
 }

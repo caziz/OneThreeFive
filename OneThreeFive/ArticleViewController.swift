@@ -16,9 +16,13 @@ class ArticleViewController:  UIViewController {
     var currentIndex = 0
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.spinner.startAnimating()
-        attemptLoadWebPage()        
+        
     }
+    
+    override func viewDidLoad() {
+        attemptLoadWebPage()
+    }
+    
     @IBAction func rightSwipe(_ sender: UISwipeGestureRecognizer) {
         if sender.state == .ended {
             currentIndex = (currentIndex + 1) % articleCache.count
@@ -42,11 +46,13 @@ class ArticleViewController:  UIViewController {
         self.spinner.stopAnimating()
         //CoreDataHelper.persistentContainer.performBackgroundTask { context in
         self.articleCache[self.currentIndex].isViewed = true
+        self.articleCache[self.currentIndex].readTime = Date() as NSDate
         CoreDataHelper.save()
     }
         
     func attemptLoadWebPage() {
         // TODO: enable swiping
+        self.spinner.startAnimating()
         if currentIndex >= articleCache.count {
             print("Error: current index \(currentIndex) out of bounds for article cache of size \(articleCache.count)")
             return

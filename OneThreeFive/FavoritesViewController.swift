@@ -29,7 +29,8 @@ class FavoritesViewController: UIViewController {
     }
     
     func loadFavoritedArticles() {
-        favoritedArticles = ArticleService.getSaved(context: CoreDataHelper.managedContext).filter{$0.isFavorited}
+        favoritedArticles = ArticleService.getSaved(context: CoreDataHelper.managedContext)
+            .filter{$0.isFavorited}.sorted{$0.date! < $1.date!}
         self.favoritesTableView.reloadData()
     }
     
@@ -54,9 +55,9 @@ extension FavoritesViewController: UITableViewDataSource {
         cell.label.text = favoritedArticles[indexPath.row].title!
         if let imagePath = favoritedArticles[indexPath.row].uid {
             let path = "\(imagePath)"
-            cell.squareImage.image = ImageService.loadImage(path: path)
+            cell.icon.image = ImageService.loadImage(path: path)
         } else {
-            cell.squareImage.image = #imageLiteral(resourceName: "news")
+            cell.icon.image = #imageLiteral(resourceName: "news")
         }
         return cell
         

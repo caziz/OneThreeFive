@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		56E2DD4BD50F0B3BEA74EADE /* Pods_OneThreeFive.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD2C9958193B7C8E56114C2 /* Pods_OneThreeFive.framework */; };
+		5A0EB9B51F2FD799007F7B39 /* ViewedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0EB9B41F2FD799007F7B39 /* ViewedViewController.swift */; };
+		5A0EB9B71F2FDB41007F7B39 /* ViewedArticleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0EB9B61F2FDB41007F7B39 /* ViewedArticleCell.swift */; };
 		5A1F155A1F1EDD9300583B67 /* FavoritedArticleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1F15591F1EDD9300583B67 /* FavoritedArticleCell.swift */; };
 		5A28D0891F183D8C0067AD01 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A28D0881F183D8C0067AD01 /* AppDelegate.swift */; };
 		5A28D08E1F183D8C0067AD01 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A28D08C1F183D8C0067AD01 /* Main.storyboard */; };
@@ -31,6 +33,8 @@
 
 /* Begin PBXFileReference section */
 		3FD2C9958193B7C8E56114C2 /* Pods_OneThreeFive.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OneThreeFive.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A0EB9B41F2FD799007F7B39 /* ViewedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewedViewController.swift; sourceTree = "<group>"; };
+		5A0EB9B61F2FDB41007F7B39 /* ViewedArticleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewedArticleCell.swift; sourceTree = "<group>"; };
 		5A1F15591F1EDD9300583B67 /* FavoritedArticleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritedArticleCell.swift; sourceTree = "<group>"; };
 		5A28D0851F183D8C0067AD01 /* OneThreeFive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OneThreeFive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A28D0881F183D8C0067AD01 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -131,6 +135,7 @@
 				5A28D09E1F183F0B0067AD01 /* ArticleViewController.swift */,
 				5A28D0A61F193DA40067AD01 /* SettingsViewController.swift */,
 				5A3553181F1D1CE700B32850 /* FavoritesViewController.swift */,
+				5A0EB9B41F2FD799007F7B39 /* ViewedViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -140,6 +145,7 @@
 			children = (
 				5A28D0A81F193E800067AD01 /* NewsToggleCell.swift */,
 				5A1F15591F1EDD9300583B67 /* FavoritedArticleCell.swift */,
+				5A0EB9B61F2FDB41007F7B39 /* ViewedArticleCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -314,6 +320,8 @@
 				5AAF5CF61F19455500E96D65 /* OneThreeFive.xcdatamodeld in Sources */,
 				5A28D0A71F193DA40067AD01 /* SettingsViewController.swift in Sources */,
 				5A28D0A11F1927AE0067AD01 /* Constants.swift in Sources */,
+				5A0EB9B71F2FDB41007F7B39 /* ViewedArticleCell.swift in Sources */,
+				5A0EB9B51F2FD799007F7B39 /* ViewedViewController.swift in Sources */,
 				5A3553191F1D1CE700B32850 /* FavoritesViewController.swift in Sources */,
 				5A48C16A1F2147990056533B /* ReadabilityService.swift in Sources */,
 				5AE71B181F1AFF3E00596CEE /* NewsSourceService.swift in Sources */,

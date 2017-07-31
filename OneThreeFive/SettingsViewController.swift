@@ -98,10 +98,8 @@ extension SettingsViewController: NewsToggleCellDelegate {
         
         if cell.toggle.isOn {
             newsSources[indexPath.row].isEnabled = true
-            print("true")
         } else {
             newsSources[indexPath.row].isEnabled = false
-            print("false")
         }
         CoreDataHelper.save()
     }

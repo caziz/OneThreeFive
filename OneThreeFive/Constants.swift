@@ -24,7 +24,8 @@ struct Constants {
     struct Identifier {
         static let newsToggleCell = "newsToggleCell"
         static let favoritedArticleCell = "favoritedArticleCell"
-        
+        static let viewedArticleCell = "viewedArticleCell"
+
         //segue
         static let showArticleFromFavorites = "showArticleFromFavorites"
 
