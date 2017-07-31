@@ -14,8 +14,8 @@ class ArticleViewController:  UIViewController {
 
     var articleCache: [Article] = []
     var currentIndex = 0
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         self.spinner.startAnimating()
         attemptLoadWebPage()        
     }
@@ -43,7 +43,6 @@ class ArticleViewController:  UIViewController {
         
         CoreDataHelper.persistentContainer.performBackgroundTask { context in
             do {
-                print("saving as viewed")
                 self.articleCache[self.currentIndex].isViewed = true
                 try context.save()
             } catch let error as NSError {
@@ -53,8 +52,13 @@ class ArticleViewController:  UIViewController {
     }
         
     func attemptLoadWebPage() {
-        let url = URL(string: articleCache[currentIndex].url!)
-        let urlRequest = URLRequest(url: url!)
-        self.webView.loadRequest(urlRequest)
+        // TODO: enable swiping
+        if let url = URL(string: (articleCache[currentIndex].url)!) {
+            let urlRequest = URLRequest(url: url)
+            self.webView.loadRequest(urlRequest)
+        } else {
+            print("Error: could not load article/article cache")
+        }
+        
     }
 }

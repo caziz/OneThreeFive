@@ -9,13 +9,13 @@
          contextName = "MainViewController.configureButton(UIButton) -&gt; ():MainViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "articles.map{$0.title!}">
+               value = "allArticles.map{$0.title!}">
             </PersistentString>
             <PersistentString
                value = "articleCache[tag]">
             </PersistentString>
             <PersistentString
-               value = "allArticles.map{$0.title!}">
+               value = "articles.map{$0.title!}">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -26,13 +26,13 @@
          contextName = "MainViewController.configureButtons() -&gt; ():MainViewController.swift">
          <PersistentStrings>
             <PersistentString
+               value = "articleCache[1].map{$0.title!}">
+            </PersistentString>
+            <PersistentString
                value = "articleCache[2].map{$0.title!}">
             </PersistentString>
             <PersistentString
                value = "articleCache[0].map{$0.title!}">
-            </PersistentString>
-            <PersistentString
-               value = "articleCache[1].map{$0.title!}">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -77,6 +77,14 @@
       </ContextState>
       <ContextState
          contextName = "static NewsService.(generateArticles(from : String) -&gt; ()).(closure #1).(closure #1):NewsService.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ArticleViewController.attemptLoadWebPage() -&gt; ():ArticleViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "articleCache">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
    </ContextStates>
 </VariablesViewState>

@@ -28,8 +28,6 @@ class ArticleService {
         
         CoreDataHelper.persistentContainer.performBackgroundTask { context in
             article.isFavorited = true
-            let uniquePath = UUID().uuidString
-            article.imagePath = uniquePath
             do {
                 try context.save()
             } catch let error as NSError {
@@ -37,9 +35,9 @@ class ArticleService {
             }
             
             
-            if let url = URL(string: article.urlToImage!),
-                let image = ImageService.fetchImage(url: url) {
-                ImageService.saveImage(path: uniquePath, image: image)
+            if let urlToImage = URL(string: article.urlToImage!),
+                let image = ImageService.fetchImage(url: urlToImage) {
+                ImageService.saveImage(path: article.uid!, image: image)
             }
             do {
                 try context.save()
@@ -54,7 +52,8 @@ class ArticleService {
             let dispatchGroup = DispatchGroup()
             // fetch enabled news source IDs
             let enabledNewsSources = NewsSourceService.getSaved(context: context).filter{$0.isEnabled}
-            // delete previously cached articles
+            let cachedArticleURLs = ArticleService.getSaved(context: context).map{$0.url!}
+            
             // create firebase database reference
             let ref = Database.database().reference()
             Constants.Settings.timeOptions.forEach { time in
@@ -68,9 +67,12 @@ class ArticleService {
                             dispatchGroup.leave()
                             return
                         }
-                        
                         for articleDict in articleDictsForSource.values {
                             dispatchGroup.enter()
+                            if cachedArticleURLs.contains(articleDict["url"]!) {
+                                dispatchGroup.leave()
+                                continue
+                            }
                             // create article entity with firebase data
                             let article = Article(context: context)
                             article.time = Int16(time)
@@ -78,6 +80,7 @@ class ArticleService {
                             article.url = articleDict["url"]
                             article.urlToImage = articleDict["urlToImage"]
                             article.date = articleDict["date"]
+                            article.uid = UUID().uuidString
                             enabledNewsSource.addToArticles(article)
                             dispatchGroup.leave()
                         }
@@ -101,7 +104,6 @@ class ArticleService {
     /* build database using relevant articles from saved news sources */
     static func buildDatabase() {
         DispatchQueue.global(qos: .background).async {
-            // TODO: not correct thread ughghhhh
             let newsSourceIDs = NewsSourceService.getSaved(context: CoreDataHelper.managedContext).map{$0.id!}
             newsSourceIDs.forEach { newsSourceID in
                 let sourceURL = Constants.NewsAPI.articlesUrl(source: newsSourceID)

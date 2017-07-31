@@ -54,8 +54,8 @@ extension FavoritesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = favoritesTableView.dequeueReusableCell(withIdentifier: Constants.Identifier.favoritedArticleCell, for: indexPath) as! FavoritedArticleCell
         cell.label.text = favoritedArticles[indexPath.row].title!
-        if let imagePath = favoritedArticles[indexPath.row].imagePath {
-            cell.imageView?.image = ImageService.loadImage(path: imagePath)
+        if let imagePath = favoritedArticles[indexPath.row].uid {
+            cell.squareImage.image = ImageService.loadImage(path: imagePath)
         }
         return cell
         

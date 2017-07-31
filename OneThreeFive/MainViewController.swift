@@ -52,7 +52,6 @@ class MainViewController : UIViewController {
         configureButton(self.option1Button)
         configureButton(self.option2Button)
         configureButton(self.option3Button)
-        
     }
     
     func configureButton(_ button: UIButton) {

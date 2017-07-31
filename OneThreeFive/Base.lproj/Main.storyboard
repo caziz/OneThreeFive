@@ -108,39 +108,55 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="favoritedArticleCell" rowHeight="200" id="LAi-E4-VVr" customClass="FavoritedArticleCell" customModule="OneThreeFive" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="200"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="favoritedArticleCell" rowHeight="100" id="LAi-E4-VVr" customClass="FavoritedArticleCell" customModule="OneThreeFive" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LAi-E4-VVr" id="uyh-IG-Pnx">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uZw-i9-lyW">
-                                                    <rect key="frame" x="8" y="30" width="140" height="140"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="66a-n5-IMY">
+                                                    <rect key="frame" x="10" y="0.0" width="365" height="98"/>
+                                                    <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uZw-i9-lyW">
+                                                            <rect key="frame" x="0.0" y="5" width="88" height="88"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="uZw-i9-lyW" secondAttribute="height" multiplier="1:1" id="lNa-ED-avd"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is a sample title, it should be really long in order to test how a long title will look." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cO7-0F-vBd">
+                                                            <rect key="frame" x="98" y="0.0" width="267" height="98"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" secondItem="uZw-i9-lyW" secondAttribute="height" multiplier="1:1" id="lNa-ED-avd"/>
+                                                        <constraint firstItem="uZw-i9-lyW" firstAttribute="height" secondItem="66a-n5-IMY" secondAttribute="height" multiplier="9/10" id="kXc-Bj-yO0"/>
+                                                        <constraint firstItem="cO7-0F-vBd" firstAttribute="height" secondItem="66a-n5-IMY" secondAttribute="height" id="yy4-n7-QLV"/>
                                                     </constraints>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is a sample title, it should be really long in order to test how a long title will look." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cO7-0F-vBd">
-                                                    <rect key="frame" x="168" y="0.0" width="199" height="200"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                </stackView>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oLa-42-K89">
+                                                    <rect key="frame" x="0.0" y="98" width="375" height="2"/>
+                                                    <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="2" id="afs-Vw-pa9"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="cO7-0F-vBd" secondAttribute="bottom" id="1a2-hB-p13"/>
-                                                <constraint firstItem="cO7-0F-vBd" firstAttribute="top" secondItem="uyh-IG-Pnx" secondAttribute="top" id="ADz-ip-hmB"/>
-                                                <constraint firstItem="cO7-0F-vBd" firstAttribute="height" secondItem="uyh-IG-Pnx" secondAttribute="height" id="Eaw-HX-Ozg"/>
-                                                <constraint firstItem="uZw-i9-lyW" firstAttribute="leading" secondItem="uyh-IG-Pnx" secondAttribute="leadingMargin" id="OfA-eL-q3n"/>
-                                                <constraint firstItem="uZw-i9-lyW" firstAttribute="centerY" secondItem="uyh-IG-Pnx" secondAttribute="centerY" id="cXX-93-shP"/>
-                                                <constraint firstItem="uZw-i9-lyW" firstAttribute="height" secondItem="uyh-IG-Pnx" secondAttribute="height" multiplier="7/10" id="sPZ-y0-Ju1"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="cO7-0F-vBd" secondAttribute="trailing" id="uG1-vQ-251"/>
-                                                <constraint firstItem="cO7-0F-vBd" firstAttribute="leading" secondItem="uZw-i9-lyW" secondAttribute="trailing" constant="20" id="uUR-Ib-fUu"/>
+                                                <constraint firstAttribute="trailing" secondItem="66a-n5-IMY" secondAttribute="trailing" id="3S0-34-DmB"/>
+                                                <constraint firstItem="66a-n5-IMY" firstAttribute="top" secondItem="uyh-IG-Pnx" secondAttribute="top" id="EQQ-ud-Vd4"/>
+                                                <constraint firstItem="oLa-42-K89" firstAttribute="top" secondItem="66a-n5-IMY" secondAttribute="bottom" id="UjI-YJ-lJw"/>
+                                                <constraint firstItem="66a-n5-IMY" firstAttribute="leading" secondItem="uyh-IG-Pnx" secondAttribute="leading" constant="10" id="d9v-md-qFl"/>
+                                                <constraint firstAttribute="trailing" secondItem="oLa-42-K89" secondAttribute="trailing" id="e6F-kF-eoq"/>
+                                                <constraint firstItem="oLa-42-K89" firstAttribute="leading" secondItem="uyh-IG-Pnx" secondAttribute="leading" id="iHR-aw-dhe"/>
+                                                <constraint firstAttribute="bottom" secondItem="oLa-42-K89" secondAttribute="bottom" id="iab-1w-opT"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="label" destination="cO7-0F-vBd" id="XQW-WJ-8ak"/>
+                                            <outlet property="squareImage" destination="uZw-i9-lyW" id="3Z3-DA-Rnq"/>
                                             <segue destination="CCJ-MP-ULc" kind="show" identifier="showArticleFromFavorites" id="gow-n3-fLH"/>
                                         </connections>
                                     </tableViewCell>
@@ -354,7 +370,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="BX3-iO-snS">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="Ha2-Ta-QH2" sceneMemberID="viewController">
+                <tabBarController autoresizesArchivedViewToFullSize="NO" automaticallyAdjustsScrollViewInsets="NO" id="Ha2-Ta-QH2" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="snK-gR-Aja">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -417,6 +433,6 @@
         <image name="star" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="c6q-4r-SuL"/>
+        <segue reference="gow-n3-fLH"/>
     </inferredMetricsTieBreakers>
 </document>

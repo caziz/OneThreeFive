@@ -84,7 +84,7 @@ extension SettingsViewController: UITableViewDelegate {
     }
 }
 
-// MARK: - News Toggle Delegate
+// TOFO: - News Toggle Delegate
 
 extension SettingsViewController: NewsToggleCellDelegate {
     func didToggleNewsSource(on cell: NewsToggleCell) {
