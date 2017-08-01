@@ -26,7 +26,7 @@ class NewsSourceService {
     
     /* get news sources from News API, save to Core Data */
     static func save() {
-        //DispatchQueue.global(qos: .userInitiated).async {
+        DispatchQueue.global(qos: .userInitiated).async {
             let sourcesUrl = Constants.NewsAPI.sourcesUrl()
             Alamofire.request(sourcesUrl).validate().responseJSON { response in
                 switch response.result {
@@ -37,7 +37,7 @@ class NewsSourceService {
                     let existingSources = self.getSaved(context: CoreDataHelper.managedContext).map{$0.id!}
                     let sources = JSON(value)["sources"].arrayValue
                     // create news source in child context and save
-                    //CoreDataHelper.persistentContainer.performBackgroundTask { (context) in
+                    CoreDataHelper.persistentContainer.performBackgroundTask { (context) in
                         sources.forEach { source in
                             // skip existing news sources
                             if existingSources.contains(source["id"].stringValue) {return}
@@ -54,12 +54,12 @@ class NewsSourceService {
                             }
                             
                         }
-                        CoreDataHelper.save()
-                    //}
+                        CoreDataHelper.save(context: context)
+                    }
                 default:
                     return
                 }
             }
-        //}
+        }
     }
 }

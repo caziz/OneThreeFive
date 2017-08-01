@@ -45,9 +45,9 @@ struct CoreDataHelper {
     
     // MARK: - Methods
     
-    static func save() {
+    static func save(context: NSManagedObjectContext = managedContext) {
         do {
-            try managedContext.save()
+            try context.save()
         } catch let error as NSError {
             print("Could not save \(error)")
         }

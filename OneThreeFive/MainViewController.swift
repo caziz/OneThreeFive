@@ -12,6 +12,7 @@ import Firebase
 class MainViewController : UIViewController {
     @IBOutlet weak var preferencesError: UILabel!
     var articleCache: [[Article]] = [[],[],[]]
+    //var enabledNewsSourceIDs = 0;
     
     @IBOutlet weak var option1Button: UIButton!
     @IBOutlet weak var option2Button: UIButton!
@@ -36,17 +37,32 @@ class MainViewController : UIViewController {
     
     func configureDisplay() {
         // TODO: only do this if news sources have changed
-        option1Button.isEnabled = false
-        option2Button.isEnabled = false
-        option3Button.isEnabled = false
+        hideButtons(true)
+        /*
+        let currentEnabledNewsSourcesCount = NewsSourceService.getSaved().filter{$0.isEnabled}.count
+        if(currentEnabledNewsSourcesCount == self.enabledNewsSourcesCount) {
+            print("equal")
+            print(currentEnabledNewsSourcesCount)
+            hideButtons(false)
+            return
+        }
+        print("not equal")
+        self.enabledNewsSourcesCount = currentEnabledNewsSourcesCount
+        */
         preferencesError.isHidden = true
         ArticleService.cache {
             DispatchQueue.main.async { [weak self] in
                 self?.configureButtons()
+                self?.hideButtons(false)
             }
         }
     }
     
+    func hideButtons(_ hide: Bool) {
+        option1Button.isHidden = hide
+        option2Button.isHidden = hide
+        option3Button.isHidden = hide
+    }
     
     func configureButtons() {
         configureButton(self.option1Button)
@@ -63,9 +79,11 @@ class MainViewController : UIViewController {
         articleCache[tag] = Array(Set(articles))
         if articleCache[tag].isEmpty {
             button.isEnabled = false
+            button.alpha = 0.2
             preferencesError.isHidden = false
         } else {
             button.isEnabled = true
+            button.alpha = 1
         }
     }
 

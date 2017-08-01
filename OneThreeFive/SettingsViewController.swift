@@ -26,9 +26,12 @@ class SettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.newsSources = NewsSourceService.getSaved(context: CoreDataHelper.managedContext).sorted{$0.name! < $1.name!}
         self.initSearchbar()
         self.addDismissGestures()
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.newsSources = NewsSourceService.getSaved(context: CoreDataHelper.managedContext).sorted{$0.name! < $1.name!}
         self.displayFilteredNewsSources()
     }
     
@@ -97,9 +100,9 @@ extension SettingsViewController: NewsToggleCellDelegate {
         guard let indexPath = newsTableView.indexPath(for: cell) else { return }
         
         if cell.toggle.isOn {
-            newsSources[indexPath.row].isEnabled = true
+            filteredNewsSources[indexPath.row].isEnabled = true
         } else {
-            newsSources[indexPath.row].isEnabled = false
+            filteredNewsSources[indexPath.row].isEnabled = false
         }
         CoreDataHelper.save()
     }
