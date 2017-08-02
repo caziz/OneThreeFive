@@ -19,13 +19,17 @@ class ViewedViewController: UIViewController {
     
     func loadViewedArticles() {
         viewedArticles = ArticleService.getSaved(context: CoreDataHelper.managedContext)
-            .filter{$0.isViewed}.sorted{$0.date! < $1.date!}
+            .filter{$0.isViewed}.sorted{($0.readAt! as Date) > ($1.readAt! as Date)}
         self.viewedArticlesTableView.reloadData()
     }
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let articleViewController = segue.destination as? ArticleViewController,
+            let cell = sender as? UITableViewCell {
+            articleViewController.currentIndex = viewedArticlesTableView.indexPath(for: cell)!.row
+            articleViewController.articleCache = viewedArticles
+        }
+    }
 }
-
-
 
 extension ViewedViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -36,7 +40,15 @@ extension ViewedViewController: UITableViewDelegate {
 extension ViewedViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = viewedArticlesTableView.dequeueReusableCell(withIdentifier: Constants.Identifier.viewedArticleCell, for: indexPath) as! ViewedArticleCell
-        cell.label.text = viewedArticles[indexPath.row].title!
+        let article = viewedArticles[indexPath.row]
+        cell.label.text = article.title!
+        let image = ImageService.loadImage(path: article.source!.id!)
+        if image != nil {
+            cell.icon.image = image
+        } else {
+            cell.icon.image = #imageLiteral(resourceName: "news")
+        }
+
         return cell
         
     }

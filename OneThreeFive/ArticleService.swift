@@ -24,17 +24,19 @@ class ArticleService {
         return []
     }
     
+    static func unfavoriteArticle(article: Article) {
+        article.isFavorited = false
+        // TODO: delete image
+        CoreDataHelper.save()
+    }
+    
     static func favoriteArticle(article: Article) {
-        
-        //CoreDataHelper.persistentContainer.performBackgroundTask { context in
-            article.isFavorited = true
-            if let urlToImage = URL(string: article.urlToImage!),
-                let image = ImageService.fetchImage(url: urlToImage) {
-                let path = "\(article.uid!)"
-                ImageService.saveImage(path: path, image: image)
-            }
-            CoreDataHelper.save()
-        //}
+        article.isFavorited = true
+        if let urlToImage = URL(string: article.urlToImage!),
+            let image = ImageService.fetchImage(url: urlToImage) {
+            ImageService.saveImage(path: article.uid!, image: image)
+        }
+        CoreDataHelper.save()
     }
 
     static func cache(completion: @escaping (Void) -> Void) {
@@ -68,7 +70,7 @@ class ArticleService {
                             article.title = articleDict["title"]
                             article.url = articleDict["url"]
                             article.urlToImage = articleDict["urlToImage"]
-                            article.date = articleDict["date"]
+                            article.publishedAt = articleDict["date"]
                             article.uid = UUID().uuidString
                             enabledNewsSource.addToArticles(article)
                             dispatchGroup.leave()

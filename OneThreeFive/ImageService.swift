@@ -36,6 +36,10 @@ class ImageService {
         return nil
     }
     
+    static func deleteImage(path: String) {
+        let _ = getDocumentsDirectory().appendingPathComponent("\(path).png")
+    }
+    
     static func getDocumentsDirectory() -> URL {
         return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     }

@@ -10,5 +10,6 @@ import UIKit
 
 class ViewedArticleCell: UITableViewCell {
     @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var icon: UIImageView!
     
 }

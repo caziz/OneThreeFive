@@ -28,6 +28,7 @@ struct Constants {
 
         //segue
         static let showArticleFromFavorites = "showArticleFromFavorites"
+        static let showArticleFromViewed = "showArticleFromViewed"
 
     }
     
