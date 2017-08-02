@@ -17,12 +17,23 @@ class SettingsViewController: UIViewController {
     // show all button
     // show me articles ive already viewed button
 
+    @IBOutlet weak var seachButton: UIBarButtonItem!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet var searchBarTopConstraint: NSLayoutConstraint!
     // all news sources
     var newsSources: [NewsSource] = []
     var filteredNewsSources: [NewsSource] = []
 
     // representation of enabled news sources from core data
+    @IBAction func searchBarButtonTapped(_ sender: UIBarButtonItem) {
+        if searchBarTopConstraint.constant != 0 {
+            showSeachBar()
+        } else {
+            dismissSearch()
+        }
+    }
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,13 +49,8 @@ class SettingsViewController: UIViewController {
     // MARK: - Keyboard
     
     func addDismissGestures() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissSearch))
         newsTableView.addGestureRecognizer(tap)
-        
-    }
-    func dismissKeyboard() {
-        //causes the view to resign as first responder
-        view.endEditing(true)
     }
 }
 
@@ -73,7 +79,7 @@ extension SettingsViewController: UITableViewDataSource {
         if let image = ImageService.loadImage(path: "\(newsSource.id!)") {
             cell.icon.image = image
         } else {
-            cell.icon.image = #imageLiteral(resourceName: "news")
+            cell.icon.image = #imageLiteral(resourceName: "source_default")
         }
         return cell
     }
@@ -89,6 +95,11 @@ extension SettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        dismissSearch()
+    }
+    
 }
 
 // TOFO: - News Toggle Delegate
@@ -116,6 +127,20 @@ extension SettingsViewController: UISearchBarDelegate {
         //self.searchBar.placeholder = "Search by name or category"
     }
     
+    func showSeachBar() {
+        UIView.animate(withDuration: 0.2) {
+            self.searchBarTopConstraint.constant = 0
+            self.view.layoutIfNeeded()
+            self.searchBar.becomeFirstResponder()
+        }
+    }
+    func dismissSeachbar() {
+        UIView.animate(withDuration: 0.2) {
+            self.searchBarTopConstraint.constant = -self.searchBar.bounds.height
+            self.view.layoutIfNeeded()
+        }
+    }
+    
     func displayFilteredNewsSources() {
         
         //TODO: add filtered news sources functionality
@@ -131,6 +156,12 @@ extension SettingsViewController: UISearchBarDelegate {
         newsTableView.reloadData()
     }
     
+    func dismissSearch() {
+        view.endEditing(true)
+        if searchBar.text == nil || searchBar.text == "" {
+            dismissSeachbar()
+        }
+    }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         displayFilteredNewsSources()

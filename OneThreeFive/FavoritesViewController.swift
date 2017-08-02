@@ -59,7 +59,7 @@ extension FavoritesViewController: UITableViewDataSource {
             let path = "\(imagePath)"
             cell.icon.image = ImageService.loadImage(path: path)
             if cell.icon.image == nil {
-                cell.icon.image = #imageLiteral(resourceName: "news")
+                cell.icon.image = #imageLiteral(resourceName: "article_default")
             }
         }
         return cell

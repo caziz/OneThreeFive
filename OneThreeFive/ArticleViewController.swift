@@ -16,8 +16,7 @@ class ArticleViewController:  UIViewController {
     var articleCache: [Article] = []
     var currentIndex = 0
     override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
+        super.viewDidAppear(animated)        
     }
     
     override func viewDidLoad() {
@@ -71,13 +70,18 @@ class ArticleViewController:  UIViewController {
             return
         }
         let article = articleCache[currentIndex]
+        updateNavBar(article: article)
+        attemptLoadArticle(article: article)
+    }
+    
+    func updateNavBar(article: Article) {
+        
         if(article.isFavorited) {
             favoriteButton.image = #imageLiteral(resourceName: "star_filled")
         } else {
             favoriteButton.image = #imageLiteral(resourceName: "star")
         }
         favoriteButton.isEnabled = true
-        attemptLoadArticle(article: article)
 
     }
     

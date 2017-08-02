@@ -42,11 +42,9 @@ extension ViewedViewController: UITableViewDataSource {
         let cell = viewedArticlesTableView.dequeueReusableCell(withIdentifier: Constants.Identifier.viewedArticleCell, for: indexPath) as! ViewedArticleCell
         let article = viewedArticles[indexPath.row]
         cell.label.text = article.title!
-        let image = ImageService.loadImage(path: article.source!.id!)
-        if image != nil {
-            cell.icon.image = image
-        } else {
-            cell.icon.image = #imageLiteral(resourceName: "news")
+        cell.icon.image = ImageService.loadImage(path: article.source!.id!)
+        if cell.icon.image == nil {
+            cell.icon.image = #imageLiteral(resourceName: "source_default")
         }
 
         return cell

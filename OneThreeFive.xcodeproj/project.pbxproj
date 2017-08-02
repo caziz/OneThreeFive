@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		56E2DD4BD50F0B3BEA74EADE /* Pods_OneThreeFive.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD2C9958193B7C8E56114C2 /* Pods_OneThreeFive.framework */; };
+		5A0621F81F327D41003FBE4A /* AnimatedSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0621F71F327D41003FBE4A /* AnimatedSearchBar.swift */; };
 		5A0EB9B51F2FD799007F7B39 /* ViewedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0EB9B41F2FD799007F7B39 /* ViewedViewController.swift */; };
 		5A0EB9B71F2FDB41007F7B39 /* ViewedArticleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0EB9B61F2FDB41007F7B39 /* ViewedArticleCell.swift */; };
 		5A1F155A1F1EDD9300583B67 /* FavoritedArticleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1F15591F1EDD9300583B67 /* FavoritedArticleCell.swift */; };
@@ -34,7 +35,8 @@
 
 /* Begin PBXFileReference section */
 		3FD2C9958193B7C8E56114C2 /* Pods_OneThreeFive.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OneThreeFive.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5A0EB9B41F2FD799007F7B39 /* ViewedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewedViewController.swift; sourceTree = "<group>"; };
+		5A0621F71F327D41003FBE4A /* AnimatedSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatedSearchBar.swift; sourceTree = "<group>"; };
+		5A0EB9B41F2FD799007F7B39 /* ViewedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewedViewController.swift; path = OneThreeFive/ViewedViewController.swift; sourceTree = "<group>"; };
 		5A0EB9B61F2FDB41007F7B39 /* ViewedArticleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewedArticleCell.swift; sourceTree = "<group>"; };
 		5A1F15591F1EDD9300583B67 /* FavoritedArticleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritedArticleCell.swift; sourceTree = "<group>"; };
 		5A28D0851F183D8C0067AD01 /* OneThreeFive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OneThreeFive.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -87,6 +89,7 @@
 		5A28D07C1F183D8C0067AD01 = {
 			isa = PBXGroup;
 			children = (
+				5A0EB9B41F2FD799007F7B39 /* ViewedViewController.swift */,
 				5A28D0871F183D8C0067AD01 /* OneThreeFive */,
 				5A28D0861F183D8C0067AD01 /* Products */,
 				D9977694F3F8DE362804204E /* Pods */,
@@ -111,7 +114,7 @@
 				5A28D0AA1F193E850067AD01 /* Views */,
 				5AE71B161F1AF4F600596CEE /* Services */,
 				5A28D0A41F1930540067AD01 /* Storyboards */,
-				5AAF5CF91F19468400E96D65 /* Helper */,
+				5AAF5CF91F19468400E96D65 /* Helpers */,
 				5A54BF151F1E7B59000DACA1 /* Extensions */,
 				5AAF5CF41F19455500E96D65 /* OneThreeFive.xcdatamodeld */,
 				5A28D0941F183D8C0067AD01 /* Info.plist */,
@@ -137,7 +140,6 @@
 				5A28D09E1F183F0B0067AD01 /* ArticleViewController.swift */,
 				5A28D0A61F193DA40067AD01 /* SettingsViewController.swift */,
 				5A3553181F1D1CE700B32850 /* FavoritesViewController.swift */,
-				5A0EB9B41F2FD799007F7B39 /* ViewedViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -149,6 +151,7 @@
 				5A1F15591F1EDD9300583B67 /* FavoritedArticleCell.swift */,
 				5A0EB9B61F2FDB41007F7B39 /* ViewedArticleCell.swift */,
 				5AB837BB1F324364009759C1 /* LoadingIndicator.swift */,
+				5A0621F71F327D41003FBE4A /* AnimatedSearchBar.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -160,12 +163,12 @@
 			name = Extensions;
 			sourceTree = "<group>";
 		};
-		5AAF5CF91F19468400E96D65 /* Helper */ = {
+		5AAF5CF91F19468400E96D65 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
 				5AAF5CF71F19467E00E96D65 /* CoreDataHelper.swift */,
 			);
-			name = Helper;
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 		5AE71B161F1AF4F600596CEE /* Services */ = {
@@ -321,6 +324,7 @@
 				5AB837BC1F324364009759C1 /* LoadingIndicator.swift in Sources */,
 				5A28D09F1F183F0B0067AD01 /* ArticleViewController.swift in Sources */,
 				5A28D09D1F183EFD0067AD01 /* MainViewController.swift in Sources */,
+				5A0621F81F327D41003FBE4A /* AnimatedSearchBar.swift in Sources */,
 				5AAF5CF61F19455500E96D65 /* OneThreeFive.xcdatamodeld in Sources */,
 				5A28D0A71F193DA40067AD01 /* SettingsViewController.swift in Sources */,
 				5A28D0A11F1927AE0067AD01 /* Constants.swift in Sources */,
@@ -453,7 +457,6 @@
 			baseConfigurationReference = FFEF31463D98C9B024105205 /* Pods-OneThreeFive.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
 				DEVELOPMENT_TEAM = M96W5MC8C2;
 				INFOPLIST_FILE = OneThreeFive/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -468,7 +471,6 @@
 			baseConfigurationReference = 74FB3A5DE2CA9A5FDC0DBACF /* Pods-OneThreeFive.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
 				DEVELOPMENT_TEAM = M96W5MC8C2;
 				INFOPLIST_FILE = OneThreeFive/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
