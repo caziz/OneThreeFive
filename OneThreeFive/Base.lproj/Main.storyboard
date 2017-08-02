@@ -339,18 +339,21 @@
                                     <outletCollection property="gestureRecognizers" destination="s2T-lc-Qt9" appends="YES" id="eWR-Zm-L0u"/>
                                 </connections>
                             </webView>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="8kp-lc-cNf">
-                                <rect key="frame" x="169" y="315" width="37" height="37"/>
-                                <color key="color" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
-                            </activityIndicatorView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loading_indicator" translatesAutoresizingMaskIntoConstraints="NO" id="dkY-h3-ctV" customClass="LoadingIndicator" customModule="OneThreeFive" customModuleProvider="target">
+                                <rect key="frame" x="162.5" y="308.5" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="XsP-Yd-PCW"/>
+                                    <constraint firstAttribute="width" constant="50" id="hwO-zO-TWD"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="dkY-h3-ctV" firstAttribute="centerY" secondItem="gRO-Hu-AIv" secondAttribute="centerY" id="0i8-2e-sdC"/>
                             <constraint firstItem="VEO-wb-PYw" firstAttribute="top" secondItem="gRO-Hu-AIv" secondAttribute="top" id="0ul-T5-MYh"/>
+                            <constraint firstItem="dkY-h3-ctV" firstAttribute="centerX" secondItem="gRO-Hu-AIv" secondAttribute="centerX" id="5IS-Ch-Ckh"/>
                             <constraint firstItem="Bn1-02-D2Q" firstAttribute="top" secondItem="VEO-wb-PYw" secondAttribute="bottom" constant="-49" id="ACa-58-hKz"/>
                             <constraint firstItem="VEO-wb-PYw" firstAttribute="leading" secondItem="gRO-Hu-AIv" secondAttribute="leading" id="E7X-Cl-6x5"/>
-                            <constraint firstItem="8kp-lc-cNf" firstAttribute="centerY" secondItem="gRO-Hu-AIv" secondAttribute="centerY" id="EfF-RJ-3m2"/>
-                            <constraint firstItem="8kp-lc-cNf" firstAttribute="centerX" secondItem="gRO-Hu-AIv" secondAttribute="centerX" id="pia-Py-df1"/>
                             <constraint firstAttribute="trailing" secondItem="VEO-wb-PYw" secondAttribute="trailing" id="yBp-3r-IP9"/>
                         </constraints>
                     </view>
@@ -370,7 +373,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="favoriteButton" destination="bXq-8L-6C1" id="8jh-8r-nLe"/>
-                        <outlet property="spinner" destination="8kp-lc-cNf" id="aHb-oT-V5A"/>
+                        <outlet property="spinner" destination="dkY-h3-ctV" id="ZQc-gz-262"/>
                         <outlet property="webView" destination="VEO-wb-PYw" id="2sD-HA-Uea"/>
                     </connections>
                 </viewController>
@@ -619,6 +622,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="loading_indicator" width="1024" height="1024"/>
         <image name="mixer" width="30" height="30"/>
         <image name="news" width="30" height="30"/>
         <image name="settings" width="30" height="30"/>
