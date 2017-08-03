@@ -138,8 +138,8 @@
 			children = (
 				5A28D09C1F183EFD0067AD01 /* MainViewController.swift */,
 				5A28D09E1F183F0B0067AD01 /* ArticleViewController.swift */,
-				5A28D0A61F193DA40067AD01 /* SettingsViewController.swift */,
 				5A3553181F1D1CE700B32850 /* FavoritesViewController.swift */,
+				5A28D0A61F193DA40067AD01 /* SettingsViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -147,11 +147,11 @@
 		5A28D0AA1F193E850067AD01 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5A0621F71F327D41003FBE4A /* AnimatedSearchBar.swift */,
 				5A28D0A81F193E800067AD01 /* NewsToggleCell.swift */,
 				5A1F15591F1EDD9300583B67 /* FavoritedArticleCell.swift */,
 				5A0EB9B61F2FDB41007F7B39 /* ViewedArticleCell.swift */,
 				5AB837BB1F324364009759C1 /* LoadingIndicator.swift */,
-				5A0621F71F327D41003FBE4A /* AnimatedSearchBar.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";

@@ -13,44 +13,36 @@ import SwiftyJSON
 
 class SettingsViewController: UIViewController {
     @IBOutlet weak var newsTableView: UITableView!
-    //TODO:
-    // show all button
-    // show me articles ive already viewed button
-
-    @IBOutlet weak var seachButton: UIBarButtonItem!
-    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var searchButton: UIBarButtonItem!
     @IBOutlet var searchBarTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var animatedSearchBar: AnimatedSearchBar!
+    
+    //TODO: show all button
+
     // all news sources
     var newsSources: [NewsSource] = []
     var filteredNewsSources: [NewsSource] = []
 
     // representation of enabled news sources from core data
     @IBAction func searchBarButtonTapped(_ sender: UIBarButtonItem) {
-        if searchBarTopConstraint.constant != 0 {
-            showSeachBar()
-        } else {
-            dismissSearch()
-        }
+        animatedSearchBar.toggle()
     }
-    
-    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.initSearchbar()
-        self.addDismissGestures()
-    }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        self.newsSources = NewsSourceService.getSaved(context: CoreDataHelper.managedContext).sorted{$0.name! < $1.name!}
-        self.displayFilteredNewsSources()
+        newsSources = NewsSourceService.getSaved(context: CoreDataHelper.managedContext).sorted{$0.name! < $1.name!}
+        displayWithFilter(text: "")
+        configureSearchBar()
     }
     
-    // MARK: - Keyboard
-    
-    func addDismissGestures() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissSearch))
-        newsTableView.addGestureRecognizer(tap)
+    func configureSearchBar() {
+        animatedSearchBar.animatedDelegate = self
+        animatedSearchBar.constraint = searchBarTopConstraint
+        animatedSearchBar.view = view
+        animatedSearchBar.initSearchbar()
     }
 }
 
@@ -97,12 +89,12 @@ extension SettingsViewController: UITableViewDelegate {
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        dismissSearch()
+        animatedSearchBar.dismiss()
     }
     
 }
 
-// TOFO: - News Toggle Delegate
+// TODO: - News Toggle Delegate
 
 extension SettingsViewController: NewsToggleCellDelegate {
     func didToggleNewsSource(on cell: NewsToggleCell) {
@@ -119,51 +111,17 @@ extension SettingsViewController: NewsToggleCellDelegate {
     }
 }
 
-extension SettingsViewController: UISearchBarDelegate {
-
-    func initSearchbar() {
-        self.searchBar.delegate = self
-        self.searchBar.autocapitalizationType = .none
-        //self.searchBar.placeholder = "Search by name or category"
-    }
-    
-    func showSeachBar() {
-        UIView.animate(withDuration: 0.2) {
-            self.searchBarTopConstraint.constant = 0
-            self.view.layoutIfNeeded()
-            self.searchBar.becomeFirstResponder()
-        }
-    }
-    func dismissSeachbar() {
-        UIView.animate(withDuration: 0.2) {
-            self.searchBarTopConstraint.constant = -self.searchBar.bounds.height
-            self.view.layoutIfNeeded()
-        }
-    }
-    
-    func displayFilteredNewsSources() {
-        
-        //TODO: add filtered news sources functionality
-        if searchBar.text == nil || searchBar.text == "" {
-            self.filteredNewsSources = self.newsSources
+extension SettingsViewController: AnimatedSearchBarDelegate {
+    func displayWithFilter(text: String = "") {
+        if text == "" {
+            filteredNewsSources = newsSources
         } else {
-            self.filteredNewsSources = self.newsSources.filter {
-                let text = searchBar.text!.capitalized
-                return $0.name!.capitalized.contains(text) ||
-                    $0.category!.capitalized.contains(text)
+            filteredNewsSources = newsSources.filter {
+                $0.name!.capitalized.contains(text.capitalized) ||
+                    $0.category!.capitalized.contains(text.capitalized)
             }
         }
+        
         newsTableView.reloadData()
-    }
-    
-    func dismissSearch() {
-        view.endEditing(true)
-        if searchBar.text == nil || searchBar.text == "" {
-            dismissSeachbar()
-        }
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        displayFilteredNewsSources()
     }
 }

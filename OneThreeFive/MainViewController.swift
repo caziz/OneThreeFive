@@ -20,12 +20,12 @@ class MainViewController : UIViewController {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        NewsSourceService.save()
         //ArticleService.buildDatabase()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NewsSourceService.save()
         //ArticleService.buildDatabase()
         //configureDisplay()
     }

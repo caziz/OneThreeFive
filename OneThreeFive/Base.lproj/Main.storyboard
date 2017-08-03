@@ -182,7 +182,9 @@
                             <constraint firstItem="dGd-Vi-mtx" firstAttribute="leading" secondItem="Nq5-OA-oTU" secondAttribute="leading" id="If8-i1-qEN"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Favorites" id="6TJ-Ek-lXT"/>
+                    <navigationItem key="navigationItem" title="Favorites" id="6TJ-Ek-lXT">
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="tUo-Mb-M67"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="favoritesTableView" destination="dGd-Vi-mtx" id="iME-1v-NYo"/>
                     </connections>
@@ -203,7 +205,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="L3d-aZ-7XL">
+                            <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="L3d-aZ-7XL" customClass="AnimatedSearchBar" customModule="OneThreeFive" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="14" width="375" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="G0c-Wp-vkR"/>
@@ -316,10 +318,10 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="animatedSearchBar" destination="L3d-aZ-7XL" id="I9L-xm-Ide"/>
                         <outlet property="newsTableView" destination="bhl-I9-jCh" id="ptn-lX-DBz"/>
-                        <outlet property="seachButton" destination="rsz-YA-gGI" id="oZo-2g-AzC"/>
-                        <outlet property="searchBar" destination="L3d-aZ-7XL" id="hNZ-nc-ENa"/>
-                        <outlet property="searchBarTopConstraint" destination="bNL-97-LgV" id="hCv-tw-k4Q"/>
+                        <outlet property="searchBarTopConstraint" destination="bNL-97-LgV" id="fky-9d-T6r"/>
+                        <outlet property="searchButton" destination="rsz-YA-gGI" id="r8I-yQ-WcK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3gj-xe-rXi" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -567,7 +569,9 @@
                             <constraint firstAttribute="trailing" secondItem="D2M-wj-E9M" secondAttribute="trailing" id="wAM-rr-5wW"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Recents" id="npo-Cq-MZ5"/>
+                    <navigationItem key="navigationItem" title="Recents" id="npo-Cq-MZ5">
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="tZt-b9-QgM"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="viewedArticlesTableView" destination="D2M-wj-E9M" id="3dZ-3C-dBZ"/>
                     </connections>
@@ -638,6 +642,6 @@
         <image name="time" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="fBv-yQ-Nep"/>
+        <segue reference="gow-n3-fLH"/>
     </inferredMetricsTieBreakers>
 </document>
