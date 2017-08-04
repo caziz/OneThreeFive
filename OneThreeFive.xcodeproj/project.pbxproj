@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		56E2DD4BD50F0B3BEA74EADE /* Pods_OneThreeFive.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD2C9958193B7C8E56114C2 /* Pods_OneThreeFive.framework */; };
 		5A0621F81F327D41003FBE4A /* AnimatedSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0621F71F327D41003FBE4A /* AnimatedSearchBar.swift */; };
+		5A0621FC1F34E07E003FBE4A /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0621FB1F34E07E003FBE4A /* NavigationBar.swift */; };
 		5A0EB9B51F2FD799007F7B39 /* ViewedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0EB9B41F2FD799007F7B39 /* ViewedViewController.swift */; };
 		5A0EB9B71F2FDB41007F7B39 /* ViewedArticleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0EB9B61F2FDB41007F7B39 /* ViewedArticleCell.swift */; };
 		5A1F155A1F1EDD9300583B67 /* FavoritedArticleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1F15591F1EDD9300583B67 /* FavoritedArticleCell.swift */; };
@@ -36,7 +37,8 @@
 /* Begin PBXFileReference section */
 		3FD2C9958193B7C8E56114C2 /* Pods_OneThreeFive.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OneThreeFive.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A0621F71F327D41003FBE4A /* AnimatedSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatedSearchBar.swift; sourceTree = "<group>"; };
-		5A0EB9B41F2FD799007F7B39 /* ViewedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewedViewController.swift; path = OneThreeFive/ViewedViewController.swift; sourceTree = "<group>"; };
+		5A0621FB1F34E07E003FBE4A /* NavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
+		5A0EB9B41F2FD799007F7B39 /* ViewedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewedViewController.swift; sourceTree = "<group>"; };
 		5A0EB9B61F2FDB41007F7B39 /* ViewedArticleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewedArticleCell.swift; sourceTree = "<group>"; };
 		5A1F15591F1EDD9300583B67 /* FavoritedArticleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritedArticleCell.swift; sourceTree = "<group>"; };
 		5A28D0851F183D8C0067AD01 /* OneThreeFive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OneThreeFive.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -89,7 +91,6 @@
 		5A28D07C1F183D8C0067AD01 = {
 			isa = PBXGroup;
 			children = (
-				5A0EB9B41F2FD799007F7B39 /* ViewedViewController.swift */,
 				5A28D0871F183D8C0067AD01 /* OneThreeFive */,
 				5A28D0861F183D8C0067AD01 /* Products */,
 				D9977694F3F8DE362804204E /* Pods */,
@@ -138,6 +139,7 @@
 			children = (
 				5A28D09C1F183EFD0067AD01 /* MainViewController.swift */,
 				5A28D09E1F183F0B0067AD01 /* ArticleViewController.swift */,
+				5A0EB9B41F2FD799007F7B39 /* ViewedViewController.swift */,
 				5A3553181F1D1CE700B32850 /* FavoritesViewController.swift */,
 				5A28D0A61F193DA40067AD01 /* SettingsViewController.swift */,
 			);
@@ -152,6 +154,7 @@
 				5A1F15591F1EDD9300583B67 /* FavoritedArticleCell.swift */,
 				5A0EB9B61F2FDB41007F7B39 /* ViewedArticleCell.swift */,
 				5AB837BB1F324364009759C1 /* LoadingIndicator.swift */,
+				5A0621FB1F34E07E003FBE4A /* NavigationBar.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -334,6 +337,7 @@
 				5A48C16A1F2147990056533B /* ReadabilityService.swift in Sources */,
 				5AE71B181F1AFF3E00596CEE /* NewsSourceService.swift in Sources */,
 				5A4F91C81F2A542D00AACB65 /* ImageService.swift in Sources */,
+				5A0621FC1F34E07E003FBE4A /* NavigationBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

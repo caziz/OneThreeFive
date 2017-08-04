@@ -5,8 +5,11 @@
 //  Created by Christopher Aziz on 7/14/17.
 //  Copyright © 2017 Christopher Aziz. All rights reserved.
 //
+import UIKit
 
 struct Constants {
+    private init() {}
+    
     struct NewsAPI {
         static let key = "ca25969cc2f54d5f85ad50868bcebff3"
         static func sourcesUrl() -> String {
@@ -40,6 +43,11 @@ struct Constants {
         static let wordsPerMinute = 200.0
     }
     
+    struct UI {
+        static let animationDuration = 0.2
+        static let borderWidth: CGFloat = 2
+        static let borderColor = UIColor.lightGray
+    }
     
     
     

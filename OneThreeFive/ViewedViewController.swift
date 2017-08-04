@@ -10,23 +10,33 @@ import UIKit
 
 class ViewedViewController: UIViewController {
     var viewedArticles: [Article] = []
+    var filteredArticles: [Article] = []
     
+    @IBOutlet weak var searchBarTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var searchButton: UIBarButtonItem!
+    @IBOutlet weak var animatedSearchBar: AnimatedSearchBar!
     @IBOutlet weak var viewedArticlesTableView: UITableView!
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        loadViewedArticles()
+    
+    @IBAction func searchButtonTapped(_ sender: UIBarButtonItem) {
+        animatedSearchBar.toggle()
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        animatedSearchBar.initSearchbar(view: view, constraint: searchBarTopConstraint, delegate: self)
     }
     
-    func loadViewedArticles() {
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         viewedArticles = ArticleService.getSaved(context: CoreDataHelper.managedContext)
-            .filter{$0.isViewed}.sorted{($0.readAt! as Date) > ($1.readAt! as Date)}
-        self.viewedArticlesTableView.reloadData()
+            .filter{$0.isFavorited}
+            .sorted{($0.readAt! as Date) > ($1.readAt! as Date)}
+        displayWithFilter(text: animatedSearchBar.text ?? "")
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let articleViewController = segue.destination as? ArticleViewController,
-            let cell = sender as? UITableViewCell {
-            articleViewController.currentIndex = viewedArticlesTableView.indexPath(for: cell)!.row
-            articleViewController.articleCache = viewedArticles
+            let indexPath = viewedArticlesTableView.indexPathForSelectedRow {
+            articleViewController.currentIndex = indexPath.row
+            articleViewController.articleCache = filteredArticles
         }
     }
 }
@@ -35,12 +45,17 @@ extension ViewedViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        animatedSearchBar.dismiss()
+    }
+
 }
 
 extension ViewedViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = viewedArticlesTableView.dequeueReusableCell(withIdentifier: Constants.Identifier.viewedArticleCell, for: indexPath) as! ViewedArticleCell
-        let article = viewedArticles[indexPath.row]
+        let article = filteredArticles[indexPath.row]
         cell.label.text = article.title!
         cell.icon.image = ImageService.loadImage(path: article.source!.id!)
         if cell.icon.image == nil {
@@ -48,9 +63,21 @@ extension ViewedViewController: UITableViewDataSource {
         }
 
         return cell
-        
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewedArticles.count
+        return filteredArticles.count
+    }
+}
+
+extension ViewedViewController: AnimatedSearchBarDelegate {
+    func displayWithFilter(text: String) {
+        if text == "" {
+            filteredArticles = viewedArticles
+        } else {
+            filteredArticles = viewedArticles.filter {
+                $0.title!.capitalized.contains(text.capitalized) || $0.source!.name!.capitalized.contains(text.capitalized)
+            }
+        }
+        viewedArticlesTableView.reloadData()
     }
 }

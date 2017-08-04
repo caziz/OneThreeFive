@@ -27,22 +27,12 @@ class SettingsViewController: UIViewController {
     @IBAction func searchBarButtonTapped(_ sender: UIBarButtonItem) {
         animatedSearchBar.toggle()
     }
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         newsSources = NewsSourceService.getSaved(context: CoreDataHelper.managedContext).sorted{$0.name! < $1.name!}
-        displayWithFilter(text: "")
-        configureSearchBar()
-    }
-    
-    func configureSearchBar() {
-        animatedSearchBar.animatedDelegate = self
-        animatedSearchBar.constraint = searchBarTopConstraint
-        animatedSearchBar.view = view
-        animatedSearchBar.initSearchbar()
+        animatedSearchBar.initSearchbar(view: view, constraint: searchBarTopConstraint, delegate: self)
+        displayWithFilter()
     }
 }
 

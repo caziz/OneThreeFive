@@ -18,11 +18,26 @@ class AnimatedSearchBar: UISearchBar {
     var constraint: NSLayoutConstraint?
     var animatedDelegate: AnimatedSearchBarDelegate?
     
-    func initSearchbar() {
-        delegate = self
+    func initSearchbar(view: UIView, constraint: NSLayoutConstraint, delegate: AnimatedSearchBarDelegate) {
+        // members
+        self.view = view
+        self.constraint = constraint
+        self.animatedDelegate = delegate
+
+        super.delegate = self
         self.autocapitalizationType = .none
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismiss))
-        view?.addGestureRecognizer(tap)
+        view.addGestureRecognizer(tap)
+        
+        // gui
+        searchBarStyle = .minimal
+        constraint.constant = -self.bounds.height + Constants.UI.borderWidth
+
+        // add border
+        let border = CALayer()
+        border.backgroundColor = Constants.UI.borderColor.cgColor
+        border.frame = CGRect(x: 0, y: frame.size.height - Constants.UI.borderWidth, width: frame.size.width, height: Constants.UI.borderWidth)
+        layer.addSublayer(border)
     }
     
     func toggle() {
@@ -34,7 +49,7 @@ class AnimatedSearchBar: UISearchBar {
     }
     
     func show() {
-        UIView.animate(withDuration: 0.2) {
+        UIView.animate(withDuration: Constants.UI.animationDuration) {
             self.constraint?.constant = 0
             self.view?.layoutIfNeeded()
             self.becomeFirstResponder()
@@ -44,8 +59,8 @@ class AnimatedSearchBar: UISearchBar {
     func dismiss() {
         view?.endEditing(true)
         if self.text == nil || self.text == "" {
-            UIView.animate(withDuration: 0.2) {
-                self.constraint?.constant = -self.bounds.height
+            UIView.animate(withDuration: Constants.UI.animationDuration) {
+                self.constraint?.constant = -self.bounds.height + Constants.UI.borderWidth
                 self.view?.layoutIfNeeded()
             }
         }
@@ -54,10 +69,6 @@ class AnimatedSearchBar: UISearchBar {
 
 extension AnimatedSearchBar: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if self.text == nil {
-            animatedDelegate?.displayWithFilter(text: "")
-        } else {
-            animatedDelegate?.displayWithFilter(text: self.text!)
-        }
+        animatedDelegate?.displayWithFilter(text: self.text!)
     }
 }
