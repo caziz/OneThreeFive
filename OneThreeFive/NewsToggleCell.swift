@@ -18,6 +18,15 @@ class NewsToggleCell: UITableViewCell {
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var toggle: UISwitch!    
     @IBAction func switchToggled(_ sender: UISwitch) {
+        toggleNewsSource()
+    }
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(toggleNewsSource))
+        addGestureRecognizer(tap)
+        toggle.onTintColor = Constants.UI.blue
+    }
+    func toggleNewsSource() {
         delegate?.didToggleNewsSource(on: self)
     }
 }

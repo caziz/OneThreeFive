@@ -30,10 +30,7 @@ class FavoritesViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        favoritedArticles = ArticleService.getSaved(context: CoreDataHelper.managedContext)
-            .filter{$0.isFavorited}
-            .sorted{($0.readAt! as Date) > ($1.readAt! as Date)}
-        displayWithFilter(text: animatedSearchBar.text ?? "")
+        reloadFilteredTableView()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -43,6 +40,13 @@ class FavoritesViewController: UIViewController {
             articleViewController.articleCache = filteredArticles
         }
     }
+    
+    func reloadFilteredTableView() {
+        favoritedArticles = ArticleService.getSaved(context: CoreDataHelper.managedContext)
+            .filter{$0.isFavorited}
+            .sorted{($0.readAt! as Date) > ($1.readAt! as Date)}
+        displayWithFilter(text: animatedSearchBar.text ?? "")
+    }
 }
 
 extension FavoritesViewController: UITableViewDelegate {
@@ -51,6 +55,23 @@ extension FavoritesViewController: UITableViewDelegate {
     }
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         animatedSearchBar.dismiss()
+    }
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return "Unfavorite"
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
+        let unfavorite = UITableViewRowAction(style: .default, title: " Unfavorite ") { action, index in
+            ArticleService.unfavoriteArticle(article: self.filteredArticles[index.row])
+            self.reloadFilteredTableView()
+        }
+        unfavorite.backgroundColor = Constants.UI.blue
+        return [unfavorite]
     }
 
 }

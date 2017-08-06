@@ -149,10 +149,10 @@
 		5A28D0AA1F193E850067AD01 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				5A0621F71F327D41003FBE4A /* AnimatedSearchBar.swift */,
 				5A28D0A81F193E800067AD01 /* NewsToggleCell.swift */,
 				5A1F15591F1EDD9300583B67 /* FavoritedArticleCell.swift */,
 				5A0EB9B61F2FDB41007F7B39 /* ViewedArticleCell.swift */,
+				5A0621F71F327D41003FBE4A /* AnimatedSearchBar.swift */,
 				5AB837BB1F324364009759C1 /* LoadingIndicator.swift */,
 				5A0621FB1F34E07E003FBE4A /* NavigationBar.swift */,
 			);

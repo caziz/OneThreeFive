@@ -15,10 +15,6 @@ class ArticleViewController:  UIViewController {
     @IBOutlet weak var favoriteButton: UIBarButtonItem!
     var articleCache: [Article] = []
     var currentIndex = 0
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)        
-    }
-    
     override func viewDidLoad() {
         favoriteButton.isEnabled = false
         updateView()
@@ -35,6 +31,17 @@ class ArticleViewController:  UIViewController {
         if sender.state == .ended {
             currentIndex = (currentIndex - 1 + articleCache.count) % articleCache.count
             updateView()
+        }
+    }
+    @IBAction func shareButtonTapped(_ sender: UIBarButtonItem) {
+        
+        if let urlString = articleCache[currentIndex].url,
+            let link = NSURL(string: urlString)
+        {
+            let objectsToShare = [link] as [Any]
+            let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+            activityVC.excludedActivityTypes = [UIActivityType.airDrop, UIActivityType.addToReadingList]
+            self.present(activityVC, animated: true, completion: nil)
         }
     }
     @IBAction func favoriteButtonPressed(_ sender: UIBarButtonItem) {
@@ -58,10 +65,15 @@ class ArticleViewController:  UIViewController {
     
     func webViewDidFinishLoad(_ webView: UIWebView) {
         self.spinner.stopLoading()
-        //CoreDataHelper.persistentContainer.performBackgroundTask { context in
-        self.articleCache[self.currentIndex].isViewed = true
-        self.articleCache[self.currentIndex].readAt = Date() as NSDate
-        CoreDataHelper.save()
+        if currentIndex >= articleCache.count {
+            print("Error: current index \(currentIndex) out of bounds for article cache of size \(articleCache.count)")
+            return
+        }
+        CoreDataHelper.persistentContainer.performBackgroundTask { context in
+            self.articleCache[self.currentIndex].isViewed = true
+            self.articleCache[self.currentIndex].readAt = Date() as NSDate
+            CoreDataHelper.save()
+        }
     }
     
     func updateView() {

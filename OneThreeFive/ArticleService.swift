@@ -28,6 +28,7 @@ class ArticleService {
         article.isFavorited = false
         // TODO: delete image
         CoreDataHelper.save()
+        print("unfavorited")
     }
     
     static func favoriteArticle(article: Article) {

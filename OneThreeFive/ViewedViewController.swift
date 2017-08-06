@@ -28,7 +28,7 @@ class ViewedViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         viewedArticles = ArticleService.getSaved(context: CoreDataHelper.managedContext)
-            .filter{$0.isFavorited}
+            .filter{$0.isViewed}
             .sorted{($0.readAt! as Date) > ($1.readAt! as Date)}
         displayWithFilter(text: animatedSearchBar.text ?? "")
     }

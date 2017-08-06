@@ -92,10 +92,12 @@ extension SettingsViewController: NewsToggleCellDelegate {
         // TODO: change to table view included delegate?
         guard let indexPath = newsTableView.indexPath(for: cell) else { return }
         
-        if cell.toggle.isOn {
-            filteredNewsSources[indexPath.row].isEnabled = true
-        } else {
+        if filteredNewsSources[indexPath.row].isEnabled {
             filteredNewsSources[indexPath.row].isEnabled = false
+            cell.toggle.setOn(false, animated: true)
+        } else {
+            filteredNewsSources[indexPath.row].isEnabled = true
+            cell.toggle.setOn(true, animated: true)
         }
         CoreDataHelper.save()
     }

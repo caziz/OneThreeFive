@@ -12,5 +12,9 @@ class FavoritedArticleCell: UITableViewCell {
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var icon: UIImageView!
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        icon.layer.cornerRadius = 3
+    }
     
 }

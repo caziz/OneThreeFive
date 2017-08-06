@@ -26,8 +26,6 @@ class AnimatedSearchBar: UISearchBar {
 
         super.delegate = self
         self.autocapitalizationType = .none
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismiss))
-        view.addGestureRecognizer(tap)
         
         // gui
         searchBarStyle = .minimal
@@ -70,5 +68,9 @@ class AnimatedSearchBar: UISearchBar {
 extension AnimatedSearchBar: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         animatedDelegate?.displayWithFilter(text: self.text!)
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        view?.endEditing(true)
+        return false
     }
 }

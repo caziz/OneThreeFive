@@ -26,11 +26,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="6r2-7s-GEJ">
-                                <rect key="frame" x="62" y="298" width="250" height="71"/>
+                                <rect key="frame" x="54.5" y="295" width="265" height="77"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bac-pR-h2j">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="71"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="55" height="77"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="55"/>
                                         <state key="normal" title="①">
                                             <color key="titleColor" red="0.20392156862745098" green="0.40000000000000002" blue="0.88235294117647056" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </state>
@@ -39,8 +39,8 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kt8-BK-joF">
-                                        <rect key="frame" x="100" y="0.0" width="50" height="71"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="50"/>
+                                        <rect key="frame" x="105" y="0.0" width="55" height="77"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="55"/>
                                         <state key="normal" title="③">
                                             <color key="titleColor" red="0.20392156862745098" green="0.40000000000000002" blue="0.88235294117647056" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </state>
@@ -49,8 +49,8 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bLi-Dh-GEq">
-                                        <rect key="frame" x="200" y="0.0" width="50" height="71"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="50"/>
+                                        <rect key="frame" x="210" y="0.0" width="55" height="77"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="55"/>
                                         <state key="normal" title="⑤">
                                             <color key="titleColor" red="0.20392156862745098" green="0.40000000000000002" blue="0.88235294117647056" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </state>
@@ -61,7 +61,7 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yDI-qo-r1Z">
-                                <rect key="frame" x="46" y="409" width="283" height="100"/>
+                                <rect key="frame" x="46" y="412" width="283" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="H4v-IU-eYL"/>
                                 </constraints>
@@ -345,8 +345,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loading_indicator" translatesAutoresizingMaskIntoConstraints="NO" id="dkY-h3-ctV" customClass="LoadingIndicator" customModule="OneThreeFive" customModuleProvider="target">
+                                <rect key="frame" x="162.5" y="316" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="XsP-Yd-PCW"/>
+                                    <constraint firstAttribute="width" constant="50" id="hwO-zO-TWD"/>
+                                </constraints>
+                            </imageView>
                             <webView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VEO-wb-PYw">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
                                 <gestureRecognizers/>
                                 <connections>
@@ -355,21 +362,14 @@
                                     <outletCollection property="gestureRecognizers" destination="s2T-lc-Qt9" appends="YES" id="eWR-Zm-L0u"/>
                                 </connections>
                             </webView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loading_indicator" translatesAutoresizingMaskIntoConstraints="NO" id="dkY-h3-ctV" customClass="LoadingIndicator" customModule="OneThreeFive" customModuleProvider="target">
-                                <rect key="frame" x="162.5" y="308.5" width="50" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="XsP-Yd-PCW"/>
-                                    <constraint firstAttribute="width" constant="50" id="hwO-zO-TWD"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="dkY-h3-ctV" firstAttribute="centerY" secondItem="gRO-Hu-AIv" secondAttribute="centerY" id="0i8-2e-sdC"/>
-                            <constraint firstItem="VEO-wb-PYw" firstAttribute="top" secondItem="gRO-Hu-AIv" secondAttribute="top" id="0ul-T5-MYh"/>
-                            <constraint firstItem="dkY-h3-ctV" firstAttribute="centerX" secondItem="gRO-Hu-AIv" secondAttribute="centerX" id="5IS-Ch-Ckh"/>
-                            <constraint firstItem="Bn1-02-D2Q" firstAttribute="top" secondItem="VEO-wb-PYw" secondAttribute="bottom" constant="-49" id="ACa-58-hKz"/>
+                            <constraint firstItem="dkY-h3-ctV" firstAttribute="centerX" secondItem="VEO-wb-PYw" secondAttribute="centerX" id="4RF-FT-DF1"/>
+                            <constraint firstItem="Bn1-02-D2Q" firstAttribute="top" secondItem="VEO-wb-PYw" secondAttribute="bottom" id="ACa-58-hKz"/>
                             <constraint firstItem="VEO-wb-PYw" firstAttribute="leading" secondItem="gRO-Hu-AIv" secondAttribute="leading" id="E7X-Cl-6x5"/>
+                            <constraint firstItem="dkY-h3-ctV" firstAttribute="centerY" secondItem="VEO-wb-PYw" secondAttribute="centerY" id="adh-Kq-sO9"/>
+                            <constraint firstItem="VEO-wb-PYw" firstAttribute="top" secondItem="BuX-uS-4Nt" secondAttribute="bottom" id="osQ-Rq-vFt"/>
                             <constraint firstAttribute="trailing" secondItem="VEO-wb-PYw" secondAttribute="trailing" id="yBp-3r-IP9"/>
                         </constraints>
                     </view>
@@ -382,7 +382,7 @@
                             </barButtonItem>
                             <barButtonItem systemItem="action" id="Qvv-rx-l6a">
                                 <connections>
-                                    <action selector="shareButtonPressed:" destination="CCJ-MP-ULc" id="g1Q-ls-DKI"/>
+                                    <action selector="shareButtonTapped:" destination="CCJ-MP-ULc" id="Fax-X1-jZY"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
@@ -677,6 +677,6 @@
         <image name="time" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="fBv-yQ-Nep"/>
+        <segue reference="gow-n3-fLH"/>
     </inferredMetricsTieBreakers>
 </document>
