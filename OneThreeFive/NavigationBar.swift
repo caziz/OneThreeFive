@@ -17,6 +17,10 @@ extension UINavigationBar {
         isTranslucent = false
         shadowImage = UIImage()
         
+        
+        
+
+        
         // add border to main view controller nav bar
         if self.tag == 1 {
             let border = CALayer()

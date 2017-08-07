@@ -23,6 +23,7 @@
 		5A28D0A71F193DA40067AD01 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A28D0A61F193DA40067AD01 /* SettingsViewController.swift */; };
 		5A28D0A91F193E800067AD01 /* NewsToggleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A28D0A81F193E800067AD01 /* NewsToggleCell.swift */; };
 		5A3553191F1D1CE700B32850 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3553181F1D1CE700B32850 /* FavoritesViewController.swift */; };
+		5A477E561F38D7A00006622A /* TabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A477E551F38D7A00006622A /* TabController.swift */; };
 		5A48C16A1F2147990056533B /* ReadabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A48C1691F2147990056533B /* ReadabilityService.swift */; };
 		5A4F91C81F2A542D00AACB65 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4F91C71F2A542D00AACB65 /* ImageService.swift */; };
 		5AAF5CEF1F1943B200E96D65 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AAF5CEE1F1943B200E96D65 /* CoreData.framework */; };
@@ -53,6 +54,7 @@
 		5A28D0A61F193DA40067AD01 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		5A28D0A81F193E800067AD01 /* NewsToggleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsToggleCell.swift; sourceTree = "<group>"; };
 		5A3553181F1D1CE700B32850 /* FavoritesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
+		5A477E551F38D7A00006622A /* TabController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabController.swift; sourceTree = "<group>"; };
 		5A48C1691F2147990056533B /* ReadabilityService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadabilityService.swift; sourceTree = "<group>"; };
 		5A4F91C71F2A542D00AACB65 /* ImageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		5AAF5CEE1F1943B200E96D65 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -155,6 +157,7 @@
 				5A0621F71F327D41003FBE4A /* AnimatedSearchBar.swift */,
 				5AB837BB1F324364009759C1 /* LoadingIndicator.swift */,
 				5A0621FB1F34E07E003FBE4A /* NavigationBar.swift */,
+				5A477E551F38D7A00006622A /* TabController.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -324,6 +327,7 @@
 				5ACA6D281F26A2C600DCB2F1 /* ArticleService.swift in Sources */,
 				5A1F155A1F1EDD9300583B67 /* FavoritedArticleCell.swift in Sources */,
 				5AAF5CF81F19467E00E96D65 /* CoreDataHelper.swift in Sources */,
+				5A477E561F38D7A00006622A /* TabController.swift in Sources */,
 				5AB837BC1F324364009759C1 /* LoadingIndicator.swift in Sources */,
 				5A28D09F1F183F0B0067AD01 /* ArticleViewController.swift in Sources */,
 				5A28D09D1F183EFD0067AD01 /* MainViewController.swift in Sources */,

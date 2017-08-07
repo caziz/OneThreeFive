@@ -21,20 +21,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_logo" translatesAutoresizingMaskIntoConstraints="NO" id="jxm-64-owh">
-                                <rect key="frame" x="137.5" y="283.5" width="100" height="100"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="aYT-dI-lNh"/>
-                                    <constraint firstAttribute="height" constant="100" id="rf8-8I-n2O"/>
-                                </constraints>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="news" translatesAutoresizingMaskIntoConstraints="NO" id="F82-6r-AY0">
+                                <rect key="frame" x="172" y="318" width="30" height="30"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="jxm-64-owh" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="qR8-Pl-2mV"/>
-                            <constraint firstItem="jxm-64-owh" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="vVh-Ho-15u"/>
+                            <constraint firstItem="F82-6r-AY0" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="I8b-Xz-OzO"/>
+                            <constraint firstItem="F82-6r-AY0" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="txf-pl-8l5"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="loadingIndicator" destination="F82-6r-AY0" id="6um-1g-j9U"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -42,6 +41,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="launch_logo" width="30" height="30"/>
+        <image name="news" width="30" height="30"/>
     </resources>
 </document>

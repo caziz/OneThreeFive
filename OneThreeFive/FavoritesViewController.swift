@@ -70,7 +70,7 @@ extension FavoritesViewController: UITableViewDelegate {
             ArticleService.unfavoriteArticle(article: self.filteredArticles[index.row])
             self.reloadFilteredTableView()
         }
-        unfavorite.backgroundColor = Constants.UI.blue
+        unfavorite.backgroundColor = Constants.UI.mainColor
         return [unfavorite]
     }
 

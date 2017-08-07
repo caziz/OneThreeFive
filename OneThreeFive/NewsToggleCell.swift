@@ -24,7 +24,7 @@ class NewsToggleCell: UITableViewCell {
         super.awakeFromNib()
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(toggleNewsSource))
         addGestureRecognizer(tap)
-        toggle.onTintColor = Constants.UI.blue
+        toggle.onTintColor = Constants.UI.mainColor
     }
     func toggleNewsSource() {
         delegate?.didToggleNewsSource(on: self)
