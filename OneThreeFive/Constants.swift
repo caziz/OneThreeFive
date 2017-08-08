@@ -47,7 +47,8 @@ struct Constants {
         static let animationDuration = 0.2
         static let borderWidth: CGFloat = 2
         static let borderColor = UIColor.lightGray
-        static let mainColor = UIColor(red:0.20, green:0.40, blue:0.88, alpha:1.0)
+        //static let mainColor = UIColor(red:0.20, green:0.40, blue:0.88, alpha:1.0) // old blue
+        static let mainColor = UIColor(red:0.22, green:0.30, blue:0.85, alpha:1.0) // button blue
     }
     
     

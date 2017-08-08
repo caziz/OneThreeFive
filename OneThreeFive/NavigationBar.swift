@@ -17,9 +17,11 @@ extension UINavigationBar {
         isTranslucent = false
         shadowImage = UIImage()
         
+        tintColor = Constants.UI.mainColor
         
-        
-
+        titleTextAttributes =
+            [NSForegroundColorAttributeName: Constants.UI.mainColor,
+             NSFontAttributeName: UIFont(name: "HelveticaNeue", size: 20)!]
         
         // add border to main view controller nav bar
         if self.tag == 1 {

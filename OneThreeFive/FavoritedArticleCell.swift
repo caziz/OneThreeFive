@@ -16,5 +16,4 @@ class FavoritedArticleCell: UITableViewCell {
         super.awakeFromNib()
         icon.layer.cornerRadius = 3
     }
-    
 }

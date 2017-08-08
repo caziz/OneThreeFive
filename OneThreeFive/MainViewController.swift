@@ -18,9 +18,18 @@ class MainViewController : UIViewController {
     @IBOutlet weak var option2Button: UIButton!
     @IBOutlet weak var option3Button: UIButton!
     
+    @IBOutlet weak var downArrowConstraint: NSLayoutConstraint!
+    @IBOutlet weak var downArrow: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         //ArticleService.buildDatabase()
+    }
+    
+    func animateArrow() {
+        UIView.animate(withDuration: 1, delay: 0, options: [.repeat, .autoreverse], animations: {
+            self.downArrowConstraint.constant = self.downArrow.frame.height
+            self.view?.layoutIfNeeded()
+        }, completion: nil)
     }
     
     override func viewDidLoad() {
@@ -35,9 +44,15 @@ class MainViewController : UIViewController {
         configureDisplay()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
     func configureDisplay() {
         // TODO: only do this if news sources have changed
         hideButtons(true)
+        preferencesError.isHidden = true
+        downArrow.isHidden = true
         /*
         let currentEnabledNewsSourcesCount = NewsSourceService.getSaved().filter{$0.isEnabled}.count
         if(currentEnabledNewsSourcesCount == self.enabledNewsSourcesCount) {
@@ -49,7 +64,7 @@ class MainViewController : UIViewController {
         print("not equal")
         self.enabledNewsSourcesCount = currentEnabledNewsSourcesCount
         */
-        preferencesError.isHidden = true
+
         ArticleService.cache {
             DispatchQueue.main.async { [weak self] in
                 self?.configureButtons()
@@ -80,7 +95,10 @@ class MainViewController : UIViewController {
         if articleCache[tag].isEmpty {
             button.isEnabled = false
             button.alpha = 0.2
+            
             preferencesError.isHidden = false
+            downArrow.isHidden = false
+            animateArrow()
         } else {
             button.isEnabled = true
             button.alpha = 1

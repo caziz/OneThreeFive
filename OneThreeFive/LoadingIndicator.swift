@@ -21,15 +21,19 @@ extension UIView {
 import UIKit
 
 class LoadingIndicator: UIImageView {
-    
+    var delegate: LoadingIndicatorDelegate?
     func startLoading() {
         self.isHidden = false
         self.spin()
+        delegate?.isHidden = false
 
     }
     
     func stopLoading() {
         self.isHidden = true
         self.layer.removeAllAnimations()
+        delegate?.isHidden = true
     }
 }
+
+class LoadingIndicatorDelegate: UIView {}

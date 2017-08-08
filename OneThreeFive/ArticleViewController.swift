@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ArticleViewController:  UIViewController {
+class ArticleViewController:  UIViewController, UIWebViewDelegate {
     @IBOutlet weak var webView: UIWebView!
 
     @IBOutlet weak var spinner: LoadingIndicator!
@@ -16,6 +16,7 @@ class ArticleViewController:  UIViewController {
     var articleCache: [Article] = []
     var currentIndex = 0
     override func viewDidLoad() {
+        webView.delegate = self
         favoriteButton.isEnabled = false
         updateView()
     }
@@ -45,11 +46,17 @@ class ArticleViewController:  UIViewController {
         }
     }
     @IBAction func favoriteButtonPressed(_ sender: UIBarButtonItem) {
+        
         if currentIndex >= articleCache.count {
             print("Error: current index \(currentIndex) out of bounds for article cache of size \(articleCache.count)")
             return
         }
+
         let article = articleCache[currentIndex]
+        if(!article.isViewed) {
+            print("not loaded yet, bitch")
+            return
+        }
         if(article.isFavorited) {
             favoriteButton.image = #imageLiteral(resourceName: "star")
             ArticleService.unfavoriteArticle(article: article)
@@ -62,7 +69,7 @@ class ArticleViewController:  UIViewController {
     @IBAction func shareButtonPressed(_ sender: UIBarButtonItem) {
         
     }
-    
+
     func webViewDidFinishLoad(_ webView: UIWebView) {
         self.spinner.stopLoading()
         if currentIndex >= articleCache.count {
