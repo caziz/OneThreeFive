@@ -25,7 +25,10 @@ class MainViewController : UIViewController {
         //ArticleService.buildDatabase()
     }
     
+    
+    var frame: CGRect?
     func animateArrow() {
+        downArrow.frame(forAlignmentRect: frame!)
         UIView.animate(withDuration: 1, delay: 0, options: [.repeat, .autoreverse], animations: {
             self.downArrowConstraint.constant = self.downArrow.frame.height
             self.view?.layoutIfNeeded()
@@ -34,8 +37,10 @@ class MainViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        frame = downArrow.frame
         NewsSourceService.save()
         //ArticleService.buildDatabase()
+        
         //configureDisplay()
     }
     
@@ -95,14 +100,21 @@ class MainViewController : UIViewController {
         if articleCache[tag].isEmpty {
             button.isEnabled = false
             button.alpha = 0.2
-            
-            preferencesError.isHidden = false
-            downArrow.isHidden = false
-            animateArrow()
         } else {
             button.isEnabled = true
             button.alpha = 1
         }
+        
+        if filteredNewsArticles.isEmpty {
+            preferencesError.isHidden = false
+            downArrow.isHidden = false
+            animateArrow()
+        } else {
+            preferencesError.isHidden = true
+            downArrow.isHidden = true
+        }
+        button.layer.cornerRadius = 10
+        button.clipsToBounds = true
     }
 
     

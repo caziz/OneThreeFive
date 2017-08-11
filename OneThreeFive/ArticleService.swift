@@ -90,7 +90,7 @@ class ArticleService {
     
     /* build database using relevant articles from saved news sources */
     static func buildDatabase() {
-        DispatchQueue.global(qos: .background).async {
+        DispatchQueue.global(qos: .utility).async {
             let newsSourceIDs = NewsSourceService.getSaved(context: CoreDataHelper.managedContext).map{$0.id!}
             newsSourceIDs.forEach { newsSourceID in
                 let sourceURL = Constants.NewsAPI.articlesUrl(source: newsSourceID)

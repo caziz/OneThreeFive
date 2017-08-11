@@ -32,3 +32,10 @@ extension UINavigationBar {
         }
     }
 }
+
+extension UIBarButtonItem {
+    open override func awakeFromNib() {
+        super.awakeFromNib()
+        tintColor = Constants.UI.mainColor
+    }
+}

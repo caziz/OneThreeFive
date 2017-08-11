@@ -16,8 +16,11 @@ extension UITabBar {
         shadowImage = UIImage()
         
         tintColor = Constants.UI.mainColor
-        layer.borderWidth = Constants.UI.borderWidth
-        layer.borderColor = Constants.UI.borderColor.cgColor
-        clipsToBounds = true
+        
+        
+        //let border = CALayer()
+        //border.backgroundColor = Constants.UI.borderColor.cgColor
+        //border.frame = CGRect(x: 0, y: frame.size.height, width: frame.size.width * 2, height: Constants.UI.borderWidth)
+        //layer.addSublayer(border)
     }
 }

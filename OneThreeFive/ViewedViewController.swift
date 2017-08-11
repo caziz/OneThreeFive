@@ -59,7 +59,16 @@ extension ViewedViewController: UITableViewDataSource {
         cell.label.text = article.title!
         cell.icon.image = ImageService.loadImage(path: article.source!.id!)
         if cell.icon.image == nil {
-            cell.icon.image = #imageLiteral(resourceName: "source_default")
+            switch article.time {
+            case 1:
+                cell.icon.image = #imageLiteral(resourceName: "one_unlabeled")
+            case 3:
+                cell.icon.image = #imageLiteral(resourceName: "three_unlabeled")
+            default:
+                cell.icon.image = #imageLiteral(resourceName: "five_unlabeled")
+            }
+            cell.icon.layer.cornerRadius = 10
+            cell.icon.clipsToBounds = true
         }
 
         return cell

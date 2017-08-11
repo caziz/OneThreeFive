@@ -60,8 +60,12 @@ extension SettingsViewController: UITableViewDataSource {
         // icon
         if let image = ImageService.loadImage(path: "\(newsSource.id!)") {
             cell.icon.image = image
+            cell.icon.layer.cornerRadius = 0
+            cell.icon.clipsToBounds = true
         } else {
-            cell.icon.image = #imageLiteral(resourceName: "source_default")
+            cell.icon.image = #imageLiteral(resourceName: "three_unlabeled")
+            cell.icon.layer.cornerRadius = 10
+            cell.icon.clipsToBounds = true
         }
         return cell
     }
