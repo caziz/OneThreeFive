@@ -10,54 +10,39 @@ import UIKit
 import Firebase
 
 class MainViewController : UIViewController {
-    @IBOutlet weak var preferencesError: UILabel!
+    @IBOutlet weak var preferencesError: ErrorMessage!
     var articleCache: [[Article]] = [[],[],[]]
     //var enabledNewsSourceIDs = 0;
-    
     @IBOutlet weak var option1Button: UIButton!
     @IBOutlet weak var option2Button: UIButton!
     @IBOutlet weak var option3Button: UIButton!
     
-    @IBOutlet weak var downArrowConstraint: NSLayoutConstraint!
-    @IBOutlet weak var downArrow: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         //ArticleService.buildDatabase()
     }
     
     
-    var frame: CGRect?
-    func animateArrow() {
-        downArrow.frame(forAlignmentRect: frame!)
-        UIView.animate(withDuration: 1, delay: 0, options: [.repeat, .autoreverse], animations: {
-            self.downArrowConstraint.constant = self.downArrow.frame.height
-            self.view?.layoutIfNeeded()
-        }, completion: nil)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        frame = downArrow.frame
         NewsSourceService.save()
         //ArticleService.buildDatabase()
+        //let dy = view.frame.size.height - preferencesError.frame.size.height - preferencesError.frame.origin.y
         
-        //configureDisplay()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        configureDisplay()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        //configureDisplay()
+        //preferencesError.enable(view: view, axis: 1.75, bottom: bottomLayoutGuide, size: 30)
+        preferencesError.enable(bottom: bottomLayoutGuide, axis: 1.75, size: 30)
+
     }
-    
+
+
     func configureDisplay() {
         // TODO: only do this if news sources have changed
         hideButtons(true)
-        preferencesError.isHidden = true
-        downArrow.isHidden = true
         /*
         let currentEnabledNewsSourcesCount = NewsSourceService.getSaved().filter{$0.isEnabled}.count
         if(currentEnabledNewsSourcesCount == self.enabledNewsSourcesCount) {
@@ -69,7 +54,7 @@ class MainViewController : UIViewController {
         print("not equal")
         self.enabledNewsSourcesCount = currentEnabledNewsSourcesCount
         */
-
+        
         ArticleService.cache {
             DispatchQueue.main.async { [weak self] in
                 self?.configureButtons()
@@ -85,36 +70,35 @@ class MainViewController : UIViewController {
     }
     
     func configureButtons() {
-        configureButton(self.option1Button)
-        configureButton(self.option2Button)
-        configureButton(self.option3Button)
+        if
+        configureButton(self.option1Button) &&
+        configureButton(self.option2Button) &&
+        configureButton(self.option3Button) {
+            preferencesError.disable()
+        } else {
+            preferencesError.enable(bottom: bottomLayoutGuide, axis: 1.75, size: 30)
+        }
     }
     
-    func configureButton(_ button: UIButton) {
+    func configureButton(_ button: UIButton) -> Bool {
         let tag = button.tag
         let newsArticles = NewsSourceService.getSaved(context: CoreDataHelper.managedContext)
         let filteredNewsArticles = newsArticles.filter{$0.isEnabled}
         let allArticles = filteredNewsArticles.flatMap{Array($0.mutableSetValue(forKey: "articles")) as! [Article]}
         let articles = allArticles.filter{!$0.isViewed && Int($0.time) == Constants.Settings.timeOptions[tag]}
         articleCache[tag] = Array(Set(articles))
+        button.layer.cornerRadius = 10
+        button.clipsToBounds = true
         if articleCache[tag].isEmpty {
             button.isEnabled = false
             button.alpha = 0.2
+            return false
         } else {
             button.isEnabled = true
             button.alpha = 1
+            return true
         }
-        
-        if filteredNewsArticles.isEmpty {
-            preferencesError.isHidden = false
-            downArrow.isHidden = false
-            animateArrow()
-        } else {
-            preferencesError.isHidden = true
-            downArrow.isHidden = true
-        }
-        button.layer.cornerRadius = 10
-        button.clipsToBounds = true
+
     }
 
     
