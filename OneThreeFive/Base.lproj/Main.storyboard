@@ -378,31 +378,53 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </webView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="outer_clock" translatesAutoresizingMaskIntoConstraints="NO" id="1kh-fX-Ski" customClass="LoadingIndicatorBackground" customModule="OneThreeFive" customModuleProvider="target">
-                                <rect key="frame" x="147" y="293" width="80" height="80"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8xm-TN-Mnq" customClass="LoadingIndicator" customModule="OneThreeFive" customModuleProvider="target">
+                                <rect key="frame" x="147.5" y="293.5" width="80" height="80"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2dW-Tq-zcy">
+                                        <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bky-8b-qz2">
+                                        <rect key="frame" x="-100.5" y="82.5" width="281" height="75"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="75" id="xwi-Et-X97"/>
+                                        </constraints>
+                                        <attributedString key="attributedText">
+                                            <fragment content="Powered by News API">
+                                                <attributes>
+                                                    <font key="NSFont" size="18" name="Helvetica-Light"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="80" id="6ns-Tl-qzt"/>
-                                    <constraint firstAttribute="height" constant="80" id="KKM-R8-MGH"/>
+                                    <constraint firstItem="bky-8b-qz2" firstAttribute="centerY" secondItem="8xm-TN-Mnq" secondAttribute="centerY" multiplier="3" id="4xb-zE-FBh"/>
+                                    <constraint firstAttribute="trailing" secondItem="2dW-Tq-zcy" secondAttribute="trailing" id="FAP-jc-6es"/>
+                                    <constraint firstAttribute="bottom" secondItem="2dW-Tq-zcy" secondAttribute="bottom" id="Mdu-qi-TM7"/>
+                                    <constraint firstItem="2dW-Tq-zcy" firstAttribute="leading" secondItem="8xm-TN-Mnq" secondAttribute="leading" id="PxC-Jj-hVE"/>
+                                    <constraint firstAttribute="width" constant="80" id="QOh-hU-bqG"/>
+                                    <constraint firstItem="2dW-Tq-zcy" firstAttribute="top" secondItem="8xm-TN-Mnq" secondAttribute="top" id="Tp9-I5-jRA"/>
+                                    <constraint firstItem="bky-8b-qz2" firstAttribute="centerX" secondItem="8xm-TN-Mnq" secondAttribute="centerX" id="Wja-RA-qsl"/>
+                                    <constraint firstAttribute="height" constant="80" id="uRC-Uv-C7X"/>
                                 </constraints>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="inner_clock" translatesAutoresizingMaskIntoConstraints="NO" id="2dW-Tq-zcy" customClass="LoadingIndicator" customModule="OneThreeFive" customModuleProvider="target">
-                                <rect key="frame" x="147" y="293" width="80" height="80"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="80" id="Txz-8M-Y7m"/>
-                                    <constraint firstAttribute="height" constant="80" id="nfb-MV-PHG"/>
-                                </constraints>
-                            </imageView>
+                                <connections>
+                                    <outlet property="spinner" destination="2dW-Tq-zcy" id="kte-MD-OON"/>
+                                </connections>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="1kh-fX-Ski" firstAttribute="centerX" secondItem="5is-kV-sgZ" secondAttribute="centerX" id="EHJ-CP-dDq"/>
+                            <constraint firstItem="8xm-TN-Mnq" firstAttribute="centerY" secondItem="5is-kV-sgZ" secondAttribute="centerY" id="EeP-2Z-wb3"/>
                             <constraint firstItem="I01-nX-BS5" firstAttribute="top" secondItem="x6a-2U-Lom" secondAttribute="bottom" id="Hl0-bI-Jxf"/>
-                            <constraint firstItem="1kh-fX-Ski" firstAttribute="centerY" secondItem="5is-kV-sgZ" secondAttribute="centerY" id="MPR-s8-KH4"/>
                             <constraint firstItem="x6a-2U-Lom" firstAttribute="top" secondItem="SlD-v4-3OO" secondAttribute="bottom" id="OFL-Ez-XqM"/>
-                            <constraint firstItem="2dW-Tq-zcy" firstAttribute="centerX" secondItem="5is-kV-sgZ" secondAttribute="centerX" id="Srq-jp-9HQ"/>
+                            <constraint firstItem="bky-8b-qz2" firstAttribute="width" secondItem="5is-kV-sgZ" secondAttribute="width" multiplier="0.75" id="ULJ-8t-G7S"/>
                             <constraint firstAttribute="trailing" secondItem="x6a-2U-Lom" secondAttribute="trailing" id="UWx-17-a9M"/>
+                            <constraint firstItem="8xm-TN-Mnq" firstAttribute="centerX" secondItem="5is-kV-sgZ" secondAttribute="centerX" id="ZFM-Df-J2A"/>
                             <constraint firstItem="x6a-2U-Lom" firstAttribute="leading" secondItem="5is-kV-sgZ" secondAttribute="leading" id="gJE-Mi-1JW"/>
-                            <constraint firstItem="2dW-Tq-zcy" firstAttribute="centerY" secondItem="5is-kV-sgZ" secondAttribute="centerY" id="ljl-Ce-VEs"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="1AG-tj-CDz">
@@ -421,7 +443,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="favoriteButton" destination="bXq-8L-6C1" id="8jh-8r-nLe"/>
-                        <outlet property="spinner" destination="2dW-Tq-zcy" id="Xmm-3A-fY0"/>
+                        <outlet property="loadingIndicator" destination="8xm-TN-Mnq" id="2r1-nh-6xp"/>
                         <outlet property="webView" destination="x6a-2U-Lom" id="0MP-yT-p4a"/>
                     </connections>
                 </viewController>
@@ -701,15 +723,13 @@
     <resources>
         <image name="five" width="1200" height="1200"/>
         <image name="home" width="24" height="24"/>
-        <image name="inner_clock" width="1200" height="1200"/>
         <image name="one" width="1200" height="1200"/>
-        <image name="outer_clock" width="1200" height="1200"/>
         <image name="settings" width="24" height="24"/>
         <image name="star" width="24" height="24"/>
         <image name="three" width="1200" height="1200"/>
         <image name="time" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="fBv-yQ-Nep"/>
+        <segue reference="pF2-OA-dPo"/>
     </inferredMetricsTieBreakers>
 </document>

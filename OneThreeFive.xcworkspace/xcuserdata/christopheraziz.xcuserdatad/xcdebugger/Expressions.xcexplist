@@ -114,6 +114,17 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "LoadingIndicator.startLoading() -&gt; ():LoadingIndicator.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "frame.width">
+            </PersistentString>
+            <PersistentString
+               value = "background!.frame">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "MainViewController.configureButton(UIButton) -&gt; ():MainViewController.swift">
          <PersistentStrings>
             <PersistentString

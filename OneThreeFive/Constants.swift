@@ -38,7 +38,16 @@ struct Constants {
     
     struct Settings {
         static let timeOptions = [1, 3, 5]
-        static let timeImages = [#imageLiteral(resourceName: "one"), #imageLiteral(resourceName: "three"), #imageLiteral(resourceName: "five")]
+        static func timeImage(_ time: Int) -> UIImage {
+            switch time {
+            case 1:
+                return #imageLiteral(resourceName: "one_unlabeled")
+            case 3:
+                return #imageLiteral(resourceName: "three_unlabeled")
+            default:
+                return #imageLiteral(resourceName: "five_unlabeled")
+            }
+        }
         //static let rangeInMinutes = 0.5
         static let charactersPerWord = 5.0
         static let wordsPerMinute = 200.0

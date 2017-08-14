@@ -12,9 +12,11 @@ class ErrorMessage: UILabel {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        //isHidden = true
+        isHidden = true
     }
     func enable(bottom: UILayoutSupport, axis: CGFloat, size: CGFloat) {
+        self.isHidden = false
+        subviews.forEach{$0.removeFromSuperview()}
         let imageView = UIImageView(image: #imageLiteral(resourceName: "down"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(imageView)
@@ -30,7 +32,6 @@ class ErrorMessage: UILabel {
         imageView.widthAnchor.constraint(equalToConstant: size).isActive = true
         imageView.heightAnchor.constraint(equalToConstant: size).isActive = true
         self.superview?.layoutIfNeeded()
-
         UIView.animate(withDuration: 1, delay: 0, options: [.repeat, .autoreverse], animations: {
             constraint.isActive = false
             imageView.bottomAnchor.constraint(equalTo: bottom.topAnchor).isActive = true

@@ -9,7 +9,7 @@
 extension UIView {
     func spin(duration: CFTimeInterval = 0.75) {
         let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation")
-        rotateAnimation.fromValue = 0.0
+        rotateAnimation.fromValue = 0
         rotateAnimation.toValue = CGFloat(Double.pi * 2)
         rotateAnimation.isRemovedOnCompletion = false
         rotateAnimation.duration = duration
@@ -20,22 +20,29 @@ extension UIView {
 
 import UIKit
 
-class LoadingIndicator: UIImageView {
-    var background: LoadingIndicatorBackground?
-    func startLoading() {
-        self.isHidden = false
-        self.spin()
-        background?.layer.cornerRadius = 10
-        background?.clipsToBounds = true
-        background?.isHidden = false
+class LoadingIndicator: UIView {
+    
+    
+    @IBOutlet weak var spinner: UIImageView!
 
+    func startLoading(image: UIImage? = nil) {
+        self.isHidden = false
+        spinner.image = image
+        spinner.layer.cornerRadius = 10
+        spinner.clipsToBounds = true
+        rotateView()
     }
     
     func stopLoading() {
         self.isHidden = true
         self.layer.removeAllAnimations()
-        background?.isHidden = true
+    }
+    
+    private func rotateView(duration: Double = 0.75) {
+        UIView.animate(withDuration: duration, delay: 0.0, options: .curveLinear, animations: {
+            self.spinner.transform = self.spinner.transform.rotated(by: CGFloat(Double.pi))
+        }) { finished in
+            self.rotateView(duration: duration)
+        }
     }
 }
-
-class LoadingIndicatorBackground: UIImageView {}

@@ -11,7 +11,7 @@ import UIKit
 class ArticleViewController:  UIViewController, UIWebViewDelegate {
     @IBOutlet weak var webView: UIWebView!
 
-    @IBOutlet weak var spinner: LoadingIndicator!
+    @IBOutlet weak var loadingIndicator: LoadingIndicator!
     @IBOutlet weak var favoriteButton: UIBarButtonItem!
     var articleCache: [Article] = []
     var currentIndex = 0
@@ -71,16 +71,14 @@ class ArticleViewController:  UIViewController, UIWebViewDelegate {
     }
 
     func webViewDidFinishLoad(_ webView: UIWebView) {
-        self.spinner.stopLoading()
+        loadingIndicator.stopLoading()
         if currentIndex >= articleCache.count {
             print("Error: current index \(currentIndex) out of bounds for article cache of size \(articleCache.count)")
             return
         }
-        CoreDataHelper.persistentContainer.performBackgroundTask { context in
-            self.articleCache[self.currentIndex].isViewed = true
-            self.articleCache[self.currentIndex].readAt = Date() as NSDate
-            CoreDataHelper.save()
-        }
+        self.articleCache[self.currentIndex].isViewed = true
+        self.articleCache[self.currentIndex].readAt = Date() as NSDate
+        CoreDataHelper.save()
     }
     
     func updateView() {
@@ -106,7 +104,7 @@ class ArticleViewController:  UIViewController, UIWebViewDelegate {
     
     func attemptLoadArticle(article: Article) {
         // TODO: enable swiping
-        self.spinner.startLoading()
+        self.loadingIndicator.startLoading(image: Constants.Settings.timeImage(Int(article.time)))
         if let url = URL(string: (article.url)!) {
             let urlRequest = URLRequest(url: url)
             self.webView.loadRequest(urlRequest)

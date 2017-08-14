@@ -59,18 +59,12 @@ extension ViewedViewController: UITableViewDataSource {
         cell.label.text = article.title!
         cell.icon.image = ImageService.loadImage(path: article.source!.id!)
         if cell.icon.image == nil {
-            switch article.time {
-            case 1:
-                cell.icon.image = #imageLiteral(resourceName: "one_unlabeled")
-            case 3:
-                cell.icon.image = #imageLiteral(resourceName: "three_unlabeled")
-            default:
-                cell.icon.image = #imageLiteral(resourceName: "five_unlabeled")
-            }
+            cell.icon.image = Constants.Settings.timeImage(Int(article.time))
             cell.icon.layer.cornerRadius = 10
-            cell.icon.clipsToBounds = true
+        } else {
+            cell.icon.layer.cornerRadius = 0
         }
-
+        cell.icon.clipsToBounds = true
         return cell
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
