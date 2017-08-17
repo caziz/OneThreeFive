@@ -24,7 +24,7 @@ class MainViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         NewsSourceService.save()
-        
+        //ArticleService.buildDatabase()
         
         // TODO: make this cleaner
         option1Button.layer.cornerRadius = 10
@@ -33,7 +33,6 @@ class MainViewController : UIViewController {
         option2Button.clipsToBounds = true
         option3Button.layer.cornerRadius = 10
         option3Button.clipsToBounds = true
-        //ArticleService.buildDatabase()
         
     }
     
@@ -67,6 +66,7 @@ class MainViewController : UIViewController {
         option2Button.isHidden = hide
         option3Button.isHidden = hide
     }
+    
     
     func configureButtons() {
         preferencesError.disable()

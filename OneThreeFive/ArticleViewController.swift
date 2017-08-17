@@ -103,7 +103,6 @@ class ArticleViewController:  UIViewController, UIWebViewDelegate {
     }
     
     func attemptLoadArticle(article: Article) {
-        // TODO: enable swiping
         self.loadingIndicator.startLoading(image: Constants.Settings.timeImage(Int(article.time)))
         if let url = URL(string: (article.url)!) {
             let urlRequest = URLRequest(url: url)

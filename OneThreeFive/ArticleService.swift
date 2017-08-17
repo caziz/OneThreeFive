@@ -87,15 +87,24 @@ class ArticleService {
         //}
         
     }
+
     
+    // TODO: make this more asnyc
     /* build database using relevant articles from saved news sources */
     static func buildDatabase() {
-        DispatchQueue.global(qos: .utility).async {
+        //DispatchQueue.global(qos: .background).async {
             let newsSourceIDs = NewsSourceService.getSaved(context: CoreDataHelper.managedContext).map{$0.id!}
+            let queue = DispatchQueue(label: "build-database-queue",
+                                  qos: .background,
+                                  attributes:.concurrent)
             newsSourceIDs.forEach { newsSourceID in
                 let sourceURL = Constants.NewsAPI.articlesUrl(source: newsSourceID)
+                // create queue
                 // get json for each news source
-                Alamofire.request(sourceURL).validate().responseJSON { response in
+                Alamofire
+                    .request(sourceURL)
+                    .validate()
+                    .responseJSON(queue: queue, options: .allowFragments) { response in
                     switch response.result {
                     case .success:
                         guard let value = response.result.value else {
@@ -128,7 +137,7 @@ class ArticleService {
                         return
                     }
                 }
-            }
+            //}
         }
     }
 }

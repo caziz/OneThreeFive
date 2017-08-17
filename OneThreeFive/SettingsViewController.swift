@@ -17,7 +17,7 @@ class SettingsViewController: UIViewController {
     @IBOutlet var searchBarTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var animatedSearchBar: AnimatedSearchBar!
     
-    //TODO: show all button
+    //TODO: enable all button
 
     // all news sources
     var newsSources: [NewsSource] = []
