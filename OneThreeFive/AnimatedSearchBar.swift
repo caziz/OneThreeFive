@@ -34,7 +34,7 @@ class AnimatedSearchBar: UISearchBar {
         // add border
         let border = CALayer()
         border.backgroundColor = Constants.UI.borderColor.cgColor
-        border.frame = CGRect(x: 0, y: frame.size.height - Constants.UI.borderWidth, width: frame.size.width, height: Constants.UI.borderWidth)
+        border.frame = CGRect(x: 0, y: frame.size.height - Constants.UI.borderWidth, width: frame.size.width*10, height: Constants.UI.borderWidth)
         layer.addSublayer(border)
     }
     

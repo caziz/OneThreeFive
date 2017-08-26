@@ -80,6 +80,7 @@ class MainViewController : UIViewController {
         let allArticles = enabledNewsSources.flatMap{Array($0.mutableSetValue(forKey: "articles")) as! [Article]}
         let articles = allArticles.filter{!$0.isViewed && Int($0.time) == Constants.Settings.timeOptions[tag]}
         articleCache[tag] = Array(Set(articles))
+        // change color of button based on availability of articles
         if articleCache[tag].isEmpty {
             button.isEnabled = false
             button.alpha = 0.2

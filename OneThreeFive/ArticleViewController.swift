@@ -84,7 +84,7 @@ class ArticleViewController:  UIViewController, UIWebViewDelegate {
     func updateView() {
         if currentIndex >= articleCache.count {
             print("Error: current index \(currentIndex) out of bounds for article cache of size \(articleCache.count)")
-            return
+            
         }
         let article = articleCache[currentIndex]
         updateNavBar(article: article)
