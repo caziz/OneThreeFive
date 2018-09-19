@@ -16,26 +16,22 @@ extension UINavigationBar {
         setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         isTranslucent = false
         shadowImage = UIImage()
-        
-        tintColor = Constants.UI.mainColor
-        
+        tintColor = UIColor.white
+        barTintColor = Constants.UI.mainColor
+        let backButton = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
+        backButton.setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.white], for: .normal)
+        backItem?.backBarButtonItem = backButton
         titleTextAttributes =
-            [NSForegroundColorAttributeName: Constants.UI.mainColor,
-             NSFontAttributeName: UIFont(name: "HelveticaNeue", size: 20)!]
-        
-        // add border to main view controller nav bar
-        if self.tag == 1 {
-            let border = CALayer()
-            border.backgroundColor = Constants.UI.borderColor.cgColor
-            border.frame = CGRect(x: 0, y: frame.size.height - Constants.UI.borderWidth, width: frame.size.width * 10, height: Constants.UI.borderWidth)
-            layer.addSublayer(border)
-        }
+            [NSForegroundColorAttributeName: UIColor.white,
+             NSFontAttributeName: UIFont(name: "Avenir-Black", size: 30)!]
     }
+    
+    
 }
 
 extension UIBarButtonItem {
-    open override func awakeFromNib() {
+    override open func awakeFromNib() {
         super.awakeFromNib()
-        tintColor = Constants.UI.mainColor
+        tintColor = UIColor.white
     }
 }

@@ -23,13 +23,15 @@ import UIKit
 class LoadingIndicator: UIView {
     
     
-    @IBOutlet weak var spinner: UIImageView!
-
+    @IBOutlet weak var outerTimer: UIImageView!
+    @IBOutlet weak var innerTimer: UIImageView!
+    
     func startLoading(image: UIImage? = nil) {
         self.isHidden = false
-        spinner.image = image
-        spinner.layer.cornerRadius = 10
-        spinner.clipsToBounds = true
+        innerTimer.image = #imageLiteral(resourceName: "spinning-3-minute-timer")
+        outerTimer.layer.cornerRadius = 10
+        outerTimer.clipsToBounds = true
+        outerTimer.backgroundColor = Constants.UI.mainColor
         rotateView()
     }
     
@@ -40,7 +42,7 @@ class LoadingIndicator: UIView {
     
     private func rotateView(duration: Double = 0.75) {
         UIView.animate(withDuration: duration, delay: 0.0, options: .curveLinear, animations: {
-            self.spinner.transform = self.spinner.transform.rotated(by: CGFloat(Double.pi))
+            self.innerTimer.transform = self.innerTimer.transform.rotated(by: CGFloat(Double.pi))
         }) { finished in
             self.rotateView(duration: duration)
         }

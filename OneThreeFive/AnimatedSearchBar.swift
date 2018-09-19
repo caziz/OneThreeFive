@@ -36,6 +36,9 @@ class AnimatedSearchBar: UISearchBar {
         border.backgroundColor = Constants.UI.borderColor.cgColor
         border.frame = CGRect(x: 0, y: frame.size.height - Constants.UI.borderWidth, width: frame.size.width*10, height: Constants.UI.borderWidth)
         layer.addSublayer(border)
+        // hide border
+        self.constraint?.constant = -self.bounds.height - Constants.UI.borderWidth
+        self.view?.layoutIfNeeded()
     }
     
     func toggle() {
@@ -58,7 +61,7 @@ class AnimatedSearchBar: UISearchBar {
         view?.endEditing(true)
         if self.text == nil || self.text == "" {
             UIView.animate(withDuration: Constants.UI.animationDuration) {
-                self.constraint?.constant = -self.bounds.height + Constants.UI.borderWidth
+                self.constraint?.constant = -self.bounds.height - Constants.UI.borderWidth
                 self.view?.layoutIfNeeded()
             }
         }
