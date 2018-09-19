@@ -17,7 +17,7 @@ class ErrorMessage: UILabel {
     func enable(bottom: UILayoutSupport, axis: CGFloat, size: CGFloat) {
         self.isHidden = false
         subviews.forEach{$0.removeFromSuperview()}
-        let imageView = UIImageView(image: #imageLiteral(resourceName: "down"))
+        let imageView = UIImageView(image: #imageLiteral(resourceName: "purple-arrow"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(imageView)
         NSLayoutConstraint(item: imageView,

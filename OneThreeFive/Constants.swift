@@ -13,10 +13,10 @@ struct Constants {
     struct NewsAPI {
         static let key = "ca25969cc2f54d5f85ad50868bcebff3"
         static func sourcesUrl() -> String {
-            return  "https://newsapi.org/v1/sources?&language=en"
+            return  "https://newsapi.org/v2/sources?language=en&apiKey=\(self.key)"
         }
-        static func articlesUrl(source: String) -> String {
-            return "https://newsapi.org/v1/articles?source=\(source)&apiKey=\(self.key)"
+        static func articlesUrl() -> String {
+            return "https://newsapi.org/v2/top-headlines?language=en&apiKey=\(self.key)&pageSize=100"
         }
         
         static func imageUrl(url: String) -> String {
@@ -41,11 +41,13 @@ struct Constants {
         static func timeImage(_ time: Int) -> UIImage {
             switch time {
             case 1:
-                return #imageLiteral(resourceName: "one_unlabeled")
+                return #imageLiteral(resourceName: "1-minute-timer")
             case 3:
-                return #imageLiteral(resourceName: "three_unlabeled")
+                return #imageLiteral(resourceName: "3-minute-timer")
+            case 5:
+                fallthrough
             default:
-                return #imageLiteral(resourceName: "five_unlabeled")
+                return #imageLiteral(resourceName: "5-minute-timer")
             }
         }
         //static let rangeInMinutes = 0.5
@@ -57,11 +59,9 @@ struct Constants {
         static let animationDuration = 0.2
         static let borderWidth: CGFloat = 2
         static let borderColor = UIColor.lightGray
-        
-        //static let mainColor = UIColor(red:0.20, green:0.40, blue:0.88, alpha:1.0) // old blue
-        //static let mainColor = UIColor(red:0.22, green:0.30, blue:0.85, alpha:1.0) // button blue
-        //static let mainColor = UIColor(red:13, green:35, blue:230, alpha:15) // light purple
-        static let mainColor = UIColor(r: 52, g: 102, b: 225)
+
+        // #6C00FF
+        static let mainColor = UIColor(r: 108, g: 0, b: 225)
     }
 
     

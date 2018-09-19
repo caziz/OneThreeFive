@@ -40,7 +40,7 @@ class ArticleService {
         CoreDataHelper.save()
     }
 
-    static func cache(completion: @escaping (Void) -> Void) {
+    static func cache(completion: @escaping () -> Void) {
         //CoreDataHelper.persistentContainer.performBackgroundTask { (context) in
             let dispatchGroup = DispatchGroup()
             // fetch enabled news source IDs
@@ -84,60 +84,61 @@ class ArticleService {
                 CoreDataHelper.save()
                 completion()
             }
-        //}
-        
     }
 
+    static func uploadArticle(articleJSON : JSON) {
+        let url = articleJSON["url"].stringValue
+        ReadabilityService.textIn(url: url) { text in
+            // calculate read time
+            let characters = text.count
+            let words = Double(characters) / Double(Constants.Settings.charactersPerWord)
+            let roundedReadTime = Int16(round(words / Constants.Settings.wordsPerMinute))
+            // skip articles with unspecified read times
+            if !Constants.Settings.timeOptions.contains(Int(roundedReadTime)) {
+                return
+            }
+            let readTimeChild = "time\(roundedReadTime)minutes"
+            let newsSourceChild = articleJSON["source"]["id"].stringValue
+            // create reference
+            let ref = Database.database().reference()
+                .child(readTimeChild)
+                .child(newsSourceChild)
+                .childByAutoId()
+            // create/upload article
+            let article: [String : String] = ["url" : articleJSON["url"].stringValue,
+            "date" : articleJSON["publishedAt"].stringValue,
+            "title" : articleJSON["title"].stringValue,
+            "urlToImage" : articleJSON["urlToImage"].stringValue]
+            ref.updateChildValues(article)
+        }
+    }
     
     // TODO: make this more asnyc
     /* build database using relevant articles from saved news sources */
-    static func buildDatabase() {
-        //DispatchQueue.global(qos: .background).async {
-            let newsSourceIDs = NewsSourceService.getSaved(context: CoreDataHelper.managedContext).map{$0.id!}
-            let queue = DispatchQueue(label: "build-database-queue",
+    static func updateDatabase() {
+        let sourceURL = Constants.NewsAPI.articlesUrl()
+        let queue = DispatchQueue(label: "build-database-queue",
                                   qos: .background,
                                   attributes:.concurrent)
-            newsSourceIDs.forEach { newsSourceID in
-                let sourceURL = Constants.NewsAPI.articlesUrl(source: newsSourceID)
-                // create queue
-                // get json for each news source
-                Alamofire
-                    .request(sourceURL)
-                    .validate()
-                    .responseJSON(queue: queue, options: .allowFragments) { response in
-                    switch response.result {
-                    case .success:
-                        guard let value = response.result.value else {
-                            print("Error: Alamofire response JSON could not be evaluated.")
-                            return
-                        }
-                        let jsonArticles = JSON(value)["articles"].arrayValue
-                        // upload article for each json
-                        jsonArticles.forEach { jsonArticle in
-                            let url = jsonArticle["url"].stringValue
-                            ReadabilityService.textIn(url: url) { text in
-                                // calculate read time
-                                let characters = text.characters.count
-                                let words = Double(characters) / Double(Constants.Settings.charactersPerWord)
-                                let roundedReadTime = Int16(round(words / Constants.Settings.wordsPerMinute))
-                                // skip articles with unspecified read times
-                                if !Constants.Settings.timeOptions.contains(Int(roundedReadTime)) {return}
-                                // create reference
-                                let ref = Database.database().reference().child("time\(roundedReadTime)minutes").child(newsSourceID).childByAutoId()
-                                // create/upload article
-                                let article: [String : String] = ["url" : jsonArticle["url"].stringValue,
-                                                                  "date" : jsonArticle["publishedAt"].stringValue,
-                                                                  "title" : jsonArticle["title"].stringValue,
-                                                                  "urlToImage" : jsonArticle["urlToImage"].stringValue]
-                                ref.updateChildValues(article)
-                            }
-                        }
-                    case .failure:
-                        print("Error: Alamofire request to fetch article json failed.")
+        Alamofire.request(sourceURL).validate()
+            .responseJSON(queue: queue, options: .allowFragments) { response in
+                switch response.result {
+                case .success:
+                    guard let value = response.result.value else {
+                        print("Error: Alamofire response JSON could not be evaluated.")
                         return
                     }
+                    let articleJSONs = JSON(value)["articles"].arrayValue
+                    // upload article for each json
+                    articleJSONs.forEach { articleJSON in
+                        uploadArticle(articleJSON : articleJSON)
+                    }
+                case .failure:
+                    print("Error: Alamofire request to fetch article json failed.")
+                    return
                 }
-            //}
-        }
+            }
     }
+
+
 }
