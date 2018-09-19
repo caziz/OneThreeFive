@@ -59,10 +59,16 @@ extension ViewedViewController: UITableViewDataSource {
         cell.label.text = article.title!
         cell.icon.image = ImageService.loadImage(path: article.source!.id!)
         if cell.icon.image == nil {
-            cell.icon.image = Constants.Settings.timeImage(Int(article.time))
+            var image = Constants.Settings.timeImage(Int(article.time))
+            image = image.scaleToSize(cell.icon.frame.insetBy(dx: 4, dy: 4).size)!
+            cell.icon.contentMode = .center
+            cell.icon.image = image
             cell.icon.layer.cornerRadius = 10
+            cell.icon.backgroundColor = Constants.UI.mainColor
         } else {
+            cell.icon.contentMode = .scaleAspectFit
             cell.icon.layer.cornerRadius = 0
+            cell.icon.backgroundColor = UIColor.clear
         }
         cell.icon.clipsToBounds = true
         return cell

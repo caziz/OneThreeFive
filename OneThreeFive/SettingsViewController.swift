@@ -62,8 +62,12 @@ extension SettingsViewController: UITableViewDataSource {
             cell.icon.image = image
             cell.icon.layer.cornerRadius = 0
             cell.icon.clipsToBounds = true
+            cell.icon.contentMode = .scaleAspectFit
+            cell.icon.backgroundColor = UIColor.clear
         } else {
-            cell.icon.image = #imageLiteral(resourceName: "three_unlabeled")
+            cell.icon.image = #imageLiteral(resourceName: "icon-newspaper")
+            cell.icon.contentMode = .center
+            cell.icon.backgroundColor = Constants.UI.mainColor
             cell.icon.layer.cornerRadius = 10
             cell.icon.clipsToBounds = true
         }

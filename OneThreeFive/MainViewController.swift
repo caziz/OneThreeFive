@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 
 class MainViewController : UIViewController {
+    @IBOutlet weak var message: UILabel!
     @IBOutlet weak var preferencesError: ErrorMessage!
     var articleCache: [[Article]] = [[],[],[]]
     var enabledNewsSources: [NewsSource] = []
@@ -24,7 +25,7 @@ class MainViewController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         NewsSourceService.save()
-        //ArticleService.buildDatabase()
+        ArticleService.updateDatabase()
         
         // TODO: make this cleaner
         option1Button.layer.cornerRadius = 10
@@ -84,8 +85,11 @@ class MainViewController : UIViewController {
         if articleCache[tag].isEmpty {
             button.isEnabled = false
             button.alpha = 0.2
-            preferencesError.enable(bottom: bottomLayoutGuide, axis: 1.75, size: 30)
+            message.isHidden = true
+            preferencesError.enable(bottom:
+                bottomLayoutGuide, axis: 1.75, size: 30)
         } else {
+            message.isHidden = false
             button.isEnabled = true
             button.alpha = 1
         }

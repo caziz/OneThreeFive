@@ -18,6 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     override init() {
         FirebaseApp.configure()
+        UIBarButtonItem.appearance().setTitleTextAttributes([ NSForegroundColorAttributeName : UIColor.clear ], for: .normal)
+        UIBarButtonItem.appearance().setTitleTextAttributes([ NSForegroundColorAttributeName : UIColor.clear ], for: .highlighted)
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
